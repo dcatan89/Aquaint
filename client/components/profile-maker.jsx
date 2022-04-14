@@ -26,6 +26,10 @@ export default class MakeProfile extends React.Component {
       : this.setState({ index: this.state.index + 1 });
   }
 
+  handleSubmit() {
+    event.preventDefault();
+  }
+
   render() {
     const { index } = this.state;
     return (
