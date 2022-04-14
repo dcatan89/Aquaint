@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from './button';
 
 const topicsArr = [
   'My Name is',
@@ -28,7 +29,16 @@ export default class MakeProfile extends React.Component {
   render() {
     const { index } = this.state;
     return (
-      <h1 className="text-center" onClick={this.handleIndexChange}>{topicsArr[index]}</h1>
+      <div className="container">
+        <form>
+          <div className="row">
+            <h1 className="text-center col-sm-6" >{topicsArr[index]}</h1>
+          </div>
+        </form>
+        <div className="row col justify-content-center text-center">
+          <Button click={this.handleIndexChange} classes={'btn btn-outline-light bgc-gradient col-6 col-sm-6 rounded-pill'} text={'Continue'} />
+        </div>
+      </div>
     );
   }
 }
