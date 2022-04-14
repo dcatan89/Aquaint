@@ -1,6 +1,7 @@
 import React from 'react';
 import { SignIn, Home } from './pages';
 import { parseRoute } from './lib';
+import MakeProfile from './components/profile-maker';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -22,6 +23,9 @@ export default class App extends React.Component {
     }
     if (route.path === 'sign-in') {
       return <SignIn />;
+    }
+    if (route.path === 'make-profile') {
+      return <MakeProfile />;
     }
     return (
       <div className="py-5">
