@@ -17,6 +17,7 @@ export default class MakeProfile extends React.Component {
       index: 0
     };
     this.handleIndexChange = this.handleIndexChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleIndexChange(e) {
@@ -26,8 +27,8 @@ export default class MakeProfile extends React.Component {
       : this.setState({ index: this.state.index + 1 });
   }
 
-  handleSubmit() {
-    event.preventDefault();
+  handleSubmit(e) {
+    e.preventDefault();
   }
 
   render() {
@@ -37,11 +38,16 @@ export default class MakeProfile extends React.Component {
         <form>
           <div className="row">
             <h1 className="text-center col-sm-6" >{topicsArr[index]}</h1>
+            <div className='col-sm-6'>
+              <input className="form-control form-control" type="text" placeholder="First Name" aria-label=".form-control" />
+            </div>
+          </div>
+          <div className="row col justify-content-center align-items-center text-center">
+            <div>
+              <Button type={'submit'} submit={this.handleSubmit} click={this.handleIndexChange} classes={'btn btn-outline-light bgc-gradient col-6 col-sm-6 rounded-pill'} text={'Continue'} />
+            </div>
           </div>
         </form>
-        <div className="row col justify-content-center text-center">
-          <Button click={this.handleIndexChange} classes={'btn btn-outline-light bgc-gradient col-6 col-sm-6 rounded-pill'} text={'Continue'} />
-        </div>
       </div>
     );
   }
