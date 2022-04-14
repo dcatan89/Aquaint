@@ -1,6 +1,5 @@
 import React from 'react';
-import SignIn from './pages/sign-in';
-import Home from './pages/home';
+import { SignIn, Home } from './pages';
 import { parseRoute } from './lib';
 export default class App extends React.Component {
   constructor(props) {
@@ -22,7 +21,7 @@ export default class App extends React.Component {
       return <Home />;
     }
     if (route.path === 'sign-in') {
-      return <SignIn/>;
+      return <SignIn />;
     }
     return (
       <div className="py-5">
@@ -34,9 +33,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        {this.renderPage()}
-      </div>
+      this.renderPage()
     );
   }
 }
