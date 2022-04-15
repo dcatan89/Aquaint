@@ -20,7 +20,7 @@ CREATE TABLE "userProfiles" (
 	"occupation" TEXT,
 	"fact" TEXT,
 	"profilePic" TEXT,
-	"createdAt" DATE,
+	"createdAt" timestamptz(6) not null default now(),
 	"userId" integer NOT NULL,
 	CONSTRAINT "userProfiles_pk" PRIMARY KEY ("profileId")
 ) WITH (
@@ -34,7 +34,7 @@ CREATE TABLE "matches" (
 	"isMatched" BOOLEAN,
 	"requestedProfileId" integer NOT NULL,
 	"acceptedProfileId" integer NOT NULL,
-	"matchedAt" DATE,
+	"matchedAt" timestamptz(6) not null default now(),
 	CONSTRAINT "matches_pk" PRIMARY KEY ("matchId")
 ) WITH (
   OIDS=FALSE
@@ -59,7 +59,7 @@ CREATE TABLE "messages" (
 	"fromUserId" integer NOT NULL,
 	"toUserId" integer NOT NULL,
 	"message" TEXT NOT NULL,
-	"timeStamp" TIME,
+	"timeStamp" timestamptz(6) not null default now(),
 	CONSTRAINT "messages_pk" PRIMARY KEY ("messageId")
 ) WITH (
   OIDS=FALSE
