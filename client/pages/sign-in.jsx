@@ -4,6 +4,11 @@ export default function SignIn() {
   return (
     <div className='bgc-gradient'>
       <div className="container row align-items-center">
+        <div className="row">
+          <div className="col">
+            <img src={'./public/images/buddies.png'} ></img>
+          </div>
+        </div>
         <div className="row justify-content-center align-items-center gap-2">
           <h1 className="col-sm-6 text-center text-light">AQUAINT</h1>
           <div className="row justify-content-center">
