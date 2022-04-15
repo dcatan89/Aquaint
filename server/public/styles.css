@@ -1,7 +1,7 @@
-.txt-center {
-  text-align: center;
-}
-
 .bgc-gradient {
   background: linear-gradient(to right bottom, #ed0574, #f39c18);
+}
+
+.font-lg {
+  font-size: 4rem;
 }
