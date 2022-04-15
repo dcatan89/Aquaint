@@ -1,4 +1,4 @@
-CREATE TABLE "users" (
+CREATE TABLE "public.users" (
 	"userId" serial NOT NULL,
 	"firstName" TEXT NOT NULL,
 	"lastName" TEXT NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE "users" (
 
 
 
-CREATE TABLE "userProfiles" (
+CREATE TABLE "public.userProfiles" (
 	"profileId" integer,
 	"firstName" TEXT NOT NULL,
 	"lastName" TEXT,
@@ -30,7 +30,7 @@ CREATE TABLE "userProfiles" (
 
 
 
-CREATE TABLE "matches" (
+CREATE TABLE "public.matches" (
 	"matchId" serial NOT NULL,
 	"isMatched" BOOLEAN,
 	"requestedProfileId" integer NOT NULL,
@@ -43,7 +43,7 @@ CREATE TABLE "matches" (
 
 
 
-CREATE TABLE "locations" (
+CREATE TABLE "public.locations" (
 	"locationId" serial NOT NULL,
 	"cityName" TEXT NOT NULL,
 	"geolocation" TEXT NOT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE "locations" (
 
 
 
-CREATE TABLE "messages" (
+CREATE TABLE "public.messages" (
 	"messageId" serial NOT NULL,
 	"fromUserId" integer NOT NULL,
 	"toUserId" integer NOT NULL,
