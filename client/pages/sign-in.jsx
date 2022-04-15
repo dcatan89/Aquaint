@@ -6,7 +6,7 @@ export default function SignIn() {
       <div className="container row align-items-center">
         <div className="row">
           <div className="col">
-            <img src={'./public/images/buddies.png'} ></img>
+            <img src={''} ></img>
           </div>
         </div>
         <div className="row justify-content-center align-items-center gap-2">
