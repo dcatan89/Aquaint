@@ -19,6 +19,8 @@ const inputsArr = [
   'profilePic'
 ];
 
+const profile = {};
+
 export default class MakeProfile extends React.Component {
   constructor(props) {
     super(props);
@@ -36,8 +38,11 @@ export default class MakeProfile extends React.Component {
   }
 
   handleSubmit(e) {
+    const { index, value } = this.state;
     const form = document.querySelector('form');
+    profile[inputsArr[index]] = value;
     this.setState({ index: this.state.index + 1 });
+    this.setState({ value: ' ' });
     form.reset();
     e.preventDefault();
   }

@@ -6,6 +6,7 @@ const errorMiddleware = require('./error-middleware');
 const staticMiddleware = require('./static-middleware');
 const app = express();
 const jsonMiddleware = express.json();
+const ClientError = require('.client-error');
 
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
@@ -17,31 +18,24 @@ const db = new pg.Pool({
 app.use(jsonMiddleware);
 app.use(staticMiddleware);
 
-app.post('/api/profiles', uploadsMiddleware, (req, res, next) => {
-  const { task, isCompleted = false } = req.body;
-  if (!task || typeof isCompleted !== 'boolean') {
-    res.status(400).json({
-      error: 'task (string) and isCompleted (boolean) are required fields'
-    });
-    return;
+app.post('/api/userProfiles', uploadsMiddleware, (req, res, next) => {
+  const { fullName, birthday, sex, displaySex = true, occupation, fact } = req.body;
+  const profilePic = `/images/${req.file.filename}`;
+  if (!profilePic) {
+    throw new ClientError(400, 'image required');
   }
   const sql = `
-    insert into "todos" ("task", "isCompleted")
-    values ($1, $2)
+    insert into "userProfiles" ("fullName", "birthday", "sex", "displaySex", "occupation", "fact", "profilePic")
+    values ($1, $2, $3, $4, $5, $6, $7)
     returning *
   `;
-  const params = [task, isCompleted];
+  const params = [fullName, birthday, sex, displaySex, occupation, fact, profilePic];
   db.query(sql, params)
     .then(result => {
-      const [todo] = result.rows;
-      res.status(201).json(todo);
+      const [userProfiles] = result.rows;
+      res.status(201).json(userProfiles);
     })
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({
-        error: 'an unexpected error occurred'
-      });
-    });
+    .catch(err => next(err));
 });
 
 app.use(errorMiddleware);
