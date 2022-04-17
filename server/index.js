@@ -19,8 +19,7 @@ app.use(jsonMiddleware);
 app.use(staticMiddleware);
 
 app.post('/api/userProfiles', uploadsMiddleware, (req, res, next) => {
-  const { fullName, birthday, sex, displaySex = true, occupation, fact } = req.body;
-  const profilePic = `/images/${req.file.filename}`;
+  const { fullName, birthday, sex, displaySex = true, occupation, fact, profilePic } = req.body;
   if (!profilePic) {
     throw new ClientError(400, 'image required');
   }

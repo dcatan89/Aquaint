@@ -63,6 +63,7 @@ export default class MakeProfile extends React.Component {
           </div>
       );
     }
+
     return (
       <form className="container"onSubmit={this.handleSubmit}>
         <div className="row half-height align-items-center">
@@ -72,9 +73,9 @@ export default class MakeProfile extends React.Component {
           </div>
         </div>
         <div className="row justify-content-center align-items-center half-height">
-          <div className="col text-center">
-            <Button type={'submit'} click={this.handleSubmit} classes={'btn btn-outline-light col-6 col-sm-6 rounded-pill'} text={'Continue'} />
-          </div>
+            <div className="col text-center">
+              <Button type={'submit'} click={this.handleSubmit} classes={'btn btn-outline-light col-6 col-sm-6 rounded-pill'} text={'Continue'} />
+            </div>
         </div>
       </form>
     );
