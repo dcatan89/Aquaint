@@ -6,16 +6,15 @@ const topicsArr = [
   'My Birthday is',
   'I am a',
   'My Occupation is',
-  'What is one surprising fact',
-  'Make a lasting Impression'
+  'What is one surprising fact'
 ];
 
 const inputsArr = [
   'fullName',
-  'birthday',
-  'sex',
-  'occupation',
-  'fact'
+  'MM/DD/YYYY',
+  'Sex',
+  '...',
+  '...'
 ];
 const newProfile = {};
 export default class MakeProfile extends React.Component {
