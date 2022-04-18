@@ -18,19 +18,19 @@ const inputsArr = [
   'fact',
   'profilePic'
 ];
-
 const newProfile = {};
-
 export default class MakeProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       index: 0,
-      value: ''
+      value: '',
+      isClicked: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.renderButton = this.renderButton.bind(this);
+    this.handleProfileSubmit = this.handleProfileSubmit.bind(this);
   }
 
   handleChange(event) {
@@ -44,27 +44,49 @@ export default class MakeProfile extends React.Component {
     newProfile[inputsArr[index]] = value;
     this.setState({ index: this.state.index + 1 });
     this.setState({ value: '' });
-    this.props.onSubmit(newProfile);
     form.reset();
   }
 
+  handleProfileSubmit(e) {
+    this.setState({
+      index: this.state.index + 1,
+      isClicked: true
+    });
+    this.props.onSubmit(newProfile);
+  }
+
   renderButton() {
-    const { index } = this.state;
+    const { index, isClicked } = this.state;
     if (index > 5) {
       return (
-          <div className="container">
-            <div className="row half-height justify-content-center align-items-center">
-              <h1 className="text-center text-light col-sm-6 font-lg" >Profile Created</h1>
+            <div className="container">
+              <form onSubmit={this.handleProfileSubmit}>
+                <div className="row half-height justify-content-center align-items-center">
+                  <h1 className="text-center text-light col-sm-6 font-lg" >{!isClicked ? 'Confirming Profile' : 'Profile Confirmed'}</h1>
+                </div>
+                 {
+                !isClicked
+                  ? (<div className="col col-lg-12 text-center">
+                    <Button type={'submit'} classes={'btn btn-outline-light  col-6 col-sm-6 rounded-pill'} text={'Confirm'} />
+                  </div>
+                    )
+                  : null
+                }
+              </form>
+              {
+              isClicked
+                ? (
+                <div className="col col-lg-12 text-center">
+                  <a href="#">
+                    <Button classes={'btn btn-outline-light  col-6 col-sm-6 rounded-pill'} text={'Proceed'} />
+                  </a>
+                 </div>
+                  )
+                : null
+              }
             </div>
-            <a href="#enable-location" className="row">
-              <div className="col col-lg-12 text-center">
-                <Button classes={'btn btn-outline-light  col-6 col-sm-6 rounded-pill'} text={'Proceed'} />
-              </div>
-            </a>
-          </div>
       );
     }
-
     return (
       <form className="container"onSubmit={this.handleSubmit}>
         <div className="row half-height align-items-center">
