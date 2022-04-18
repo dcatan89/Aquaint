@@ -20,7 +20,8 @@ app.use(staticMiddleware);
 
 app.post('/api/userProfiles', uploadsMiddleware, (req, res, next) => {
   const userId = 1;
-  const { fullName, birthday = 'yes', sex = 'yes', displaySex = true, occupation = 'yes', fact = 'yes', profilePic = 'yes' } = req.body;
+  const { fullName, birthday = 'yes', sex = 'yes', displaySex = true, occupation = 'yes', fact = 'yes' } = req.body;
+  const profilePic = `/images/${req.file.filename}`;
   if (!profilePic) {
     throw new ClientError(400, 'image required');
   }
@@ -35,6 +36,27 @@ app.post('/api/userProfiles', uploadsMiddleware, (req, res, next) => {
     .then(result => {
       const [userProfiles] = result.rows;
       res.status(201).json(userProfiles);
+    })
+    .catch(err => next(err));
+});
+
+app.put('/api/userProfiles', uploadsMiddleware, (req, res, next) => {
+  const profileId = 1;
+  const url = `/userProfiles/${req.file.filename}`;
+  if (!Number.isInteger(profileId) || profileId < 1) {
+    throw new ClientError(400, 'profileId does not Exist');
+  }
+  const sql = `
+    update "userProfiles"
+       set "profilePic" = $1
+     where "profileId" = $2
+     returning *
+  `;
+  const params = [url, profileId];
+  db.query(sql, params)
+    .then(result => {
+      const [profilePic] = result.rows;
+      res.json({ profilePic });
     })
     .catch(err => next(err));
 });

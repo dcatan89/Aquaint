@@ -31,6 +31,7 @@ export default class MakeProfile extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.renderButton = this.renderButton.bind(this);
     this.handleProfileSubmit = this.handleProfileSubmit.bind(this);
+    this.fileInputRef = React.createRef();
   }
 
   handleChange(event) {

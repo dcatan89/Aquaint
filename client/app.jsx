@@ -1,7 +1,7 @@
 import React from 'react';
 import { SignIn, Home } from './pages';
 import { parseRoute } from './lib';
-import MakeProfile from './components/profile-maker';
+import { MakeProfile, FILE } from './components';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -44,6 +44,9 @@ export default class App extends React.Component {
     }
     if (route.path === 'make-profile') {
       return <MakeProfile onSubmit={this.addProfile} />;
+    }
+    if (route.path === 'FILE') {
+      return <FILE />;
     }
     return (
       <div className="py-5">
