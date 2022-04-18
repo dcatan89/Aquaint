@@ -29,6 +29,17 @@ CREATE TABLE "userProfiles" (
 
 
 
+CREATE TABLE "images" (
+	"imageId" serial NOT NULL,
+	"image" TEXT NOT NULL,
+	"profileId" TEXT NOT NULL,
+	CONSTRAINT "images_pk" PRIMARY KEY ("imageId")
+) WITH (
+  OIDS=FALSE
+);
+
+
+
 CREATE TABLE "matches" (
 	"matchId" serial NOT NULL,
 	"isMatched" BOOLEAN,

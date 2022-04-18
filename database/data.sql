@@ -8,6 +8,11 @@ values ('DJ Catan', '12/03/1994', 'Male', 'True','developer', 'yes', 'me', 1),
       ('daniel james', '12/04/1994', 'Male', 'True','dancer', 'yes', 'me', 2)
 returning *;
 
+insert into  "images" ("image", "profileId")
+values ('12345', 1),
+       ('2468', 2)
+returning *;
+
 insert into  "matches" ("isMatched", "requestedProfileId", "acceptedProfileId")
 values ('true', 1, 2),
        ('true', 2, 1)

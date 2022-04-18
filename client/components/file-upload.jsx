@@ -1,7 +1,7 @@
-
+import Button from './button';
 import React from 'react';
 
-export default class FILE extends React.Component {
+export default class ProfilePic extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -14,8 +14,9 @@ export default class FILE extends React.Component {
     const myForm = new FormData();
 
     myForm.append('image', this.fileInputRef.current.files[0]);
-    fetch('/api/userProfiles', {
-      method: 'PUT',
+
+    fetch('/api/images', {
+      method: 'POST',
       body: myForm
     })
       .then(response => response.json())
@@ -29,23 +30,31 @@ export default class FILE extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <div className="row min-vh-100 pb-5 justify-content-center align-items-center">
-          <div className="col-4">
-            <h3 className="text-center mb-5">React File Uploads</h3>
-            <form onSubmit={this.handleSubmit}>
-              <div className="d-flex justify-content-between align-items-center">
-                <input
-                  required
-                  type="file"
-                  name="image"
-                  ref={this.fileInputRef}
-                  accept=".png, .jpg, .jpeg, .gif" />
-                <button type="submit" className="btn btn-primary">
-                  Upload
-                </button>
+      <div className="bgc-gradient">
+        <div className="container">
+          <div className="row min-vh-100 pb-5 justify-content-center align-items-center">
+            <div className="col-6">
+              <h1 className="text-center text-light mb-5">Make A Lasting Impression</h1>
+              <form onSubmit={this.handleSubmit}>
+                <div className="row justify-content-between align-items-center">
+                  <input
+                    className='text-light'
+                    required
+                    type="file"
+                    name="image"
+                    ref={this.fileInputRef}
+                    accept=".png, .jpg, .jpeg, .gif" />
+                  <button type="submit" className="btn btn-outline-light">
+                    Upload Picture
+                  </button>
+                </div>
+              </form>
+              <div className="col col-lg-12 text-center">
+                <a href="#">
+                  <Button classes={'btn btn-outline-light  col-8 col-sm-8 rounded-pill'} text={'Proceed'} />
+                </a>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>

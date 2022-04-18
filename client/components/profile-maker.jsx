@@ -15,8 +15,7 @@ const inputsArr = [
   'birthday',
   'sex',
   'occupation',
-  'fact',
-  'profilePic'
+  'fact'
 ];
 const newProfile = {};
 export default class MakeProfile extends React.Component {
@@ -54,11 +53,12 @@ export default class MakeProfile extends React.Component {
       isClicked: true
     });
     this.props.onSubmit(newProfile);
+    e.preventDefault();
   }
 
   renderButton() {
     const { index, isClicked } = this.state;
-    if (index > 5) {
+    if (index > 4) {
       return (
             <div className="container">
               <form onSubmit={this.handleProfileSubmit}>
@@ -78,7 +78,7 @@ export default class MakeProfile extends React.Component {
               isClicked
                 ? (
                 <div className="col col-lg-12 text-center">
-                  <a href="#">
+                  <a href="#FILE">
                     <Button classes={'btn btn-outline-light  col-6 col-sm-6 rounded-pill'} text={'Proceed'} />
                   </a>
                  </div>
