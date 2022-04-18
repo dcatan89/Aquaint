@@ -27,9 +27,9 @@ export default class App extends React.Component {
     })
       .then(response => response.json())
       .then(data => {
-        const newProfile = this.state.todos;
+        const newProfile = this.state.userProfiles;
         const newestProfile = newProfile.concat(data);
-        this.state({ userProfiles: newestProfile });
+        this.setState({ userProfiles: newestProfile });
       });
   }
 

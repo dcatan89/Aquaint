@@ -26,6 +26,7 @@ app.post('/api/userProfiles', uploadsMiddleware, (req, res, next) => {
   }
   const sql = `
     insert into "userProfiles" ("fullName", "birthday", "sex", "displaySex", "occupation", "fact", "profilePic", "userId")
+
     values ($1, $2, $3, $4, $5, $6, $7, $8)
     returning *
   `;
