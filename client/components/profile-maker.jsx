@@ -19,7 +19,7 @@ const inputsArr = [
   'profilePic'
 ];
 
-const profile = {};
+const newProfile = {};
 
 export default class MakeProfile extends React.Component {
   constructor(props) {
@@ -38,13 +38,14 @@ export default class MakeProfile extends React.Component {
   }
 
   handleSubmit(e) {
+    e.preventDefault();
     const { index, value } = this.state;
     const form = document.querySelector('form');
-    profile[inputsArr[index]] = value;
+    newProfile[inputsArr[index]] = value;
     this.setState({ index: this.state.index + 1 });
-    this.setState({ value: ' ' });
+    this.setState({ value: '' });
+    this.props.onSubmit(newProfile);
     form.reset();
-    e.preventDefault();
   }
 
   renderButton() {
@@ -55,7 +56,7 @@ export default class MakeProfile extends React.Component {
             <div className="row half-height justify-content-center align-items-center">
               <h1 className="text-center text-light col-sm-6 font-lg" >Profile Created</h1>
             </div>
-            <a href="#" className="row">
+            <a href="#enable-location" className="row">
               <div className="col col-lg-12 text-center">
                 <Button classes={'btn btn-outline-light  col-6 col-sm-6 rounded-pill'} text={'Proceed'} />
               </div>
@@ -74,7 +75,7 @@ export default class MakeProfile extends React.Component {
         </div>
         <div className="row justify-content-center align-items-center half-height">
             <div className="col text-center">
-              <Button type={'submit'} click={this.handleSubmit} classes={'btn btn-outline-light col-6 col-sm-6 rounded-pill'} text={'Continue'} />
+              <Button type={'submit'} classes={'btn btn-outline-light col-6 col-sm-6 rounded-pill'} text={'Continue'} />
             </div>
         </div>
       </form>

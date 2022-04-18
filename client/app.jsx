@@ -6,13 +6,31 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      userProfiles: [],
       route: parseRoute(window.location.hash)
     };
+    this.addProfile = this.addProfile.bind(this);
   }
 
   componentDidMount() {
     window.onhashchange = e =>
       this.setState({ route: parseRoute(window.location.hash) });
+  }
+
+  addProfile(newProfile) {
+    fetch('/api/userProfiles', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newProfile)
+    })
+      .then(response => response.json())
+      .then(data => {
+        const newProfile = this.state.todos;
+        const newestProfile = newProfile.concat(data);
+        this.state({ userProfiles: newestProfile });
+      });
   }
 
   renderPage() {
@@ -25,7 +43,7 @@ export default class App extends React.Component {
       return <SignIn />;
     }
     if (route.path === 'make-profile') {
-      return <MakeProfile />;
+      return <MakeProfile onSubmit={this.addProfile} />;
     }
     return (
       <div className="py-5">
