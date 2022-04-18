@@ -1,11 +1,63 @@
 require('dotenv/config');
 const express = require('express');
+const pg = require('pg');
+const uploadsMiddleware = require('./uploads-middleware');
 const errorMiddleware = require('./error-middleware');
 const staticMiddleware = require('./static-middleware');
-
 const app = express();
+const jsonMiddleware = express.json();
+const ClientError = require('./client-error');
 
+const db = new pg.Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
+
+app.use(jsonMiddleware);
 app.use(staticMiddleware);
+
+app.post('/api/userProfiles', uploadsMiddleware, (req, res, next) => {
+  const userId = 1;
+  const { fullName, birthday = 'yes', sex = 'yes', displaySex = true, occupation = 'yes', fact = 'yes', profilePic = 'yes' } = req.body;
+  if (!profilePic) {
+    throw new ClientError(400, 'image required');
+  }
+  const sql = `
+    insert into "userProfiles" ("fullName", "birthday", "sex", "displaySex", "occupation", "fact", "profilePic", "userId")
+
+    values ($1, $2, $3, $4, $5, $6, $7, $8)
+    returning *
+  `;
+  const params = [fullName, birthday, sex, displaySex, occupation, fact, profilePic, userId];
+  db.query(sql, params)
+    .then(result => {
+      const [userProfiles] = result.rows;
+      res.status(201).json(userProfiles);
+    })
+    .catch(err => next(err));
+});
+
+app.post('/api/images', uploadsMiddleware, (req, res, next) => {
+  const profileId = 1;
+  const url = `/images/${req.file.filename}`;
+  if (!Number.isInteger(profileId) || profileId < 1) {
+    throw new ClientError(400, 'profileId does not Exist');
+  }
+  const sql = `
+    insert into "images" ("image", "profileId")
+    values ($1, $2)
+    returning *
+  `;
+  const params = [url, profileId];
+  db.query(sql, params)
+    .then(result => {
+      const [results] = result.rows;
+      res.json({ results });
+    })
+    .catch(err => next(err));
+});
 
 app.use(errorMiddleware);
 

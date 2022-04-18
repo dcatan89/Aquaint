@@ -1,0 +1,13 @@
+.container {
+  max-width: 800px;
+  height: 100vh;
+  margin: 0 auto;
+}
+
+.half-height {
+  height: 250px;
+}
+
+.full-height {
+  height: 500px;
+}
