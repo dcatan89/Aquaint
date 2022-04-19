@@ -19,3 +19,7 @@ input[type="file"]::file-selector-button:hover {
   background: #444b4b;
   border: 2px solid #00cec9;
 }
+
+.small-height {
+  height: 250px;
+}
