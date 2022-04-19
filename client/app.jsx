@@ -1,7 +1,7 @@
 import React from 'react';
 import { SignIn, Home } from './pages';
 import { parseRoute } from './lib';
-import { MakeProfile, ProfilePic } from './components';
+import { MakeProfile, ProfilePic, Geolocation } from './components';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -47,6 +47,11 @@ export default class App extends React.Component {
     }
     if (route.path === 'FILE') {
       return <ProfilePic />;
+    }
+    if (route.path === 'geolocation') {
+      return (
+        <Geolocation/>
+      );
     }
     return (
       <div className="py-5">
