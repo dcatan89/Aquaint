@@ -1,17 +1,19 @@
 import { Map, GoogleApiWrapper, Marker, Circle } from 'google-maps-react';
+import Radar from 'radar-sdk-js';
 import React from 'react';
 
 const mapStyles = {
   width: '100%',
   height: '100%'
 };
+Radar.initialize('prj_test_pk_6568e9598b129374b6bd05fdbdc4f5e3734b7d69');
 
 export class Geolocation extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { lat: 33.634940430843194, lng: -117.74014631397628, enabled: false };
+    this.state = { lat: 33.634940430843194, lng: -117.74014631397628, enabled: false, city: null, state: null };
     this.enableLocation = this.enableLocation.bind(this);
-    this.onMarkerClick = this.onMarkerClick.bind(this);
+    this.renderLocation = this.renderLocation.bind(this);
   }
 
   componentDidMount() {
@@ -24,11 +26,31 @@ export class Geolocation extends React.Component {
   }
 
   enableLocation(e) {
+    const { lat, lng } = this.state;
     this.setState({ enabled: true });
+    fetch(`https://api.radar.io/v1/geocode/reverse?coordinates=${lat},${lng}`,
+      {
+        headers: {
+          Authorization: 'prj_test_pk_6568e9598b129374b6bd05fdbdc4f5e3734b7d69',
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => response.json())
+      .then(data => (
+        this.setState({ city: data.addresses[0].city, state: data.addresses[0].stateCode })
+      )
+      );
   }
 
-  onMarkerClick(e) {
-    navigator.geolocation.getCurrentPosition(position => position.coords);
+  renderLocation() {
+    const { city, state } = this.state;
+    return (
+      <div className='row justify-content-center'>
+        <div className=" text-center col-12 col-md-12">
+          <button className='btn btn-outline-light col-8 col-md-6'>{`${city} , ${state}`}</button>
+        </div>
+      </div>
+    );
   }
 
   render() {
@@ -49,6 +71,10 @@ export class Geolocation extends React.Component {
               {button}
             </div>
           </div>
+          { enabled
+            ? this.renderLocation()
+            : null
+        }
         </div>
       { enabled
         ? (<div className=" bgc-gradient small-height">
