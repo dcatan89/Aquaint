@@ -51,6 +51,7 @@ export class Geolocation extends React.Component {
     };
     this.props.onSubmit(locationsData);
     this.setState({ lat: 33.634940430843194, lng: -117.74014631397628, enabled: false, city: null, state: null });
+    location.hash = '#';
   }
 
   renderLocation() {
@@ -65,7 +66,7 @@ export class Geolocation extends React.Component {
         <form onSubmit={this.submitLocations}>
           <div className='row justify-content-center'>
             <div className=" text-center col-12 col-md-12">
-              <button type='submit' className='btn btn-outline-light col-8 col-md-6'>Aquaint Yourself</button>
+                <button className='btn btn-outline-light col-8 col-md-6'>Aquaint Yourself (Continue to Home Page)</button>
             </div>
           </div>
         </form>
@@ -84,7 +85,7 @@ export class Geolocation extends React.Component {
         <div className="bgc-gradient">
           <div className={`row justify-content-center ${hidden}`}>
             <div className=" text-center col-12 col-md-12">
-              <button className='btn btn-outline-light col-8 col-md-6' onClick={this.enableLocation}>Enable Location</button>;
+              <button className='btn btn-outline-light col-8 col-md-6' onClick={this.enableLocation}>Enable Location</button>
             </div>
           </div>
           { enabled
