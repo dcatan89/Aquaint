@@ -2,6 +2,10 @@
   background: linear-gradient(to right bottom, #ed0574, #f39c18);
 }
 
+.hidden {
+  display: none;
+}
+
 .font-lg {
   font-size: 4rem;
 }

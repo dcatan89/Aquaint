@@ -15,20 +15,18 @@ export class Geolocation extends React.Component {
     this.state = { lat: 33.634940430843194, lng: -117.74014631397628, enabled: false, city: null, state: null };
     this.enableLocation = this.enableLocation.bind(this);
     this.renderLocation = this.renderLocation.bind(this);
+    this.submitLocations = this.submitLocations.bind(this);
   }
 
-  componentDidMount() {
+  enableLocation(e) {
+    const { lat, lng } = this.state;
     const map = navigator.geolocation;
+    this.setState({ enabled: true });
     if (map) {
       map.getCurrentPosition(position =>
         this.setState({ lat: position.coords.latitude, lng: position.coords.longitude })
       );
     }
-  }
-
-  enableLocation(e) {
-    const { lat, lng } = this.state;
-    this.setState({ enabled: true });
     fetch(`https://api.radar.io/v1/geocode/reverse?coordinates=${lat},${lng}`,
       {
         headers: {
@@ -43,33 +41,50 @@ export class Geolocation extends React.Component {
       );
   }
 
+  submitLocations(e) {
+    const { city, state, lat, lng } = this.state;
+    e.preventDefault();
+    const locationsData = {
+      cityName: `${city},${state}`,
+      lat,
+      lng
+    };
+    this.props.onSubmit(locationsData);
+    this.setState({ lat: 33.634940430843194, lng: -117.74014631397628, enabled: false, city: null, state: null });
+  }
+
   renderLocation() {
     const { city, state } = this.state;
     return (
-      <div className='row justify-content-center'>
-        <div className=" text-center col-12 col-md-12">
-          <button className='btn btn-outline-light col-8 col-md-6'>{`${city} , ${state}`}</button>
+      <>
+        <div className='row justify-content-center'>
+          <div className="text-center col-12 col-md-12">
+            <h1 className='text-light text-center col-12 col-md-12'>{` Your Location: ${city} , ${state}`}</h1>
+          </div>
         </div>
-      </div>
+        <form onSubmit={this.submitLocations}>
+          <div className='row justify-content-center'>
+            <div className=" text-center col-12 col-md-12">
+              <button type='submit' className='btn btn-outline-light col-8 col-md-6'>Aquaint Yourself</button>
+            </div>
+          </div>
+        </form>
+      </>
     );
   }
 
   render() {
     const { enabled, lng, lat } = this.state;
-    let button;
-
-    if ((lng || lat) === null) {
-      button = <button className='btn btn-outline-dark col-8 col-md-6' disabled onClick={this.enableLocation}>Enable Location</button>;
-    } else {
-      button = <button className='btn btn-outline-light col-8 col-md-6' onClick={this.enableLocation}>Enable Location</button>;
-    }
-
+    let hidden;
+    enabled
+      ? hidden = 'hidden'
+      : hidden = '';
     return (
       <div className='bgc-gradient min-100vh'>
-        <div className="bgc=gradient">
-          <div className='row justify-content-center'>
+        <div className="bgc-gradient">
+          <div className={`row justify-content-center ${hidden}`}>
             <div className=" text-center col-12 col-md-12">
-              {button}
+              <button className='btn btn-outline-light col-8 col-md-6' onClick={this.enableLocation}>Enable Location</button>;
             </div>
           </div>
           { enabled
@@ -77,18 +92,14 @@ export class Geolocation extends React.Component {
             : null
         }
         </div>
-      { enabled
-        ? (<div className=" bgc-gradient small-height">
+          <div className=" bgc-gradient small-height">
             <div className=' row justify-content-center small-height'>
               <Map google={this.props.google} zoom={14} style={mapStyles} initialCenter={{ lat, lng }} center={{ lat, lng }}>
                 <Marker position={{ lat, lng }} onClick={this.onMarkerClick} name={'You'}/>
                 <Circle radius={1000} center={{ lat, lng }} strokeOpacity={0} strokeWeight={5} fillColor='#FF0000' fillOpacity={0.2} />
               </Map>
-              </div>
             </div>
-          )
-        : null
-  }
+          </div>
       </div>
     );
   }

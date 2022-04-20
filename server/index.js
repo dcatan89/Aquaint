@@ -18,7 +18,7 @@ const db = new pg.Pool({
 app.use(jsonMiddleware);
 app.use(staticMiddleware);
 
-app.post('/api/userProfiles', uploadsMiddleware, (req, res, next) => {
+app.post('/api/userProfiles', (req, res, next) => {
   const userId = 1;
   const { fullName, birthday = 'yes', sex = 'yes', displaySex = true, occupation = 'yes', fact = 'yes', profilePic = 'yes' } = req.body;
   if (!profilePic) {
@@ -55,6 +55,26 @@ app.post('/api/images', uploadsMiddleware, (req, res, next) => {
     .then(result => {
       const [results] = result.rows;
       res.json({ results });
+    })
+    .catch(err => next(err));
+});
+
+app.post('/api/locations', (req, res, next) => {
+  const profileId = 1;
+  const { cityName, lat, lng } = req.body;
+  if (!lat || !lng) {
+    throw new ClientError(400, 'Location required');
+  }
+  const sql = `
+    insert into "locations" ("cityName", "lat", "lng", "profileId")
+    values ($1, $2, $3, $4)
+    returning *
+  `;
+  const params = [cityName, lat, lng, profileId];
+  db.query(sql, params)
+    .then(result => {
+      const [location] = result.rows;
+      res.status(201).json(location);
     })
     .catch(err => next(err));
 });

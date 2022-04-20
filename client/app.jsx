@@ -11,6 +11,7 @@ export default class App extends React.Component {
       route: parseRoute(window.location.hash)
     };
     this.addProfile = this.addProfile.bind(this);
+    this.addLocation = this.addLocation.bind(this);
   }
 
   componentDidMount() {
@@ -45,7 +46,7 @@ export default class App extends React.Component {
       .then(response => response.json())
       .then(data => {
         const newLocation = this.state.locations.concat.data;
-        this.setState({ userProfiles: newLocation });
+        this.setState({ locations: newLocation });
       });
   }
 
