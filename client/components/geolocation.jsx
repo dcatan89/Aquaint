@@ -1,14 +1,10 @@
 import { Map, GoogleApiWrapper, Marker, Circle } from 'google-maps-react';
-import Radar from 'radar-sdk-js';
 import React from 'react';
 
 const mapStyles = {
   width: '100%',
   height: '100%'
 };
-
-Radar.initialize(process.env.REACT_APP_RADAR_KEY);
-
 export class Geolocation extends React.Component {
   constructor(props) {
     super(props);
@@ -32,7 +28,7 @@ export class Geolocation extends React.Component {
     fetch(`https://api.radar.io/v1/geocode/reverse?coordinates=${lat},${lng}`,
       {
         headers: {
-          Authorization: 'prj_test_pk_6568e9598b129374b6bd05fdbdc4f5e3734b7d69',
+          Authorization: `${process.env.REACT_APP_RADAR_KEY}`,
           'Content-Type': 'application/json'
         }
       })
@@ -65,8 +61,8 @@ export class Geolocation extends React.Component {
     }
 
     return (
-      <div className='bgc-gradient'>
-        <div className="">
+      <div className='bgc-gradient min-100vh'>
+        <div className="bgc=gradient">
           <div className='row justify-content-center'>
             <div className=" text-center col-12 col-md-12">
               {button}
