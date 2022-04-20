@@ -54,7 +54,7 @@ export default class ProfilePic extends React.Component {
                 </div>
               </form>
               <div className="col col-lg-12 mt-5 text-center">
-                <a href="#">
+                <a href="#geolocation">
                   <Button classes={'btn btn-outline-light  col-8 col-sm-8 rounded-pill'} text={'Proceed'} />
                 </a>
               </div>

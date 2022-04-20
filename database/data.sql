@@ -18,9 +18,9 @@ values ('true', 1, 2),
        ('true', 2, 1)
 returning *;
 
-insert into "locations" ("cityName", "geolocation", "profileId")
-values ('Irvine', '1234', 1),
-       ('Irvine', '1234', 2)
+insert into "locations" ("cityName", "lat", "lng", "profileId")
+values ('Irvine', 33.634940430843194,  -117.74014631397628, 1),
+       ('Irvine', 33.634940430843194,  -117.74014631397628, 2)
 returning *;
 
 insert into "messages" ("fromUserId", "toUserId", "message")

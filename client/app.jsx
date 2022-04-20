@@ -1,15 +1,17 @@
 import React from 'react';
 import { SignIn, Home } from './pages';
 import { parseRoute } from './lib';
-import { MakeProfile, ProfilePic } from './components';
+import { MakeProfile, ProfilePic, Geolocation } from './components';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       userProfiles: [],
+      locations: [],
       route: parseRoute(window.location.hash)
     };
     this.addProfile = this.addProfile.bind(this);
+    this.addLocation = this.addLocation.bind(this);
   }
 
   componentDidMount() {
@@ -33,6 +35,21 @@ export default class App extends React.Component {
       });
   }
 
+  addLocation(locationData) {
+    fetch('/api/locations', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(locationData)
+    })
+      .then(response => response.json())
+      .then(data => {
+        const newLocation = this.state.locations.concat.data;
+        this.setState({ locations: newLocation });
+      });
+  }
+
   renderPage() {
     const { route } = this.state;
 
@@ -47,6 +64,11 @@ export default class App extends React.Component {
     }
     if (route.path === 'FILE') {
       return <ProfilePic />;
+    }
+    if (route.path === 'geolocation') {
+      return (
+        <Geolocation onSubmit={this.addLocation}/>
+      );
     }
     return (
       <div className="py-5">
