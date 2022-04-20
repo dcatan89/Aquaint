@@ -18,6 +18,32 @@ const db = new pg.Pool({
 app.use(jsonMiddleware);
 app.use(staticMiddleware);
 
+app.get('/api/userProfiles', (req, res, next) => {
+  const sql = `
+    select *
+      from "userProfiles"
+     where "profileId" = 3
+  `;
+  db.query(sql)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
+app.get('/api/images', (req, res, next) => {
+  const sql = `
+    select *
+      from "images"
+     where "imageId" = 3
+  `;
+  db.query(sql)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
 app.post('/api/userProfiles', (req, res, next) => {
   const userId = 1;
   const { fullName, birthday = 'yes', sex = 'yes', displaySex = true, occupation = 'yes', fact = 'yes', profilePic = 'yes' } = req.body;
