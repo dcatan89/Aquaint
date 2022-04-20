@@ -1,6 +1,11 @@
 import React from 'react';
 
 export default class DisplayProfile extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { img: '' };
+  }
+
   componentDidMount() {
     fetch('/api/userProfiles')
       .then(response => response.json())
@@ -8,10 +13,17 @@ export default class DisplayProfile extends React.Component {
 
     fetch('/api/images')
       .then(response => response.json())
-      .then(imgData => imgData);
+      .then(imgData =>
+        this.setState({ img: imgData.image }));
   }
 
   render() {
-    return <h1 className="text-light">Hello World</h1>;
+    const { img } = this.state;
+    return (
+    <>
+    <h1 className="text-light">Hello World</h1>
+    <img src={`../${img}`}></img>
+    </>
+    );
   }
 }
