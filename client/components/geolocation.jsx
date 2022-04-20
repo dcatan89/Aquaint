@@ -1,10 +1,14 @@
 import { Map, GoogleApiWrapper, Marker, Circle } from 'google-maps-react';
+import Radar from 'radar-sdk-js';
 import React from 'react';
 
 const mapStyles = {
   width: '100%',
   height: '100%'
 };
+
+Radar.initialize(process.env.REACT_APP_RADAR_KEY);
+
 export class Geolocation extends React.Component {
   constructor(props) {
     super(props);
