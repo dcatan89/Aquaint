@@ -7,6 +7,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       userProfiles: [],
+      locations: [],
       route: parseRoute(window.location.hash)
     };
     this.addProfile = this.addProfile.bind(this);
@@ -33,6 +34,21 @@ export default class App extends React.Component {
       });
   }
 
+  addLocation(locationData) {
+    fetch('/api/locations', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(locationData)
+    })
+      .then(response => response.json())
+      .then(data => {
+        const newLocation = this.state.locations.concat.data;
+        this.setState({ userProfiles: newLocation });
+      });
+  }
+
   renderPage() {
     const { route } = this.state;
 
@@ -50,7 +66,7 @@ export default class App extends React.Component {
     }
     if (route.path === 'geolocation') {
       return (
-        <Geolocation/>
+        <Geolocation onSubmit={this.addLocation}/>
       );
     }
     return (

@@ -56,7 +56,8 @@ CREATE TABLE "matches" (
 CREATE TABLE "locations" (
 	"locationId" serial NOT NULL,
 	"cityName" TEXT NOT NULL,
-	"geolocation" TEXT NOT NULL,
+	"lat" FLOAT NOT NULL,
+	"lng" FLOAT NOT NULL,
 	"profileId" integer NOT NULL,
 	CONSTRAINT "locations_pk" PRIMARY KEY ("locationId")
 ) WITH (
