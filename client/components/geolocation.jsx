@@ -6,7 +6,8 @@ const mapStyles = {
   width: '100%',
   height: '100%'
 };
-Radar.initialize('prj_test_pk_6568e9598b129374b6bd05fdbdc4f5e3734b7d69');
+
+Radar.initialize(process.env.REACT_APP_RADAR_KEY);
 
 export class Geolocation extends React.Component {
   constructor(props) {
@@ -65,7 +66,7 @@ export class Geolocation extends React.Component {
 
     return (
       <div className='bgc-gradient'>
-        <div className="container">
+        <div className="">
           <div className='row justify-content-center'>
             <div className=" text-center col-12 col-md-12">
               {button}
@@ -94,5 +95,5 @@ export class Geolocation extends React.Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyBFKg9btTK3dlD0e3Jt5yN4k1igdf2BsRY'
+  apiKey: `${process.env.REACT_APP_API_KEY}`
 })(Geolocation);
