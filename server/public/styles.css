@@ -25,5 +25,9 @@ input[type="file"]::file-selector-button:hover {
 }
 
 .small-height {
-  height: 250px;
+  height: 50%;
+}
+
+.all-height {
+  height: 100%;
 }

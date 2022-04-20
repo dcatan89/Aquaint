@@ -3,6 +3,12 @@ import Radar from 'radar-sdk-js';
 import React from 'react';
 
 const mapStyles = {
+  position: 'relative',
+  width: '100%',
+  height: '100%'
+};
+
+const style = {
   width: '100%',
   height: '100%'
 };
@@ -65,7 +71,7 @@ export class Geolocation extends React.Component {
         </div>
         <form onSubmit={this.submitLocations}>
           <div className='row justify-content-center'>
-            <div className=" text-center col-12 col-md-12">
+            <div className=" text-center col-12 col-md-12 mb-5 mt-5">
                 <button className='btn btn-outline-light col-8 col-md-6'>Aquaint Yourself (Continue to Home Page)</button>
             </div>
           </div>
@@ -82,25 +88,25 @@ export class Geolocation extends React.Component {
       : hidden = '';
     return (
       <div className='bgc-gradient min-100vh'>
-        <div className="bgc-gradient">
+        <div className="container">
           <div className={`row justify-content-center ${hidden}`}>
             <div className=" text-center col-12 col-md-12">
-              <button className='btn btn-outline-light col-8 col-md-6' onClick={this.enableLocation}>Enable Location</button>
+              <button className='btn btn-outline-light col-8 col-md-6 mt-5 mb-5' onClick={this.enableLocation}>Enable Location</button>
             </div>
           </div>
           { enabled
             ? this.renderLocation()
             : null
         }
-        </div>
-          <div className=" bgc-gradient small-height">
             <div className=' row justify-content-center small-height'>
-              <Map google={this.props.google} zoom={14} style={mapStyles} initialCenter={{ lat, lng }} center={{ lat, lng }}>
-                <Marker position={{ lat, lng }} onClick={this.onMarkerClick} name={'You'}/>
-                <Circle radius={1000} center={{ lat, lng }} strokeOpacity={0} strokeWeight={5} fillColor='#FF0000' fillOpacity={0.2} />
-              </Map>
+            <div className="col all-height col-md-12">
+                <Map google={this.props.google} zoom={14} containerStyle={mapStyles} style={style} initialCenter={{ lat, lng }} center={{ lat, lng }}>
+                  <Marker position={{ lat, lng }} onClick={this.onMarkerClick} name={'You'} />
+                  <Circle radius={1000} center={{ lat, lng }} strokeOpacity={0} strokeWeight={5} fillColor='#FF0000' fillOpacity={0.2} />
+                </Map>
+              </div>
             </div>
-          </div>
+        </div>
       </div>
     );
   }

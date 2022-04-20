@@ -4,6 +4,11 @@
   margin: 0 auto;
 }
 
+.container100 {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
 .half-height {
   height: 250px;
 }
