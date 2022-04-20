@@ -22,7 +22,7 @@ export default class DisplayProfile extends React.Component {
     return (
     <>
     <h1 className="text-light">Hello World</h1>
-    <img src={`../${img}`}></img>
+    <img src={`${img}`}></img>
     </>
     );
   }
