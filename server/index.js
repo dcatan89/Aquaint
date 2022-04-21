@@ -44,6 +44,19 @@ app.get('/api/images', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/locations', (req, res, next) => {
+  const sql = `
+    select *
+      from "locations"
+      order by "locationId" desc
+  `;
+  db.query(sql)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
 app.post('/api/userProfiles', (req, res, next) => {
   const userId = 1;
   const { fullName, birthday = 'yes', sex = 'yes', displaySex = true, occupation = 'yes', fact = 'yes', profilePic = 'yes' } = req.body;

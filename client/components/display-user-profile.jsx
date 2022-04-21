@@ -4,7 +4,7 @@ import { calculateAge } from '../lib';
 export default class DisplayProfile extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { img: '', profile: '', index: 2, profiles: [] };
+    this.state = { img: '', profile: '', index: 2, profiles: [], location: [], locations: [] };
     this.changeIndex = this.changeIndex.bind(this);
   }
 
@@ -12,14 +12,25 @@ export default class DisplayProfile extends React.Component {
     fetch('/api/userProfiles')
       .then(response => response.json())
       .then(profileData => {
-        this.setState({ profile: profileData[1] });
-        this.setState({ profiles: profileData });
+        this.setState({
+          profile: profileData[1],
+          profiles: profileData
+        });
       });
 
     fetch('/api/images')
       .then(response => response.json())
       .then(imgData => {
         this.setState({ img: imgData[1].image });
+      });
+
+    fetch('/api/locations')
+      .then(response => response.json())
+      .then(locationsData => {
+        this.setState({
+          location: locationsData[1].cityName,
+          locations: locationsData
+        });
       });
   }
 
