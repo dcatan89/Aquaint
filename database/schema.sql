@@ -3,7 +3,7 @@ CREATE TABLE "users" (
 	"firstName" TEXT NOT NULL,
 	"lastName" TEXT NOT NULL,
 	"email" TEXT NOT NULL UNIQUE,
-	"password" TEXT NOT NULL UNIQUE,
+	"password" TEXT NOT NULL,
 	CONSTRAINT "users_pk" PRIMARY KEY ("userId")
 ) WITH (
   OIDS=FALSE
@@ -19,7 +19,6 @@ CREATE TABLE "userProfiles" (
 	"displaySex" BOOLEAN NOT NULL,
 	"occupation" TEXT,
 	"fact" TEXT,
-	"profilePic" TEXT,
 	"createdAt" timestamptz(6) not null default now(),
 	"userId" integer NOT NULL,
 	CONSTRAINT "userProfiles_pk" PRIMARY KEY ("profileId")

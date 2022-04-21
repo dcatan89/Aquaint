@@ -1,5 +1,5 @@
 import React from 'react';
-import { SignIn, Home } from './pages';
+import { SignIn, Home, MatchingProfiles } from './pages';
 import { parseRoute } from './lib';
 import { MakeProfile, ProfilePic, Geolocation } from './components';
 export default class App extends React.Component {
@@ -68,6 +68,11 @@ export default class App extends React.Component {
     if (route.path === 'geolocation') {
       return (
         <Geolocation onSubmit={this.addLocation}/>
+      );
+    }
+    if (route.path === 'aquaint') {
+      return (
+        <MatchingProfiles/>
       );
     }
     return (

@@ -66,7 +66,7 @@ app.post('/api/userProfiles', (req, res, next) => {
 });
 
 app.post('/api/images', uploadsMiddleware, (req, res, next) => {
-  const profileId = 1;
+  const profileId = 9;
   const url = `/images/${req.file.filename}`;
   if (!Number.isInteger(profileId) || profileId < 1) {
     throw new ClientError(400, 'profileId does not Exist');
@@ -86,7 +86,7 @@ app.post('/api/images', uploadsMiddleware, (req, res, next) => {
 });
 
 app.post('/api/locations', (req, res, next) => {
-  const profileId = 1;
+  const profileId = 10;
   const { cityName, lat, lng } = req.body;
   if (!lat || !lng) {
     throw new ClientError(400, 'Location required');

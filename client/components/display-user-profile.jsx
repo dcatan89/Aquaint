@@ -4,7 +4,7 @@ import { calculateAge } from '../lib';
 export default class DisplayProfile extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { img: '', profile: '', index: 1 };
+    this.state = { img: '', profile: '', index: 2, profiles: [] };
     this.changeIndex = this.changeIndex.bind(this);
   }
 
@@ -12,13 +12,14 @@ export default class DisplayProfile extends React.Component {
     fetch('/api/userProfiles')
       .then(response => response.json())
       .then(profileData => {
-        this.setState({ profile: profileData[0] });
+        this.setState({ profile: profileData[1] });
+        this.setState({ profiles: profileData });
       });
 
     fetch('/api/images')
       .then(response => response.json())
       .then(imgData => {
-        this.setState({ img: imgData[0].image });
+        this.setState({ img: imgData[1].image });
       });
   }
 
@@ -46,13 +47,13 @@ export default class DisplayProfile extends React.Component {
         <img className="mb-1 all-height rounded" src={img}></img>
       </div>
         <div className="col-12 bgc-gradient-2 rounded border col-md-4 col-lg-6">
-          <h1 className="text-light ">{`Age:${calculateAge(profile.birthday)}`}
+          <h3 className="text-light ">{`Age:${calculateAge(profile.birthday)}`}
             <span className='ms-5'>{` Sex:${profile.sex}`}</span>
-          </h1>
-          <h1 className="text-light mt-5">What is one Surprising Fact?</h1>
-          <div className="text-light">{profile.fact}</div>
-          <h1 className="text-light mt-5">What Do You Do?</h1>
-          <div className="text-light">{profile.occupation}</div>
+          </h3>
+          <h1 className="text-light text-center mt-5">What is one Surprising Fact?</h1>
+          <p className="text-light text-center">{profile.fact}</p>
+          <h1 className="text-light text-center mt-5">What Do You Do?</h1>
+          <p className="text-light text-center">{profile.occupation}</p>
           <div className="col text-center">
             <button onClick={this.changeIndex} className="btn btn-outline-light rounded-pill">NEXT</button>
           </div>
