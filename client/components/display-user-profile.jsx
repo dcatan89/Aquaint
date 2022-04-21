@@ -40,12 +40,12 @@ export default class DisplayProfile extends React.Component {
   render() {
     const { img, profile } = this.state;
     return (
-      <div className="row border">
+      <div className="row border pb-3 rounded">
       <h1 className="text-light border-bottom col-12 col-lg-12 text-center ">{profile.fullName}</h1>
       <div className="col-12 col-sm-8 col-lg-6">
-        <img className="mb-1 all-height" src={img}></img>
+        <img className="mb-1 all-height rounded" src={img}></img>
       </div>
-        <div className="col-12 bgc-gradient-2  border col-md-4 col-lg-6">
+        <div className="col-12 bgc-gradient-2 rounded border col-md-4 col-lg-6">
           <h1 className="text-light ">{`Age:${calculateAge(profile.birthday)}`}
             <span className='ms-5'>{` Sex:${profile.sex}`}</span>
           </h1>
