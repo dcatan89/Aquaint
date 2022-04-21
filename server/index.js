@@ -22,7 +22,7 @@ app.get('/api/userProfiles', (req, res, next) => {
   const sql = `
     select *
       from "userProfiles"
-     where "profileId" = 3
+     order by "profileId" desc
   `;
   db.query(sql)
     .then(result => {
@@ -35,7 +35,7 @@ app.get('/api/images', (req, res, next) => {
   const sql = `
     select *
       from "images"
-     where "imageId" = 3
+      order by "imageId" desc
   `;
   db.query(sql)
     .then(result => {

@@ -9,21 +9,29 @@ const topicsArr = [
   'What is one surprising fact'
 ];
 
-const inputsArr = [
-  'fullName',
+const placeHolderArr = [
+  'First Name and Last Name',
   'MM/DD/YYYY',
-  'Sex',
   '...',
-  '...'
+  '... Astronaut, A Good Friend',
+  'Write Something Interesting'
 ];
+
+const inputArr = [
+  'fullName',
+  'birthday',
+  'sex',
+  'occupation',
+  'fact'
+];
+
 const newProfile = {};
 export default class MakeProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       index: 0,
-      value: '',
-      isClicked: false
+      value: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -40,59 +48,40 @@ export default class MakeProfile extends React.Component {
     e.preventDefault();
     const { index, value } = this.state;
     const form = document.querySelector('form');
-    newProfile[inputsArr[index]] = value;
+    newProfile[inputArr[index]] = value;
     this.setState({ index: this.state.index + 1 });
     this.setState({ value: '' });
     form.reset();
   }
 
   handleProfileSubmit(e) {
-    this.setState({
-      index: this.state.index + 1,
-      isClicked: true
-    });
     this.props.onSubmit(newProfile);
+    location.hash = '#FILE';
     e.preventDefault();
   }
 
   renderButton() {
-    const { index, isClicked } = this.state;
+    const { index } = this.state;
     if (index > 4) {
       return (
             <div className="container">
               <form onSubmit={this.handleProfileSubmit}>
                 <div className="row half-height justify-content-center align-items-center">
-                  <h1 className="text-center text-light col-sm-6 font-lg" >{!isClicked ? 'Confirming Profile' : 'Profile Confirmed'}</h1>
+                  <h1 className="text-center text-light col-sm-6 font-lg" > Profile Confirmed</h1>
                 </div>
-                 {
-                !isClicked
-                  ? (<div className="col col-lg-12 text-center">
-                    <Button type={'submit'} classes={'btn btn-outline-light  col-6 col-sm-6 rounded-pill'} text={'Confirm'} />
-                  </div>
-                    )
-                  : null
-                }
-              </form>
-              {
-              isClicked
-                ? (
                 <div className="col col-lg-12 text-center">
-                  <a href="#FILE">
-                    <Button classes={'btn btn-outline-light  col-6 col-sm-6 rounded-pill'} text={'Proceed'} />
-                  </a>
-                 </div>
-                  )
-                : null
-              }
+                  <Button type={'submit'} classes={'btn btn-outline-light  col-6 col-sm-6 rounded-pill'} text={'Confirm'} />
+                </div>
+              </form>
             </div>
       );
     }
     return (
-      <form className="container"onSubmit={this.handleSubmit}>
+      <form className="container vh100"onSubmit={this.handleSubmit}>
         <div className="row half-height align-items-center">
           <h1 className="text-center text-light col-sm-6 font-lg" >{topicsArr[index]}</h1>
           <div className='col-sm-6'>
-            <input onChange={this.handleChange} required className="form-control form-control" type="text" placeholder={inputsArr[index]} aria-label=".form-control" />
+            <input onChange={this.handleChange} required className="form-control form-control" type="text" placeholder={placeHolderArr[index]} aria-label=".form-control" />
           </div>
         </div>
         <div className="row justify-content-center align-items-center half-height">
@@ -106,7 +95,7 @@ export default class MakeProfile extends React.Component {
 
   render() {
     return (
-      <div className="bgc-gradient">
+      <div className="bgc-gradient vh100">
         {this.renderButton()}
       </div>
     );
