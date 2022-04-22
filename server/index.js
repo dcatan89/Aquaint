@@ -59,17 +59,17 @@ app.get('/api/locations', (req, res, next) => {
 
 app.post('/api/userProfiles', (req, res, next) => {
   const userId = 1;
-  const { fullName, birthday = 'yes', sex = 'yes', displaySex = true, occupation = 'yes', fact = 'yes', profilePic = 'yes' } = req.body;
-  if (!profilePic) {
-    throw new ClientError(400, 'image required');
+  const { fullName, birthday = '12/03/1994', sex = 'He-Man', displaySex = true, occupation = 'Funemployed', fact = 'I sleep for dinner' } = req.body;
+  if (!birthday) {
+    throw new ClientError(400, 'Age is required');
   }
   const sql = `
-    insert into "userProfiles" ("fullName", "birthday", "sex", "displaySex", "occupation", "fact", "profilePic", "userId")
+    insert into "userProfiles" ("fullName", "birthday", "sex", "displaySex", "occupation", "fact", "userId")
 
-    values ($1, $2, $3, $4, $5, $6, $7, $8)
+    values ($1, $2, $3, $4, $5, $6, $7)
     returning *
   `;
-  const params = [fullName, birthday, sex, displaySex, occupation, fact, profilePic, userId];
+  const params = [fullName, birthday, sex, displaySex, occupation, fact, userId];
   db.query(sql, params)
     .then(result => {
       const [userProfiles] = result.rows;
