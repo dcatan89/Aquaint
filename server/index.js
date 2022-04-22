@@ -22,7 +22,7 @@ app.get('/api/userProfiles', (req, res, next) => {
   const sql = `
     select *
       from "userProfiles"
-     order by "profileId" desc
+    order by "profileId" desc
   `;
   db.query(sql)
     .then(result => {
@@ -99,7 +99,7 @@ app.post('/api/images', uploadsMiddleware, (req, res, next) => {
 });
 
 app.post('/api/locations', (req, res, next) => {
-  const profileId = 10;
+  const profileId = 9;
   const { cityName, lat, lng } = req.body;
   if (!lat || !lng) {
     throw new ClientError(400, 'Location required');
@@ -114,6 +114,31 @@ app.post('/api/locations', (req, res, next) => {
     .then(result => {
       const [location] = result.rows;
       res.status(201).json(location);
+    })
+    .catch(err => next(err));
+});
+
+app.post('/api/matches', (req, res, next) => {
+  const { isMatched, requestedProfileId, acceptedProfileId } = req.body;
+  parseInt(requestedProfileId);
+  parseInt(acceptedProfileId);
+
+  if (!Number.isInteger(requestedProfileId) || requestedProfileId < 1 || !Number.isInteger(acceptedProfileId) || acceptedProfileId < 1) {
+    throw new ClientError(400, 'profileId does not Exist');
+  }
+  if (!requestedProfileId || !acceptedProfileId) {
+    throw new ClientError(400, 'Valid matches required');
+  }
+  const sql = `
+    insert into "matches" ("isMatched", "requestedProfileId", "acceptedProfileId")
+    values ($1, $2, $3)
+    returning *
+  `;
+  const params = [isMatched, requestedProfileId, acceptedProfileId];
+  db.query(sql, params)
+    .then(result => {
+      const [matches] = result.rows;
+      res.status(201).json(matches);
     })
     .catch(err => next(err));
 });

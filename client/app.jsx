@@ -8,10 +8,12 @@ export default class App extends React.Component {
     this.state = {
       userProfiles: [],
       locations: [],
+      matches: [],
       route: parseRoute(window.location.hash)
     };
     this.addProfile = this.addProfile.bind(this);
     this.addLocation = this.addLocation.bind(this);
+    this.addMatches = this.addMatches.bind(this);
   }
 
   componentDidMount() {
@@ -45,8 +47,23 @@ export default class App extends React.Component {
     })
       .then(response => response.json())
       .then(data => {
-        const newLocation = this.state.locations.concat.data;
+        const newLocation = this.state.locations.concat(data);
         this.setState({ locations: newLocation });
+      });
+  }
+
+  addMatches(matched) {
+    fetch('/api/matches', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(matched)
+    })
+      .then(response => response.json())
+      .then(data => {
+        const newMatches = this.state.matches.concat(data);
+        this.setState({ matches: newMatches });
       });
   }
 
@@ -72,7 +89,7 @@ export default class App extends React.Component {
     }
     if (route.path === 'aquaint') {
       return (
-        <MatchingProfiles/>
+        <MatchingProfiles onSubmit={this.addMatches}/>
       );
     }
     return (
