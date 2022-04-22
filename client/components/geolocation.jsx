@@ -95,8 +95,6 @@ export class Geolocation extends React.Component {
             <div className=" text-center col-12 col-md-12">
               <button className='btn btn-outline-light col-8 col-md-6 mt-5 mb-5' onClick={this.enableLocation}>Enable Location</button>
             </div>
-          </div>
-          <div className="row justify-content-center mb-2">
             <div className="col-6 col-lg-8">
               <p className="text-center text-light" >*Your Locations Services need to be turned on for this to workout</p>
             </div>
