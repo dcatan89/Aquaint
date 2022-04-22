@@ -87,7 +87,7 @@ export class Geolocation extends React.Component {
       ? hidden = 'hidden'
       : hidden = '';
     return (
-      <div className='bgc-gradient min-100vh'>
+      <div className='bgc-gradient '>
         <div className="container">
           <div className={`row justify-content-center ${hidden}`}>
             <div className=" text-center col-12 col-md-12">
@@ -98,8 +98,8 @@ export class Geolocation extends React.Component {
             ? this.renderLocation()
             : null
         }
-            <div className=' row justify-content-center small-height'>
-            <div className="col all-height col-md-12">
+            <div className=' row justify-content-center vh100'>
+            <div className="col-12">
                 <Map google={this.props.google} zoom={14} containerStyle={mapStyles} style={style} initialCenter={{ lat, lng }} center={{ lat, lng }}>
                   <Marker position={{ lat, lng }} onClick={this.onMarkerClick} name={'You'} />
                   <Circle radius={1000} center={{ lat, lng }} strokeOpacity={0} strokeWeight={5} fillColor='#FF0000' fillOpacity={0.2} />

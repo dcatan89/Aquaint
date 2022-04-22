@@ -3,7 +3,7 @@ import React from 'react';
 export default function SignIn() {
   return (
     <div className='bgc-gradient'>
-      <div className="container">
+      <div className="container vh100">
         <div className="row justify-content-center align-content-end half-height">
           <h1 className="col-sm-12 text-center text-light">AQUAINT</h1>
         </div>

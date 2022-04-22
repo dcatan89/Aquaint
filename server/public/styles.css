@@ -2,6 +2,10 @@
   background: linear-gradient(to right bottom, #ed0574, #f39c18);
 }
 
+.bgc-gradient-2 {
+  background: linear-gradient(to right bottom, rgba(33, 37, 41, 0.582), #ed0575c8, #f39c18);
+}
+
 .hidden {
   display: none;
 }
