@@ -35,6 +35,19 @@ export default class Matches extends React.Component {
         </li>
       );
     });
+
+    if (matches.length === 0) {
+      return (
+        <div className="row justify-content-center align-items-center height250px">
+          <h3 className="col-12 col-lg-8 text-light text-center">Currently Have No Matches</h3>
+          <div className="col-12 text-center col-lg-6">
+            <a href="#aquaint ">
+              <button className="btn btn-outline-light">Try Your Luck Today</button>
+            </a>
+          </div>
+        </div>
+      );
+    }
     return (
       <ul>
       {matchList}

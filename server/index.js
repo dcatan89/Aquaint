@@ -18,10 +18,14 @@ const db = new pg.Pool({
 app.use(jsonMiddleware);
 app.use(staticMiddleware);
 
-app.get('/api/userProfiles', (req, res, next) => {
+app.get('/api/matchProfiles', (req, res, next) => {
   const sql = `
-    select *
-      from "userProfiles"
+    select "u".*,
+        "image",
+        "cityName"
+      from "userProfiles" as "u"
+      join "images" using ("profileId")
+      join "locations" using ("profileId")
     order by "profileId" desc
   `;
   db.query(sql)
@@ -42,35 +46,9 @@ app.get('/api/matchlist', (req, res, next) => {
       join "images" using ("profileId")
       join "locations" using ("profileId")
       join "matches" as "m" using ("userId")
-      where "requestedProfileId" = 15 and "isMatched" = true
+      where "requestedProfileId" = 16 and "isMatched" = true
   `;
 
-  db.query(sql)
-    .then(result => {
-      res.json(result.rows);
-    })
-    .catch(err => next(err));
-});
-
-app.get('/api/images', (req, res, next) => {
-  const sql = `
-    select *
-      from "images"
-      order by "imageId" desc
-  `;
-  db.query(sql)
-    .then(result => {
-      res.json(result.rows);
-    })
-    .catch(err => next(err));
-});
-
-app.get('/api/locations', (req, res, next) => {
-  const sql = `
-    select *
-      from "locations"
-      order by "locationId" desc
-  `;
   db.query(sql)
     .then(result => {
       res.json(result.rows);
@@ -79,7 +57,7 @@ app.get('/api/locations', (req, res, next) => {
 });
 
 app.post('/api/userProfiles', (req, res, next) => {
-  const userId = 1;
+  const userId = 16;
   const { fullName, birthday = '12/03/1994', sex = 'He-Man', displaySex = true, occupation = 'Funemployed', fact = 'I sleep for dinner' } = req.body;
   if (!birthday) {
     throw new ClientError(400, 'Age is required');
@@ -100,7 +78,7 @@ app.post('/api/userProfiles', (req, res, next) => {
 });
 
 app.post('/api/images', uploadsMiddleware, (req, res, next) => {
-  const profileId = 9;
+  const profileId = 16;
   const url = `/images/${req.file.filename}`;
   if (!Number.isInteger(profileId) || profileId < 1) {
     throw new ClientError(400, 'profileId does not Exist');
@@ -120,7 +98,7 @@ app.post('/api/images', uploadsMiddleware, (req, res, next) => {
 });
 
 app.post('/api/locations', (req, res, next) => {
-  const profileId = 9;
+  const profileId = 16;
   const { cityName, lat, lng } = req.body;
   if (!lat || !lng) {
     throw new ClientError(400, 'Location required');

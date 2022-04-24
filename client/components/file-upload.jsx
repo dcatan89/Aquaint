@@ -1,6 +1,6 @@
 import Button from './button';
 import React from 'react';
-import Nav from './nav-bar';
+
 export default class ProfilePic extends React.Component {
   constructor(props) {
     super(props);
@@ -32,7 +32,6 @@ export default class ProfilePic extends React.Component {
     return (
       <div className="bgc-gradient">
         <div className="container">
-          <Nav />
           <div className="row min-vh-100 pb-5 justify-content-center align-items-center">
             <div className="col-12">
               <h1 className="text-center text-light mb-5">Make A Lasting Impression</h1>

@@ -1,6 +1,5 @@
 import React from 'react';
 import Button from './button';
-import Nav from './nav-bar';
 
 const topicsArr = [
   'My Name is',
@@ -97,7 +96,6 @@ export default class MakeProfile extends React.Component {
   render() {
     return (
       <div className="bgc-gradient vh100">
-        <Nav />
         {this.renderButton()}
       </div>
     );

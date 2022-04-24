@@ -55,21 +55,6 @@ returning *;
 insert into  "matches" ("isMatched", "requestedProfileId", "acceptedProfileId", "userId")
 values ('true', 1, 2, 2),
        ('true', 2, 1, 1),
-       ('true', 15, 1, 1),
-       ('true', 15, 2, 2),
-       ('true', 15, 3, 3),
-       ('true', 15, 4, 4),
-       ('true', 15, 5, 5),
-       ('true', 15, 6, 6),
-       ('true', 15, 7, 7),
-       ('true', 15, 8, 8),
-       ('true', 15, 9, 9),
-       ('true', 15, 10, 10),
-       ('true', 15, 11, 11),
-       ('true', 15, 12, 12),
-       ('true', 15, 13, 13),
-       ('true', 15, 14, 14),
-       ('true', 15, 15, 15)
 returning *;
 
 insert into "locations" ("cityName", "lat", "lng", "profileId")
