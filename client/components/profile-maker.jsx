@@ -79,7 +79,7 @@ export default class MakeProfile extends React.Component {
       );
     }
     return (
-      <form className="container vh100"onSubmit={this.handleSubmit}>
+      <form className="container  vh100"onSubmit={this.handleSubmit}>
         <Nav />
         <div className="row height250px align-items-center">
           <h1 className="text-center text-light col-sm-6 font-lg" >{topicsArr[index]}</h1>

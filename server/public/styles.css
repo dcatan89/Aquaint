@@ -1,9 +1,16 @@
 .bgc-gradient {
-  background: linear-gradient(to right bottom, #ed0574, #f39c18);
+  /* stylelint-disable-next-line max-line-length */
+  background:
+    radial-gradient(
+      circle farthest-corner
+      at 10% 20%,
+      rgba(230, 115, 1, 0.68) 21.4%,
+      rgba(255, 78, 78, 1) 80.3%
+    );
 }
 
 .bgc-gradient-2 {
-  background: linear-gradient(to right bottom, rgba(33, 37, 41, 0.582), #ed05757c, #f39c18);
+  background: rgba(169, 169, 169, 0.527);
 }
 
 .hidden {
@@ -18,7 +25,7 @@ input[type="file"]::file-selector-button {
   color: white;
   padding: 0.2em 0.4em;
   border: thin solid white;
-  background: linear-gradient(to right bottom, #ed0574, #f39c18);
+  background: linear-gradient(to right bottom, #a29a9e8f, #f39c18);
   transition: 0.5s;
   cursor: pointer;
 }
@@ -30,4 +37,16 @@ input[type="file"]::file-selector-button:hover {
 
 .all-height {
   height: 100%;
+}
+
+.height500 {
+  height: 500px;
+}
+
+.bg-gradient-nav {
+  background: linear-gradient(rgb(11, 13, 14), rgba(33, 37, 41, 0.082));
+}
+
+.box-sh-b {
+  box-shadow: 1px 6.1px 6.1px rgba(17, 17, 17, 0.41);
 }
