@@ -42,7 +42,7 @@ app.get('/api/matchlist', (req, res, next) => {
       join "images" using ("profileId")
       join "locations" using ("profileId")
       join "matches" as "m" using ("userId")
-      where "requestedProfileId" = 9
+      where "requestedProfileId" = 15 and "isMatched" = true
   `;
 
   db.query(sql)
