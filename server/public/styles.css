@@ -1,5 +1,4 @@
 .bgc-gradient {
-  /* stylelint-disable-next-line max-line-length */
   background:
     radial-gradient(
       circle farthest-corner
@@ -49,4 +48,12 @@ input[type="file"]::file-selector-button:hover {
 
 .box-sh-b {
   box-shadow: 1px 6.1px 6.1px rgba(17, 17, 17, 0.41);
+}
+
+.hover-red:hover {
+  color: red;
+}
+
+.hover-green:hover {
+  color: green;
 }

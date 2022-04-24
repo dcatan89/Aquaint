@@ -106,16 +106,16 @@ export default class DisplayProfile extends React.Component {
       </div>
       <div className="col-12 pr-4 pt-2 col-md-4 col-lg-6">
         <div className='bgc-gradient-2 rounded col-12 box-sh-b'>
-          <h3 className="text-light ps-3">{`Age:${calculateAge(profile.birthday)}`}
-            <span className='ms-5 '>{` Sex:${profile.sex}`}</span>
+          <h3 className="text-light ps-3">{`Age: ${calculateAge(profile.birthday)}`}
+            <span className='ms-5 '>{` Sex: ${profile.sex}`}</span>
           </h3>
           <h1 className="text-light text-center mt-5">What is one Surprising Fact?</h1>
           <p className="text-light text-center">{profile.fact}</p>
           <h1 className="text-light text-center mt-5">What Do You Do?</h1>
           <p className="text-light text-center">{profile.occupation}</p>
           <div className="row pb-1 gap-3 justify-content-center">
-              <button onClick={this.submitReject} className="btn btn-outline-light col-2 text-center text-light rounded-pill">✖</button>
-            <button onClick={this.submitMatch} className="btn btn-outline-light col-2 text-center rounded-pill">&#10003;</button>
+              <button onClick={this.submitReject} className="btn btn-outline-light col-2 text-center hover-red rounded-pill">&#10005;</button>
+            <button onClick={this.submitMatch} className="btn btn-outline-light col-2 text-center hover-green rounded-pill">&#10003;</button>
           </div>
         </div>
       </div>
