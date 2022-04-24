@@ -31,7 +31,7 @@ CREATE TABLE "userProfiles" (
 CREATE TABLE "images" (
 	"imageId" serial NOT NULL,
 	"image" TEXT NOT NULL,
-	"profileId" TEXT NOT NULL,
+	"profileId" integer NOT NULL,
 	CONSTRAINT "images_pk" PRIMARY KEY ("imageId")
 ) WITH (
   OIDS=FALSE

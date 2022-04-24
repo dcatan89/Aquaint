@@ -10,26 +10,17 @@ export default class Matches extends React.Component {
     fetch('/api/matchlist')
       .then(response => response.json())
       .then(profileData => {
-        const newData = profileData;
-        newData.shift();
-        this.setState({ matches: profileData });
+        this.setState({ matches: profileData, img: profileData[0].image });
       });
   }
 
   render() {
-    const { matches } = this.state;
-    const matchList = matches.map(profile => {
-      return (
-        <div key={profile.profileId} className="row align-items-center height50px border-top border-light">
-          <li className='text-light'>
-            <span>{profile.fullName}</span>
-          </li>
-        </div>
-      );
-    });
+    const { img } = this.state;
     return (
       <ul>
-        {matchList}
+        <li>
+          <img src={img}></img>
+        </li>
       </ul>
     );
   }

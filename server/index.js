@@ -33,10 +33,12 @@ app.get('/api/userProfiles', (req, res, next) => {
 
 app.get('/api/matchlist', (req, res, next) => {
   const sql = `
-    select *
-      from "userProfiles"
-    order by "profileId" desc
+    select "u".*,
+          "image"
+      from "userProfiles" as "u"
+      join "images" using ("profileId")
   `;
+
   db.query(sql)
     .then(result => {
       res.json(result.rows);
