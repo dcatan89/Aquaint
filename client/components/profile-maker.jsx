@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from './button';
+import Nav from './nav-bar';
 
 const topicsArr = [
   'My Name is',
@@ -64,9 +65,10 @@ export default class MakeProfile extends React.Component {
     const { index } = this.state;
     if (index > 4) {
       return (
-            <div className="container">
+            <div className="container vh100">
+              <Nav />
               <form onSubmit={this.handleProfileSubmit}>
-                <div className="row half-height justify-content-center align-items-center">
+                <div className="row height250px justify-content-center align-items-center">
                   <h1 className="text-center text-light col-sm-6 font-lg" > Profile Confirmed</h1>
                 </div>
                 <div className="col col-lg-12 text-center">
@@ -78,7 +80,8 @@ export default class MakeProfile extends React.Component {
     }
     return (
       <form className="container vh100"onSubmit={this.handleSubmit}>
-        <div className="row half-height align-items-center">
+        <Nav />
+        <div className="row height250px align-items-center">
           <h1 className="text-center text-light col-sm-6 font-lg" >{topicsArr[index]}</h1>
           <div className='col-sm-6'>
             <input onChange={this.handleChange} required className="form-control form-control" type="text" placeholder={placeHolderArr[index]} aria-label=".form-control" />

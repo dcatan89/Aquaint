@@ -1,6 +1,7 @@
 import { Map, GoogleApiWrapper, Marker, Circle } from 'google-maps-react';
 import Radar from 'radar-sdk-js';
 import React from 'react';
+import Nav from './nav-bar';
 
 const mapStyles = {
   position: 'relative',
@@ -87,11 +88,15 @@ export class Geolocation extends React.Component {
       ? hidden = 'hidden'
       : hidden = '';
     return (
-      <div className='bgc-gradient '>
+      <div className='bgc-gradient vh100'>
         <div className="container">
+          <Nav />
           <div className={`row justify-content-center ${hidden}`}>
             <div className=" text-center col-12 col-md-12">
               <button className='btn btn-outline-light col-8 col-md-6 mt-5 mb-5' onClick={this.enableLocation}>Enable Location</button>
+            </div>
+            <div className="col-6 col-lg-8">
+              <p className="text-center text-light" >*Your Locations Services need to be turned on for this to workout</p>
             </div>
           </div>
           { enabled
