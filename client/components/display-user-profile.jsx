@@ -57,7 +57,8 @@ export default class DisplayProfile extends React.Component {
     const rejected = {
       isMatched: false,
       requestedProfileId: user.profileId,
-      acceptedProfileId: profile.profileId
+      acceptedProfileId: profile.profileId,
+      userId: profile.userId
     };
     this.props.onSubmit(rejected);
     e.preventDefault();
@@ -73,7 +74,8 @@ export default class DisplayProfile extends React.Component {
     const matched = {
       isMatched: true,
       requestedProfileId: user.profileId,
-      acceptedProfileId: profile.profileId
+      acceptedProfileId: profile.profileId,
+      userId: profile.userId
     };
     this.props.onSubmit(matched);
     e.preventDefault();

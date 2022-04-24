@@ -45,6 +45,7 @@ CREATE TABLE "matches" (
 	"requestedProfileId" integer NOT NULL,
 	"acceptedProfileId" integer NOT NULL,
 	"matchedAt" timestamptz(6) not null default now(),
+  "userId" integer NOT NULL,
 	CONSTRAINT "matches_pk" PRIMARY KEY ("matchId")
 ) WITH (
   OIDS=FALSE
@@ -83,6 +84,7 @@ ALTER TABLE "userProfiles" ADD CONSTRAINT "userProfiles_fk0" FOREIGN KEY ("userI
 
 ALTER TABLE "matches" ADD CONSTRAINT "matches_fk0" FOREIGN KEY ("requestedProfileId") REFERENCES "userProfiles"("profileId");
 ALTER TABLE "matches" ADD CONSTRAINT "matches_fk1" FOREIGN KEY ("acceptedProfileId") REFERENCES "userProfiles"("profileId");
+ALTER TABLE "matches" ADD CONSTRAINT "matches_fk2" FOREIGN KEY ("userId") REFERENCES "users"("userId");
 
 ALTER TABLE "locations" ADD CONSTRAINT "locations_fk0" FOREIGN KEY ("profileId") REFERENCES "userProfiles"("profileId");
 
