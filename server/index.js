@@ -31,6 +31,19 @@ app.get('/api/userProfiles', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/matchlist', (req, res, next) => {
+  const sql = `
+    select *
+      from "userProfiles"
+    order by "profileId" desc
+  `;
+  db.query(sql)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
 app.get('/api/images', (req, res, next) => {
   const sql = `
     select *

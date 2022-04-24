@@ -11,7 +11,7 @@ export default function Nav(props) {
       <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div className="navbar-nav text-light">
           <a className="nav-item nav-link active text-light" href="#">Home <span className="sr-only"></span></a>
-            <a className="nav-item nav-link active text-light" href="#matchedlist">Matches <span className="sr-only"></span></a>
+          <a className="nav-item nav-link active text-light" href="#matchedlist">Matches <span className="sr-only"></span></a>
         </div>
       </div>
       </nav>
