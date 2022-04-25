@@ -21,7 +21,6 @@ export default class DisplayProfile extends React.Component {
           profiles: newProfile
         });
       });
-
   }
 
   submitReject(e) {

@@ -22,7 +22,7 @@ export default class App extends React.Component {
   }
 
   addProfile(newProfile) {
-    fetch('/api/userProfiles', {
+    fetch('/api/matchProfiles', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

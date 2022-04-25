@@ -92,3 +92,5 @@ ALTER TABLE "locations" ADD CONSTRAINT "locations_fk0" FOREIGN KEY ("profileId")
 ALTER TABLE "messages" ADD CONSTRAINT "messages_fk0" FOREIGN KEY ("fromUserId") REFERENCES "users"("userId");
 ALTER TABLE "messages" ADD CONSTRAINT "messages_fk1" FOREIGN KEY ("toUserId") REFERENCES "users"("userId");
 ALTER TABLE "matches" ADD CONSTRAINT "messages_fk2" FOREIGN KEY ("userId") REFERENCES "users"("userId");
+
+ALTER TABLE "images" ADD CONSTRAINT "images_fk0" FOREIGN KEY ("profileId") REFERENCES "userProfiles"("profileId");

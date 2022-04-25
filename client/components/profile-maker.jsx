@@ -31,13 +31,23 @@ export default class MakeProfile extends React.Component {
     super(props);
     this.state = {
       index: 0,
-      value: ''
+      value: '',
+      userCount: []
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.renderButton = this.renderButton.bind(this);
     this.handleProfileSubmit = this.handleProfileSubmit.bind(this);
     this.fileInputRef = React.createRef();
+  }
+
+  componentDidMount() {
+    fetch('/api/users')
+      .then(res => res.json())
+      .then(users => {
+        this.setState({ userCount: users });
+      });
+
   }
 
   handleChange(event) {
@@ -55,6 +65,8 @@ export default class MakeProfile extends React.Component {
   }
 
   handleProfileSubmit(e) {
+    const { userCount } = this.state;
+    newProfile.userId = userCount.length;
     this.props.onSubmit(newProfile);
     location.hash = '#FILE';
     e.preventDefault();

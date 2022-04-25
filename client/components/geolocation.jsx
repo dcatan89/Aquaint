@@ -18,10 +18,18 @@ Radar.initialize(process.env.REACT_APP_RADAR_KEY);
 export class Geolocation extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { lat: 33.634940430843194, lng: -117.74014631397628, enabled: false, city: 'Loading', state: '...' };
+    this.state = { lat: 33.634940430843194, lng: -117.74014631397628, enabled: false, city: 'Loading', state: '...', profiles: [] };
     this.enableLocation = this.enableLocation.bind(this);
     this.renderLocation = this.renderLocation.bind(this);
     this.submitLocations = this.submitLocations.bind(this);
+  }
+
+  componentDidMount() {
+    fetch('/api/matchProfiles')
+      .then(response => response.json())
+      .then(data => {
+        this.setState({ profiles: data.length + 1 });
+      });
   }
 
   enableLocation(e) {
@@ -48,12 +56,13 @@ export class Geolocation extends React.Component {
   }
 
   submitLocations(e) {
-    const { city, state, lat, lng } = this.state;
+    const { city, state, lat, lng, profiles } = this.state;
     e.preventDefault();
     const locationsData = {
       cityName: `${city} , ${state}`,
       lat,
-      lng
+      lng,
+      profileId: profiles
     };
     this.props.onSubmit(locationsData);
     this.setState({ lat: 33.634940430843194, lng: -117.74014631397628, enabled: false, city: null, state: null });

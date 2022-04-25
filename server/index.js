@@ -18,6 +18,18 @@ const db = new pg.Pool({
 app.use(jsonMiddleware);
 app.use(staticMiddleware);
 
+app.get('/api/users', (req, res, next) => {
+  const sql = `
+  select "userId"
+    from "users"
+  `;
+  db.query(sql)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
 app.get('/api/matchProfiles', (req, res, next) => {
   const sql = `
     select "u".*,
@@ -86,9 +98,8 @@ app.get('/api/matchlist', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.post('/api/userProfiles', (req, res, next) => {
-  const userId = 16;
-  const { fullName, birthday = '12/03/1994', sex = 'He-Man', displaySex = true, occupation = 'Funemployed', fact = 'I sleep for dinner' } = req.body;
+app.post('/api/matchProfiles', (req, res, next) => {
+  const { fullName, birthday = '12/03/1994', sex = 'He-Man', displaySex = true, occupation = 'Funemployed', fact = 'I sleep for dinner', userId } = req.body;
   if (!birthday) {
     throw new ClientError(400, 'Age is required');
   }
@@ -109,6 +120,7 @@ app.post('/api/userProfiles', (req, res, next) => {
 
 app.post('/api/images', uploadsMiddleware, (req, res, next) => {
   const profileId = 16;
+
   const url = `/images/${req.file.filename}`;
   if (!Number.isInteger(profileId) || profileId < 1) {
     throw new ClientError(400, 'profileId does not Exist');
@@ -128,10 +140,13 @@ app.post('/api/images', uploadsMiddleware, (req, res, next) => {
 });
 
 app.post('/api/locations', (req, res, next) => {
-  const profileId = 16;
-  const { cityName, lat, lng } = req.body;
+  const { cityName, lat, lng, profileId } = req.body;
+  parseInt(profileId);
   if (!lat || !lng) {
     throw new ClientError(400, 'Location required');
+  }
+  if (!Number.isInteger(profileId) || profileId < 1) {
+    throw new ClientError(400, 'profileId does not Exist');
   }
   const sql = `
     insert into "locations" ("cityName", "lat", "lng", "profileId")
