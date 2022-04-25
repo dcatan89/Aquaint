@@ -54,7 +54,7 @@ returning *;
 
 insert into  "matches" ("isMatched", "requestedProfileId", "acceptedProfileId", "userId")
 values ('true', 1, 2, 2),
-       ('true', 2, 1, 1),
+       ('true', 2, 1, 1)
 returning *;
 
 insert into "locations" ("cityName", "lat", "lng", "profileId")

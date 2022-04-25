@@ -35,6 +35,33 @@ app.get('/api/matchProfiles', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/matchlist/:profileId', (req, res, next) => {
+  const profileId = Number(req.params.profileId);
+  if (!profileId) {
+    throw new ClientError(400, 'productId must be a positive integer');
+  }
+  const sql = `
+    select "u".*,
+          "image",
+          "cityName",
+          "lat",
+          "lng"
+      from "userProfiles" as "u"
+      join "images" using ("profileId")
+      join "locations" using ("profileId")
+     where "profileId" = $1
+  `;
+  const params = [profileId];
+  db.query(sql, params)
+    .then(result => {
+      if (!result.rows[0]) {
+        throw new ClientError(404, `cannot find profile with prodfileId ${profileId}`);
+      }
+      res.json(result.rows[0]);
+    })
+    .catch(err => next(err));
+});
+
 app.get('/api/matchlist', (req, res, next) => {
   const sql = `
     select   "u".*,
