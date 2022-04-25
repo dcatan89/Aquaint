@@ -13,7 +13,8 @@ values ('DJ', 'Catan', 'djcat@gmail.com', 'password'),
        ('danieg', 'james', 'jjswerftdj@gmail.com', '1Ir5vineCalifornia8'),
        ('daniww', 'james', 'jjsdertj@gmail.com', '1I4rvineCalifornia8'),
        ('danieqq', 'james', 'jjsdfdsfsdj@gmail.com', '13IrvineCalifornia8'),
-       ('danielll', 'james', 'jjsq12dj@gmail.com', '12IrvineCalifornia8')
+       ('danielll', 'james', 'jjsq12dj@gmail.com', '12IrvineCalifornia8'),
+       ('Abel', 'asdfs', 'jadfasd2dj@gmail.com', '12IrvineCalifor0008')
 returning *;
 
 insert into "userProfiles" ("fullName", "birthday", "sex", "displaySex", "occupation", "fact","userId")

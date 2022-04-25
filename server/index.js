@@ -38,7 +38,10 @@ app.get('/api/matchProfiles', (req, res, next) => {
 app.get('/api/matchlist/:profileId', (req, res, next) => {
   const profileId = Number(req.params.profileId);
   if (!profileId) {
-    throw new ClientError(400, 'productId must be a positive integer');
+    throw new ClientError(400, 'ProfileId does not exist');
+  }
+  if (!Number.isInteger(profileId) || profileId < 1) {
+    throw new ClientError(400, 'profiletId must be a positive integer');
   }
   const sql = `
     select "u".*,
