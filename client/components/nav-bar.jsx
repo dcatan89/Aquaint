@@ -37,8 +37,8 @@ export default class Nav extends React.Component {
         </div>
             <div className=' row justify-content-end navbar-nav col-4' style={navProfileStyles} >
           <span className='text-light col-9 align-self-center text-end'>{`Hello, ${fullName}`}</span>
-          <a href={`#matchlist?profileId=${profileId}`} className="col-3">
-            <img src={image} className='rounded-circle col-10' />
+              <a href={`#matchlist?profileId=${profileId}`} className="col-3 py-2">
+            <img src={image} className='rounded-circle col-12 ' />
           </a>
         </div>
       </div>
