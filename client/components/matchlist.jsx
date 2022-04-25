@@ -16,13 +16,6 @@ export default class Matches extends React.Component {
 
   render() {
     const { matches } = this.state;
-    const matchList = matches.map(profile => {
-      return (
-        <li className="row justify-content-between mb-3 mt-3 border-bottom  border-light" key={profile.profileId}>
-         <UserProfiles profile={profile} />
-        </li>
-      );
-    });
 
     if (matches.length === 0) {
       return (
@@ -36,6 +29,13 @@ export default class Matches extends React.Component {
         </div>
       );
     }
+    const matchList = matches.map(profile => {
+      return (
+        <li className="row justify-content-between mb-3 mt-3 border-bottom  border-light" key={profile.profileId}>
+          <UserProfiles profile={profile} />
+        </li>
+      );
+    });
     return (
       <ul>
       {matchList}
