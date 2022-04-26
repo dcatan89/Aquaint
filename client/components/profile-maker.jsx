@@ -66,7 +66,6 @@ export default class MakeProfile extends React.Component {
     if (index > 4) {
       return (
             <div className="container vh100">
-              <Nav />
               <form onSubmit={this.handleProfileSubmit}>
                 <div className="row height250px justify-content-center align-items-center">
                   <h1 className="text-center text-light col-sm-6 font-lg" > Profile Confirmed</h1>
@@ -79,8 +78,7 @@ export default class MakeProfile extends React.Component {
       );
     }
     return (
-      <form className="container vh100"onSubmit={this.handleSubmit}>
-        <Nav />
+      <form className="container  vh100"onSubmit={this.handleSubmit}>
         <div className="row height250px align-items-center">
           <h1 className="text-center text-light col-sm-6 font-lg" >{topicsArr[index]}</h1>
           <div className='col-sm-6'>
@@ -99,6 +97,7 @@ export default class MakeProfile extends React.Component {
   render() {
     return (
       <div className="bgc-gradient vh100">
+        <Nav />
         {this.renderButton()}
       </div>
     );

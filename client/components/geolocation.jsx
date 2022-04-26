@@ -19,7 +19,7 @@ Radar.initialize(process.env.REACT_APP_RADAR_KEY);
 export class Geolocation extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { lat: 33.634940430843194, lng: -117.74014631397628, enabled: false, city: null, state: null };
+    this.state = { lat: 33.634940430843194, lng: -117.74014631397628, enabled: false, city: 'Loading', state: '...' };
     this.enableLocation = this.enableLocation.bind(this);
     this.renderLocation = this.renderLocation.bind(this);
     this.submitLocations = this.submitLocations.bind(this);
@@ -52,7 +52,7 @@ export class Geolocation extends React.Component {
     const { city, state, lat, lng } = this.state;
     e.preventDefault();
     const locationsData = {
-      cityName: `${city},${state}`,
+      cityName: `${city} , ${state}`,
       lat,
       lng
     };
@@ -67,7 +67,7 @@ export class Geolocation extends React.Component {
       <>
         <div className='row justify-content-center'>
           <div className="text-center col-12 col-md-12">
-            <h1 className='text-light text-center col-12 col-md-12'>{` Your Location: ${city} , ${state}`}</h1>
+            <h1 className='text-light text-center col-12 col-md-12'>{ ` Your Location: ${city}  ${state}` }</h1>
           </div>
         </div>
         <form onSubmit={this.submitLocations}>

@@ -24,7 +24,14 @@ returning *;
 
 insert into  "images" ("image", "profileId")
 values ('/images/dj-profile.jpg', 1),
-       ('/images/dj.png', 2)
+       ('/images/dj.png', 2),
+       ('/images/p2.jpeg', 3),
+       ('/images/p4.jpeg', 4),
+       ('/images/p5.jpeg', 5),
+       ('/images/p6.jpeg', 6),
+       ('/images/p7.jpeg', 7),
+       ('/images/p8.jpeg', 8),
+       ('/images/person1.jpeg', 9)
 returning *;
 
 insert into  "matches" ("isMatched", "requestedProfileId", "acceptedProfileId")
