@@ -57,3 +57,31 @@ input[type="file"]::file-selector-button:hover {
 .hover-green:hover {
   color: green;
 }
+
+.max-height-100px {
+  max-height: 100px;
+}
+
+.max-height-450px {
+  max-height: 450px;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.overlay {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.75);
+  height: 100vh;
+  width: 100vw;
+}
+
+.pos-relative {
+  position: relative;
+}
+
+.object-contain {
+  object-fit: cover;
+  object-position: top;
+}

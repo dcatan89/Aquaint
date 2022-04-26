@@ -1,18 +1,25 @@
 import Button from './button';
 import React from 'react';
-import Nav from './nav-bar';
+
 export default class ProfilePic extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { profileId: [] };
     this.fileInputRef = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    fetch('/api/matchProfiles')
+      .then(response => response.json())
+      .then(profileData => {
+        this.setState({ profileIds: profileData.length + 1 });
+      });
   }
 
   handleSubmit(event) {
     event.preventDefault();
     const myForm = new FormData();
-
     myForm.append('image', this.fileInputRef.current.files[0]);
 
     fetch('/api/images', {
@@ -21,6 +28,7 @@ export default class ProfilePic extends React.Component {
     })
       .then(response => response.json())
       .then(data => {
+        this.setState({ profileIds: [] });
         this.fileInputRef.current.value = null;
       })
       .catch(error => {
@@ -32,7 +40,6 @@ export default class ProfilePic extends React.Component {
     return (
       <div className="bgc-gradient">
         <div className="container">
-          <Nav />
           <div className="row min-vh-100 pb-5 justify-content-center align-items-center">
             <div className="col-12">
               <h1 className="text-center text-light mb-5">Make A Lasting Impression</h1>
@@ -40,7 +47,6 @@ export default class ProfilePic extends React.Component {
                 <div className="row justify-content-between align-items-center">
                   <label className='col-6 col-md-6'>
                     <input
-                      id="bttn"
                       className='text-light'
                       required
                       type="file"

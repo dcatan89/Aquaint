@@ -1,5 +1,5 @@
 import React from 'react';
-import { SignIn, Home, MatchingProfiles } from './pages';
+import { SignIn, Home, MatchingProfiles, MatchedList, FriendsProfile } from './pages';
 import { parseRoute } from './lib';
 import { MakeProfile, ProfilePic, Geolocation } from './components';
 export default class App extends React.Component {
@@ -22,7 +22,7 @@ export default class App extends React.Component {
   }
 
   addProfile(newProfile) {
-    fetch('/api/userProfiles', {
+    fetch('/api/matchProfiles', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -91,6 +91,15 @@ export default class App extends React.Component {
       return (
         <MatchingProfiles onSubmit={this.addMatches}/>
       );
+    }
+    if (route.path === 'matchedlist') {
+      return (
+        <MatchedList />
+      );
+    }
+    if (route.path === 'matchlist') {
+      const profileId = route.params.get('profileId');
+      return <FriendsProfile profileId={profileId} />;
     }
     return (
       <div className="py-5">

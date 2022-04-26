@@ -1,7 +1,6 @@
 import { Map, GoogleApiWrapper, Marker, Circle } from 'google-maps-react';
 import Radar from 'radar-sdk-js';
 import React from 'react';
-import Nav from './nav-bar';
 
 const mapStyles = {
   position: 'relative',
@@ -19,10 +18,18 @@ Radar.initialize(process.env.REACT_APP_RADAR_KEY);
 export class Geolocation extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { lat: 33.634940430843194, lng: -117.74014631397628, enabled: false, city: 'Loading', state: '...' };
+    this.state = { lat: 33.634940430843194, lng: -117.74014631397628, enabled: false, city: 'Loading', state: '...', profiles: [] };
     this.enableLocation = this.enableLocation.bind(this);
     this.renderLocation = this.renderLocation.bind(this);
     this.submitLocations = this.submitLocations.bind(this);
+  }
+
+  componentDidMount() {
+    fetch('/api/matchProfiles')
+      .then(response => response.json())
+      .then(data => {
+        this.setState({ profiles: data.length + 1 });
+      });
   }
 
   enableLocation(e) {
@@ -49,12 +56,13 @@ export class Geolocation extends React.Component {
   }
 
   submitLocations(e) {
-    const { city, state, lat, lng } = this.state;
+    const { city, state, lat, lng, profiles } = this.state;
     e.preventDefault();
     const locationsData = {
       cityName: `${city} , ${state}`,
       lat,
-      lng
+      lng,
+      profileId: profiles
     };
     this.props.onSubmit(locationsData);
     this.setState({ lat: 33.634940430843194, lng: -117.74014631397628, enabled: false, city: null, state: null });
@@ -90,7 +98,6 @@ export class Geolocation extends React.Component {
     return (
       <div className='bgc-gradient vh100'>
         <div className="container">
-          <Nav />
           <div className={`row justify-content-center ${hidden}`}>
             <div className=" text-center col-12 col-md-12">
               <button className='btn btn-outline-light col-8 col-md-6 mt-5 mb-5' onClick={this.enableLocation}>Enable Location</button>

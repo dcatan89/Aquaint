@@ -4,3 +4,4 @@ export { default as Geolocation } from './geolocation';
 export { default as Nav } from './nav-bar';
 export { default as DisplayProfile } from './display-user-profile';
 export { default as Jumbotron } from './jumbotron';
+export { default as Matches } from './matchlist';

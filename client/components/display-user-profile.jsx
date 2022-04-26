@@ -4,13 +4,13 @@ import { calculateAge } from '../lib';
 export default class DisplayProfile extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { userImg: '', img: '', imgs: '', user: '', profile: '', index: 1, profiles: [], location: [], locations: [], userLocation: {} };
+    this.state = { user: '', profile: '', index: 1, profiles: [] };
     this.submitMatch = this.submitMatch.bind(this);
     this.submitReject = this.submitReject.bind(this);
   }
 
   componentDidMount() {
-    fetch('/api/userProfiles')
+    fetch('/api/matchProfiles')
       .then(response => response.json())
       .then(profileData => {
         const newProfile = profileData;
@@ -21,71 +21,47 @@ export default class DisplayProfile extends React.Component {
           profiles: newProfile
         });
       });
-
-    fetch('/api/images')
-      .then(response => response.json())
-      .then(imgData => {
-        const newImg = imgData;
-        const userImg = newImg.shift();
-        this.setState({
-          userImg: userImg,
-          img: newImg[0],
-          imgs: newImg
-        });
-      });
-
-    fetch('/api/locations')
-      .then(response => response.json())
-      .then(locationsData => {
-        const newlocation = locationsData;
-        const userLocation = newlocation.shift();
-        this.setState({
-          userLocation: userLocation,
-          location: newlocation[0],
-          locations: newlocation
-        });
-      });
   }
 
   submitReject(e) {
-    const { index, profiles, imgs, user, profile } = this.state;
+    const { index, profiles, user, profile } = this.state;
     this.setState({
       index: index + 1,
-      profile: profiles[index],
-      img: imgs[index]
+      profile: profiles[index]
     });
     const rejected = {
       isMatched: false,
       requestedProfileId: user.profileId,
-      acceptedProfileId: profile.profileId
+      acceptedProfileId: profile.profileId,
+      userId: profile.userId
     };
     this.props.onSubmit(rejected);
     e.preventDefault();
   }
 
   submitMatch(e) {
-    const { index, profiles, imgs, user, profile } = this.state;
+    const { index, profiles, user, profile } = this.state;
     this.setState({
       index: index + 1,
-      profile: profiles[index],
-      img: imgs[index]
+      profile: profiles[index]
     });
     const matched = {
       isMatched: true,
       requestedProfileId: user.profileId,
-      acceptedProfileId: profile.profileId
+      acceptedProfileId: profile.profileId,
+      userId: profile.userId
     };
     this.props.onSubmit(matched);
     e.preventDefault();
   }
 
   render() {
-    const { img, profile, userLocation, user } = this.state;
+    const { profile, user } = this.state;
     if (profile === undefined) {
       return (
       <div className="height500 row align-items-center justify-content-center">
         <div className="col-12 ">
-          <h1 className="text-light col-12 font-large text-center mb-3"> {`Hey ${user.fullName}, looks like there's no more people in ${userLocation.cityName} `} </h1>
+          <h1 className="text-light col-12 font-large text-center mb-3"> {`Hey ${user.fullName}, looks like there's no more people in ${user.cityName} `} </h1>
           <p className="text-light col-12 font-large text-center mb-3">Try Again Later</p>
           <div className="col-12  text-center mt-3">
             <a className="text-center" href="#">
@@ -101,7 +77,7 @@ export default class DisplayProfile extends React.Component {
       <h1 className="text-light border-bottom col-12 col-lg-12 text-center ">{profile.fullName}</h1>
       <div className=" row  mb-2 col-12 col-sm-8 col-lg-6">
         <div className=" align-self-center col-12 pt-2 pb-0 ">
-            <img className="mb-1 box-sh-b  col-12 rounded" src={img.image}></img>
+            <img className="mb-1 box-sh-b  col-12 rounded" src={profile.image}></img>
         </div>
       </div>
       <div className="col-12 pr-4 pt-2 col-md-4 col-lg-6">
