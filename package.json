@@ -26,6 +26,7 @@
     "pg": "^8.7.3",
     "radar-sdk-js": "^3.1.1",
     "react": "^17.0.2",
+    "react-bootstrap": "^2.3.0",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
