@@ -1,10 +1,10 @@
 import React from 'react';
-import { Nav, Jumbotron } from '../components';
+import { Navigation, Jumbotron } from '../components';
 
 export default function Home(props) {
   return (
     <div className='bg-dark vh100'>
-      <Nav class='box-sh-b' />
+      <Navigation class='box-sh-b' />
       <div className="container height500px">
         <div className=" d-flex align-items-center all-height">
           <div className="col-12 d-flex align-items-center">

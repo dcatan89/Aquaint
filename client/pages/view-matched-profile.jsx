@@ -1,5 +1,5 @@
 import React from 'react';
-import { Nav } from '../components';
+import { Navigation } from '../components';
 import { calculateAge } from '../lib';
 
 export default class FriendsProfile extends React.Component {
@@ -21,7 +21,7 @@ export default class FriendsProfile extends React.Component {
     const { fullName, birthday, image, fact, occupation, cityName } = this.state.profile;
     return (
     <div className="bg-dark vh100">
-      <Nav />
+      <Navigation />
       <div className="container  all-height">
         <div className="row justify-content-center mt-3 align-items-center">
           <div className="card border-light d-flex justify-content-center text-center bg-secondary mb-3">
