@@ -85,3 +85,15 @@ input[type="file"]::file-selector-button:hover {
   object-fit: cover;
   object-position: top;
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.hover-white:hover {
+  color: white;
+}
+
+.hover-blue:hover {
+  color: rgb(25, 107, 230);
+}
