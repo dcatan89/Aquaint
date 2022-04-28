@@ -5,7 +5,7 @@ export default class CreateAccount extends React.Component {
 
   render() {
     return (
-    <SignInModal />
+    <SignInModal onSubmit={this.props.onSubmit} />
     );
   }
 }
@@ -21,9 +21,6 @@ function SignInModal(props) {
     location.hash = '';
   };
 
-  const completeRegistration = () => {
-    location.hash = 'make-profile';
-  };
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -45,7 +42,7 @@ function SignInModal(props) {
         </div>
       </div>
 
-      <SignUpModal show={shown} onSubmit={completeRegistration} onHide={handleHide} />
+      <SignUpModal show={shown} onSubmit={props.onSubmit} onHide={handleHide} />
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -78,32 +75,51 @@ function SignInModal(props) {
 }
 
 function SignUpModal(props) {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    const signUp = document.querySelector('.signup');
+    const users = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      password: password
+    };
+    props.onSubmit(users);
+    signUp.reset();
+    location.hash = 'make-profile';
+  };
+
   return (
   <Modal show={props.show} onHide={props.onHide}>
     <Modal.Header closeButton>
       <Modal.Title className='col-8 d-flex justify-content-end text-dark'>Register Now</Modal.Title>
     </Modal.Header>
-    <Form>
+    <Form className="signup" onSubmit={handleSubmit}>
       <Modal.Body>
         <Form.Group className="mb-2" controlId="formFirstName">
           <Form.Label>First Name</Form.Label>
-          <Form.Control type="input" placeholder="First Name" />
+            <Form.Control onChange={e => setFirstName(e.target.value)} type="input" placeholder="First Name" />
         </Form.Group>
         <Form.Group className="mb-2" controlId="formLastName">
           <Form.Label>Last Name</Form.Label>
-          <Form.Control type="input" placeholder="Last Name" />
+            <Form.Control onChange={e => setLastName(e.target.value)} type="input" placeholder="Last Name" />
         </Form.Group>
           <Form.Group className="mb-2" controlId="formBasicEmail">
             <Form.Label>Email Address</Form.Label>
-            <Form.Control type="email" placeholder="Email Address" />
+            <Form.Control onChange={e => setEmail(e.target.value)} type="email" placeholder="Email Address" />
           </Form.Group>
           <Form.Group className="mb-2" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password (at least 8 characters)" />
+            <Form.Control onChange={e => setPassword(e.target.value)} type="input" placeholder="Password (at least 8 characters)" />
           </Form.Group>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="light" className='btn-outline-primary' onClick={props.onSubmit}>
+        <Button variant="light" className='btn-outline-primary' onClick={handleSubmit} >
           Sign Up
         </Button>
       </Modal.Footer>

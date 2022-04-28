@@ -9,11 +9,13 @@ export default class App extends React.Component {
       userProfiles: [],
       locations: [],
       matches: [],
+      user: [],
       route: parseRoute(window.location.hash)
     };
     this.addProfile = this.addProfile.bind(this);
     this.addLocation = this.addLocation.bind(this);
     this.addMatches = this.addMatches.bind(this);
+    this.addUser = this.addUser.bind(this);
   }
 
   componentDidMount() {
@@ -67,6 +69,21 @@ export default class App extends React.Component {
       });
   }
 
+  addUser(user) {
+    fetch('/api/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    })
+      .then(response => response.json())
+      .then(data => {
+        const newUser = this.state.user.concat(data);
+        this.setState({ user: newUser });
+      });
+  }
+
   renderPage() {
     const { route } = this.state;
 
@@ -74,7 +91,7 @@ export default class App extends React.Component {
       return <Home />;
     }
     if (route.path === 'sign-in') {
-      return <SignIn />;
+      return <SignIn onSubmit={this.addUser}/>;
     }
     if (route.path === 'make-profile') {
       return <MakeProfile onSubmit={this.addProfile} />;
