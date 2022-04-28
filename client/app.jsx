@@ -1,5 +1,5 @@
 import React from 'react';
-import { SignIn, Home, MatchingProfiles, MatchedList, FriendsProfile } from './pages';
+import { SignIn, Home, MatchingProfiles, MatchedList, FriendsProfile, EditProfile } from './pages';
 import { parseRoute } from './lib';
 import { MakeProfile, ProfilePic, Geolocation } from './components';
 export default class App extends React.Component {
@@ -105,6 +105,11 @@ export default class App extends React.Component {
       const profileId = route.params.get('profileId');
       return <FriendsProfile profileId={profileId} />;
     }
+    if (route.path === 'edit') {
+      const profileId = route.params.get('profileId');
+      return <EditProfile profileId={profileId} />;
+    }
+
     return (
       <div className="py-5">
         <h1 className="text-center text-danger">404 Page Not Found</h1>

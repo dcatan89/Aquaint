@@ -5,6 +5,10 @@ const navProfileStyles = {
   position: 'absolute',
   right: 5
 };
+
+const iconStyles = {
+  position: 'absolute'
+};
 export default class Navigation extends React.Component {
   constructor(props) {
     super(props);
@@ -34,7 +38,7 @@ function Nav2(props) {
   const handleClose = () => setShown(false);
   const handleOpen = () => setShown(true);
   return (
-    <Navbar bg="dark" className='border-bottom border-light navbar-expand-md' expand={false}>
+    <Navbar bg="dark" className=' navbar-nav-scroll border-bottom border-light navbar-expand-md' expand={false}>
       <Container fluid>
         <Navbar.Brand href="#" className="text-light">Aquaint</Navbar.Brand>
             <div className={'collapse navbar-collapse'} id="navbarNavAltMarkup">
@@ -52,17 +56,20 @@ function Nav2(props) {
             </div>
         <Navbar.Toggle onClick={handleOpen} className= 'text-light btn-light border-light' aria-controls="offcanvasNavbar" />
         <Navbar.Offcanvas show={show} onClick={handleClose} className='bg-dark' id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" placement="end">
-          <Offcanvas.Header className='text-light' >
+          <Offcanvas.Header className='text-light pb-0' >
             <Offcanvas.Title id="offcanvasNavbarLabel" className="col-12 row justify-content-center"><h2 className='text-center'>Aquaint</h2></Offcanvas.Title>
             <CloseButton onClick={handleClose} variant="white" />
           </Offcanvas.Header>
           <Offcanvas.Body className='text-center max-height-100px pb-0'>
-            <div className=' row justify-content-center col-12 col-lg-12 border-primary max-height-100px me-1' >
+            <div className=' row justify-content-center col-12 col-lg-12 border-primary max-height-125px me-1' >
               <a className="col-3 col-lg-6  px-1 cursor-pointer">
+                <svg style={iconStyles} onClick={() => { location.hash = 'edit'; }} className='svg-edit' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" width="30px" height="30px"><path fill="none" stroke="#F7F7F7" strokeMiterlimit="10" strokeWidth="2" d="M18.4,3.1L4,17.4V20h2.6L20.9,5.6V5.5L18.4,3.1L18.4,3.1z" /><path fill="none" stroke="#000" strokeMiterlimit="10" strokeWidth="2" d="M15.5,5.5l3,3" /></svg>
                 <img src={props.image} className='rounded  col-12 col-lg-6 border-white' />
               </a>
             </div>
-            <p className="text-center text-muted cursor-pointer col-12 "><small className="hover-white me-4">View Profile</small></p>
+            <a className='col-4' href={`#matchProfile?profileId=${props.profileId}`}>
+              <p className="text-center text-muted cursor-pointer col-12 "><small className="hover-white me-4">View Profile</small></p>
+            </a>
           </Offcanvas.Body>
           <Offcanvas.Body className="pt-0">
             <ul className="navbar-nav justify-content-end text-light flex-grow-1 pe-3">

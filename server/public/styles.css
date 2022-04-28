@@ -12,6 +12,11 @@
   background: rgba(169, 169, 169, 0.527);
 }
 
+.bgc-gradient-3 {
+  background-color: #bdd4e7;
+  background-image: linear-gradient(315deg, #bdd4e7 0%, #8693ab 74%);
+}
+
 .hidden {
   display: none;
 }
@@ -62,6 +67,10 @@ input[type="file"]::file-selector-button:hover {
   max-height: 100px;
 }
 
+.max-height-125px {
+  max-height: 125px;
+}
+
 .max-height-450px {
   max-height: 450px;
 }
@@ -96,4 +105,9 @@ input[type="file"]::file-selector-button:hover {
 
 .hover-blue:hover {
   color: rgb(25, 107, 230);
+}
+
+.svg-edit:hover {
+  height: 50px;
+  width: 50px;
 }
