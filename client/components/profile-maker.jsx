@@ -68,7 +68,7 @@ export default class MakeProfile extends React.Component {
     const { userCount } = this.state;
     newProfile.userId = userCount.length;
     this.props.onSubmit(newProfile);
-    location.hash = `FILE?profileId=${userCount.length}`;
+    location.hash = 'FILE';
     e.preventDefault();
   }
 

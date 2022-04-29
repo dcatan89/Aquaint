@@ -10,6 +10,7 @@ export default class App extends React.Component {
       locations: [],
       matches: [],
       user: [],
+      images: [],
       route: parseRoute(window.location.hash)
     };
     this.addProfile = this.addProfile.bind(this);
@@ -85,6 +86,21 @@ export default class App extends React.Component {
       });
   }
 
+  addImage(images) {
+    fetch('/api/images/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(images)
+    })
+      .then(response => response.json())
+      .then(data => {
+        const newImages = this.state.images.concat(data);
+        this.setState({ images: newImages });
+      });
+  }
+
   renderPage() {
     const { route } = this.state;
 
@@ -98,8 +114,7 @@ export default class App extends React.Component {
       return <MakeProfile onSubmit={this.addProfile} />;
     }
     if (route.path === 'FILE') {
-      const profileId = route.params.get('profileId');
-      return <ProfilePic profileId={profileId} />;
+      return <ProfilePic />;
     }
     if (route.path === 'geolocation') {
       return (

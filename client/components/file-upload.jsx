@@ -21,8 +21,8 @@ export default class ProfilePic extends React.Component {
     event.preventDefault();
     const myForm = new FormData();
     myForm.append('image', this.fileInputRef.current.files[0]);
-
-    fetch(`/api/images/${this.props.profileId}`, {
+    myForm.append('profileId', `${this.state.profileId}`);
+    fetch('/api/images', {
       method: 'POST',
       body: myForm
     })

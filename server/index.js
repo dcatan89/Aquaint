@@ -198,9 +198,11 @@ app.post('/api/matchProfiles', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.post('/api/images/:profileid', uploadsMiddleware, (req, res, next) => {
-  const profileId = Number(req.params.profileId);
+app.post('/api/images', uploadsMiddleware, (req, res, next) => {
+  let { profileId } = req.body;
+  profileId = Number(profileId);
   const url = `/images/${req.file.filename}`;
+
   if (!Number.isInteger(profileId) || profileId < 1) {
     throw new ClientError(400, 'profileId must be a valid interger');
   }
