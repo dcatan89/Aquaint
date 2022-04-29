@@ -32,10 +32,11 @@
 }
 
 input[type="file"]::file-selector-button {
-  color: white;
+  color: black;
   padding: 0.2em 0.4em;
-  border: thin solid white;
-  background: linear-gradient(to right bottom, #a29a9e8f, #f39c18);
+  border: thin solid black;
+  border-radius: 10px;
+  background: transparent;
   transition: 0.5s;
   cursor: pointer;
 }

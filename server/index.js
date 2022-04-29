@@ -49,6 +49,19 @@ app.get('/api/matchProfiles', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/onlyProfiles', (req, res, next) => {
+  const sql = `
+    select *
+      from "userProfiles"
+    order by "profileId" desc
+  `;
+  db.query(sql)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
 app.get('/api/matchlist', (req, res, next) => {
   const sql = `
     select   "u".*,
@@ -185,12 +198,15 @@ app.post('/api/matchProfiles', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.post('/api/images', uploadsMiddleware, (req, res, next) => {
-  const profileId = 16;
-
+app.post('/api/images/:profileid', uploadsMiddleware, (req, res, next) => {
+  const profileId = Number(req.params.profileId);
   const url = `/images/${req.file.filename}`;
   if (!Number.isInteger(profileId) || profileId < 1) {
-    throw new ClientError(400, 'profileId does not Exist');
+    throw new ClientError(400, 'profileId must be a valid interger');
+  }
+
+  if (!profileId) {
+    throw new ClientError(400, 'profileId does not exist');
   }
   const sql = `
     insert into "images" ("image", "profileId")

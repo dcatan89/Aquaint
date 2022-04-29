@@ -16,6 +16,7 @@ export default class App extends React.Component {
     this.addLocation = this.addLocation.bind(this);
     this.addMatches = this.addMatches.bind(this);
     this.addUser = this.addUser.bind(this);
+    this.addImage = this.addImage.bind(this);
   }
 
   componentDidMount() {
@@ -97,7 +98,8 @@ export default class App extends React.Component {
       return <MakeProfile onSubmit={this.addProfile} />;
     }
     if (route.path === 'FILE') {
-      return <ProfilePic />;
+      const profileId = route.params.get('profileId');
+      return <ProfilePic profileId={profileId} />;
     }
     if (route.path === 'geolocation') {
       return (

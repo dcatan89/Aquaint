@@ -8,7 +8,6 @@ export default function EditProfile(props) {
     fetch(`/api/matchProfiles/${props.profileId}`)
       .then(res => res.json())
       .then(data => {
-
         setUserData(data);
       });
   }, []);
