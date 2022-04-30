@@ -127,8 +127,9 @@ export default class App extends React.Component {
       );
     }
     if (route.path === 'matchedlist') {
+      const profileId = route.params.get('profileId');
       return (
-        <MatchedList />
+        <MatchedList profileId={profileId} />
       );
     }
     if (route.path === 'matchProfile') {

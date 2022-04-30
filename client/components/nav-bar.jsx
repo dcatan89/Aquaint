@@ -46,12 +46,12 @@ function Nav2(props) {
               <div className="navbar-nav ">
                 <a className="nav-item nav-link active text-light" href="#">Home</a>
                 <a className="nav-item nav-link active text-light" href="#aquaint">Match</a>
-                <a className="nav-item nav-link active text-light" href="#matchedlist">Matchlist</a>
+            <a className="nav-item nav-link active text-light" href={`#matchedlist?profileId=${props.profileId}`}>Matchlist</a>
               </div>
               <div className=' row justify-content-end navbar-nav col-4 border-primary' style={navProfileStyles} >
                 <span className='text-light col-8 align-self-center text-end'>{`Hello, ${props.fullName}`}</span>
                 <a className="col-4 p-4 rounded-circle cursor-pointer" onClick={handleOpen}>
-                  <img src={props.image} className='rounded-pill col-12 col-lg-8 border-white' />
+              <img src={props.image} height={'50px'} width={'50px'} className='rounded-circle col-12 col-lg-6 border-white' />
                 </a>
               </div>
             </div>
@@ -61,11 +61,11 @@ function Nav2(props) {
             <Offcanvas.Title id="offcanvasNavbarLabel" className="col-12 row justify-content-center"><h2 className='text-center'>Aquaint</h2></Offcanvas.Title>
             <CloseButton onClick={handleClose} variant="white" />
           </Offcanvas.Header>
-          <Offcanvas.Body className='text-center max-height-100px pb-0'>
+          <Offcanvas.Body className='text-center max-height-150px pb-0'>
             <div className=' row justify-content-center col-12 col-lg-12 border-primary max-height-125px me-1' >
               <a className="col-3 col-lg-6  px-1 cursor-pointer" href={`#edit?profileId=${props.profileId}`}>
                 <svg style={iconStyles} onClick={() => { location.hash = 'edit'; }} className='svg-edit' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" width="30px" height="30px"><path fill="none" stroke="#F7F7F7" strokeMiterlimit="10" strokeWidth="2" d="M18.4,3.1L4,17.4V20h2.6L20.9,5.6V5.5L18.4,3.1L18.4,3.1z" /><path fill="none" stroke="#000" strokeMiterlimit="10" strokeWidth="2" d="M15.5,5.5l3,3" /></svg>
-                <img src={props.image} className='rounded  col-12 col-lg-6 border-white' />
+                <img src={props.image} height={'50px'} width={'50px'} className='rounded  col-12 col-lg-6 border-white' />
               </a>
             </div>
             <a className='col-4' href={`#matchProfile?profileId=${props.profileId}`}>
@@ -85,7 +85,7 @@ function Nav2(props) {
                 </a>
               </li>
               <li className="nav-item text-light">
-                <a className="nav-link text-light bg-hover-light" aria-current="page" href="#matchedlist">
+                <a className="nav-link text-light bg-hover-light" aria-current="page" href={`#matchedlist?profileId=${props.profileId}`}>
                   <h3 className='hover-blue'>Matchlist</h3>
                 </a>
               </li>

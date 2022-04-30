@@ -62,7 +62,52 @@ app.get('/api/onlyProfiles', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.get('/api/matchlist', (req, res, next) => {
+app.get('/api/matchedlist', (req, res, next) => {
+  const sql = `
+    select "u".*,
+        "image",
+        "cityName"
+      from "userProfiles" as "u"
+      join "images" using ("profileId")
+      join "locations" using ("profileId")
+    order by "profileId" desc
+  `;
+  db.query(sql)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
+app.get('/api/notMatchedYet', (req, res, next) => {
+  const sql = `
+    SELECT "u".*,
+        "image",
+        "cityName"
+  from "userProfiles" as "u"
+  join "images" using ("profileId")
+  join "locations" using ("profileId")
+LEFT JOIN "matches" ON "acceptedProfileId" = "profileId"
+WHERE "acceptedProfileId" IS NULL
+  `;
+
+  db.query(sql)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
+/* Fetch GET specific profiles */
+
+app.get('/api/matchedlist/:profileId', (req, res, next) => {
+  const profileId = Number(req.params.profileId);
+  if (!profileId) {
+    throw new ClientError(400, 'ProfileId does not exist');
+  }
+  if (!Number.isInteger(profileId) || profileId < 1) {
+    throw new ClientError(400, 'profileId must be a positive integer');
+  }
   const sql = `
     select   "u".*,
           "image",
@@ -74,17 +119,16 @@ app.get('/api/matchlist', (req, res, next) => {
       join "images" using ("profileId")
       join "locations" using ("profileId")
       join "matches" as "m" using ("userId")
-      where "requestedProfileId" = 16 and "isMatched" = true
+      where "requestedProfileId"= $1 and "isMatched" = true and "profileId" != $2
+      order by "profileId" desc
   `;
-
-  db.query(sql)
+  const params = [profileId, profileId];
+  db.query(sql, params)
     .then(result => {
       res.json(result.rows);
     })
     .catch(err => next(err));
 });
-
-/* Fetch GET specific profiles */
 
 app.get('/api/matchProfiles/:profileId', (req, res, next) => {
   const profileId = Number(req.params.profileId);

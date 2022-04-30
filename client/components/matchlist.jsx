@@ -7,7 +7,7 @@ export default class Matches extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/api/matchlist')
+    fetch(`/api/matchedlist/${this.props.profileId}`)
       .then(response => response.json())
       .then(profileData => {
         this.setState({ matches: profileData });

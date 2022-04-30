@@ -15,11 +15,15 @@ export default class DisplayProfile extends React.Component {
       .then(profileData => {
         const newProfile = profileData;
         const userProfile = newProfile.shift();
-        this.setState({
-          user: userProfile,
-          profile: newProfile[0],
-          profiles: newProfile
-        });
+        this.setState({ user: userProfile });
+      });
+
+    fetch('/api/notMatchedYet')
+      .then(response => response.json())
+      .then(profileData => {
+        const newProfile = profileData;
+        newProfile.pop();
+        this.setState({ profile: newProfile[0], profiles: newProfile });
       });
   }
 
