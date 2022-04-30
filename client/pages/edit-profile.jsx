@@ -13,8 +13,8 @@ export default function EditProfile(props) {
   }, []);
 
   const editProfile = userData => {
-    fetch('/api/matchProfiles/apce', {
-      method: 'POST',
+    fetch(`/api/matchProfiles/${props.profileId}`, {
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'
       },

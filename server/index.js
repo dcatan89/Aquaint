@@ -340,6 +340,34 @@ app.post('/api/users', (req, res, next) => {
     .catch(err => next(err));
 });
 
+/* Patch/Put Routes */
+
+app.patch('/api/matchProfiles/:profileId', (req, res, next) => {
+  const { fullName, birthday, sex, occupation, fact, profileId } = req.body;
+  Number(profileId);
+  if (!birthday) {
+    throw new ClientError(400, 'Age is required');
+  }
+  const sql = `
+    update "userProfiles"
+      set "fullName" = $1,
+          "birthday" = $2,
+          "sex" = $3,
+          "occupation" = $4,
+          "fact" = $5
+      where "profileId" = $6
+      returning *
+  `;
+
+  const params = [fullName, birthday, sex, occupation, fact, profileId];
+  db.query(sql, params)
+    .then(result => {
+      const [userProfiles] = result.rows;
+      res.status(201).json(userProfiles);
+    })
+    .catch(err => next(err));
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
