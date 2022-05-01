@@ -1,5 +1,5 @@
 import React from 'react';
-import { SignIn, Home, MatchingProfiles, MatchedList, FriendsProfile, EditProfile } from './pages';
+import { SignIn, Home, MatchingProfiles, MatchedList, FriendsProfile, EditProfile, UserProfile } from './pages';
 import { parseRoute } from './lib';
 import { MakeProfile, ProfilePic, Geolocation } from './components';
 export default class App extends React.Component {
@@ -134,7 +134,7 @@ export default class App extends React.Component {
     }
     if (route.path === 'matchProfile') {
       const profileId = route.params.get('profileId');
-      return <FriendsProfile profileId={profileId} />;
+      return <UserProfile profileId={profileId} />;
     }
     if (route.path === 'matchlist') {
       const profileId = route.params.get('profileId');

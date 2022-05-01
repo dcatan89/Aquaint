@@ -44,12 +44,18 @@ function Nav2(props) {
         <Navbar.Brand href="#" className="text-light">Aquaint</Navbar.Brand>
             <div className={'collapse navbar-collapse'} id="navbarNavAltMarkup">
               <div className="navbar-nav ">
-                <a className="nav-item nav-link active text-light" href="#">Home</a>
-                <a className="nav-item nav-link active text-light" href="#aquaint">Match</a>
-            <a className="nav-item nav-link active text-light" href={`#matchedlist?profileId=${props.profileId}`}>Matchlist</a>
+                <a className="nav-item nav-link active text-light hover-blue" href="#">
+                  <p className='hover-blue mb-0'>Home</p>
+                </a>
+                <a className="nav-item nav-link active text-light hover-blue" href="#aquaint">
+                  <p className='hover-blue mb-0'>Match</p>
+                </a>
+                <a className="nav-item nav-link active text-light hover-blue" href={`#matchedlist?profileId=${props.profileId}`}>
+                  <p className='hover-blue mb-0'>Matchlist</p>
+                </a>
               </div>
               <div className=' row justify-content-end navbar-nav col-4 border-primary' style={navProfileStyles} >
-                <span className='text-light col-8 align-self-center text-end'>{`Hello, ${props.fullName}`}</span>
+                <span className='text-light col-8 align-self-center text-end pe-0'>{`Hello, ${props.fullName}`}</span>
                 <a className="col-4 p-4 rounded-circle cursor-pointer" onClick={handleOpen}>
               <img src={props.image} height={'50px'} width={'50px'} className='rounded-circle col-12 col-lg-6 border-white' />
                 </a>

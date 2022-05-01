@@ -343,7 +343,7 @@ app.post('/api/users', (req, res, next) => {
 /* Patch/Put Routes */
 
 app.patch('/api/matchProfiles/:profileId', (req, res, next) => {
-  const { fullName, birthday, sex, occupation, fact, profileId } = req.body;
+  const { fullName, birthday, sex, occupation, fact, profileId, displaySex } = req.body;
   Number(profileId);
   if (!birthday) {
     throw new ClientError(400, 'Age is required');
@@ -354,12 +354,13 @@ app.patch('/api/matchProfiles/:profileId', (req, res, next) => {
           "birthday" = $2,
           "sex" = $3,
           "occupation" = $4,
-          "fact" = $5
-      where "profileId" = $6
+          "fact" = $5,
+          "displaySex" = $6
+      where "profileId" = $7
       returning *
   `;
 
-  const params = [fullName, birthday, sex, occupation, fact, profileId];
+  const params = [fullName, birthday, sex, occupation, fact, displaySex, profileId];
   db.query(sql, params)
     .then(result => {
       const [userProfiles] = result.rows;
