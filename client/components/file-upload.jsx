@@ -10,10 +10,10 @@ export default class ProfilePic extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/api/matchProfiles')
+    fetch('/api/onlyProfiles')
       .then(response => response.json())
       .then(profileData => {
-        this.setState({ profileIds: profileData.length + 1 });
+        this.setState({ profileId: profileData[0].profileId });
       });
   }
 
@@ -21,14 +21,14 @@ export default class ProfilePic extends React.Component {
     event.preventDefault();
     const myForm = new FormData();
     myForm.append('image', this.fileInputRef.current.files[0]);
-
+    myForm.append('profileId', `${this.state.profileId}`);
     fetch('/api/images', {
       method: 'POST',
       body: myForm
     })
       .then(response => response.json())
       .then(data => {
-        this.setState({ profileIds: [] });
+        this.setState({ profileId: '' });
         this.fileInputRef.current.value = null;
       })
       .catch(error => {
@@ -46,14 +46,7 @@ export default class ProfilePic extends React.Component {
               <form onSubmit={this.handleSubmit}>
                 <div className="row justify-content-between align-items-center">
                   <label className='col-6 col-md-6'>
-                    <input
-                      className='text-light'
-                      required
-                      type="file"
-                      name="image"
-                      ref={this.fileInputRef}
-                      accept=".png, .jpg, .jpeg, .gif"
-                    />
+                    <input className="form-control text-muted rounded" type="file" name="image" accept=".png, .jpg, .jpeg, .gif" ref={this.fileInputRef} id="formFile" />
                   </label>
                   <div className="col-6 col-md-6">
                     <button type="submit" className="btn btn-outline-light col-12">Upload Picture</button>

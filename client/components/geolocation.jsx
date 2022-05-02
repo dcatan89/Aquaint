@@ -18,24 +18,42 @@ Radar.initialize(process.env.REACT_APP_RADAR_KEY);
 export class Geolocation extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { lat: 33.634940430843194, lng: -117.74014631397628, enabled: false, city: 'Loading', state: '...', profiles: [] };
+    this.state = { lat: null, lng: null, enabled: false, city: null, state: null, profiles: [] };
     this.enableLocation = this.enableLocation.bind(this);
-    this.renderLocation = this.renderLocation.bind(this);
     this.submitLocations = this.submitLocations.bind(this);
   }
 
   componentDidMount() {
+    const { lat, lng } = this.state;
+    const map = navigator.geolocation;
     fetch('/api/matchProfiles')
       .then(response => response.json())
       .then(data => {
         this.setState({ profiles: data.length + 1 });
       });
+    if (map) {
+      map.getCurrentPosition(position =>
+        this.setState({ lat: position.coords.latitude, lng: position.coords.longitude })
+      );
+    }
+    fetch(`https://api.radar.io/v1/geocode/reverse?coordinates=${lat},${lng}`,
+      {
+        headers: {
+          Authorization: `${process.env.REACT_APP_RADAR_KEY}`,
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => response.json())
+      .then(data => (
+        this.setState({ city: data.addresses[0].city, state: data.addresses[0].stateCode })
+      )
+      );
   }
 
   enableLocation(e) {
+    this.setState({ enabled: true });
     const { lat, lng } = this.state;
     const map = navigator.geolocation;
-    this.setState({ enabled: true });
     if (map) {
       map.getCurrentPosition(position =>
         this.setState({ lat: position.coords.latitude, lng: position.coords.longitude })
@@ -69,32 +87,18 @@ export class Geolocation extends React.Component {
     location.hash = '#';
   }
 
-  renderLocation() {
-    const { city, state } = this.state;
-    return (
-      <>
-        <div className='row justify-content-center'>
-          <div className="text-center col-12 col-md-12">
-            <h1 className='text-light text-center col-12 col-md-12'>{ ` Your Location: ${city}  ${state}` }</h1>
-          </div>
-        </div>
-        <form onSubmit={this.submitLocations}>
-          <div className='row justify-content-center'>
-            <div className=" text-center col-12 col-md-12 mb-5 mt-5">
-                <button className='btn btn-outline-light col-8 col-md-6'>Aquaint Yourself (Continue to Home Page)</button>
-            </div>
-          </div>
-        </form>
-      </>
-    );
-  }
-
   render() {
-    const { enabled, lng, lat } = this.state;
+    const { city, state, lat, lng, enabled } = this.state;
+    let auth;
     let hidden;
+
+    city && state
+      ? auth = `Your Location: ${city}  ${state}`
+      : auth = 'Checking Location...';
     enabled
       ? hidden = 'hidden'
       : hidden = '';
+
     return (
       <div className='bgc-gradient vh100'>
         <div className="container">
@@ -107,17 +111,32 @@ export class Geolocation extends React.Component {
             </div>
           </div>
           { enabled
-            ? this.renderLocation()
+            ? (
+              <>
+        <div className='row justify-content-center'>
+          <div className="text-center col-12 col-md-12">
+            <h1 className='text-light text-center col-12 col-md-12'>{auth}</h1>
+          </div>
+        </div>
+        <form onSubmit={this.submitLocations}>
+          <div className='row justify-content-center'>
+            <div className=" text-center col-12 col-md-12 mb-5 mt-5">
+                <button className='btn btn-outline-light col-8 col-md-6'>Aquaint Yourself (Continue to Home Page)</button>
+            </div>
+          </div>
+        </form>
+        <div className=' row justify-content-center vh100'>
+          <div className="col-12">
+            <Map google={this.props.google} zoom={14} containerStyle={mapStyles} style={style} initialCenter={{ lat, lng }} center={{ lat, lng }}>
+              <Marker position={{ lat, lng }} onClick={this.onMarkerClick} name={'You'} />
+              <Circle radius={1000} center={{ lat, lng }} strokeOpacity={0} strokeWeight={5} fillColor='#FF0000' fillOpacity={0.2} />
+            </Map>
+          </div>
+        </div>
+      </>
+              )
             : null
         }
-            <div className=' row justify-content-center vh100'>
-            <div className="col-12">
-                <Map google={this.props.google} zoom={14} containerStyle={mapStyles} style={style} initialCenter={{ lat, lng }} center={{ lat, lng }}>
-                  <Marker position={{ lat, lng }} onClick={this.onMarkerClick} name={'You'} />
-                  <Circle radius={1000} center={{ lat, lng }} strokeOpacity={0} strokeWeight={5} fillColor='#FF0000' fillOpacity={0.2} />
-                </Map>
-              </div>
-            </div>
         </div>
       </div>
     );

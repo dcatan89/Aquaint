@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Navbar, Offcanvas, Container, CloseButton } from 'react-bootstrap';
 
 const navProfileStyles = {
   position: 'absolute',
-  right: 0
+  right: 5
 };
-export default class Nav extends React.Component {
+
+const iconStyles = {
+  position: 'absolute'
+};
+
+export default class Navigation extends React.Component {
   constructor(props) {
     super(props);
     this.state = { user: [] };
@@ -23,27 +29,76 @@ export default class Nav extends React.Component {
   render() {
     const { image, fullName, profileId } = this.state.user;
     return (
-    <div className="container">
-    <nav className={`navbar navbar-dark navbar-expand-lg border-bottom border-light justify-content-between ${this.props.class}`}>
-        <a className="navbar-brand ms-1" href="#">Aquaint</a>
-        <button className={'navbar-toggler'} type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span className="navbar-toggler-icon"></span>
-      </button>
-      <div className={'collapse navbar-collapse'} id="navbarNavAltMarkup">
-        <div className="navbar-nav text-light">
-          <a className="nav-item nav-link active text-light" href="#">Home <span className="sr-only"></span></a>
-            <a className="nav-item nav-link active text-light" href="#aquaint">Match <span className="sr-only"></span></a>
-          <a className="nav-item nav-link active text-light" href="#matchedlist">Matchlist <span className="sr-only"></span></a>
-        </div>
-            <div className=' row justify-content-end navbar-nav col-4' style={navProfileStyles} >
-          <span className='text-light col-9 align-self-center text-end'>{`Hello, ${fullName}`}</span>
-              <a href={`#matchlist?profileId=${profileId}`} className="col-3 py-2">
-            <img src={image} className='rounded-circle col-12 ' />
-          </a>
-        </div>
-      </div>
-      </nav>
-    </div>
+      <Nav2 image={image} fullName={fullName} profileId={profileId} />
     );
   }
+}
+
+function Nav2(props) {
+  const [show, setShown] = useState(false);
+  const handleClose = () => setShown(false);
+  const handleOpen = () => setShown(true);
+  return (
+    <Navbar bg="dark" className='border-bottom border-light navbar-expand-md' expand={false} >
+      <Container fluid>
+        <Navbar.Brand href="#" className="text-light">Aquaint</Navbar.Brand>
+            <div className={'collapse navbar-collapse'} id="navbarNavAltMarkup">
+              <div className="navbar-nav ">
+                <a className="nav-item nav-link active text-light hover-blue" href="#">
+                  <p className='hover-blue mb-0'>Home</p>
+                </a>
+                <a className="nav-item nav-link active text-light hover-blue" href="#aquaint">
+                  <p className='hover-blue mb-0'>Match</p>
+                </a>
+                <a className="nav-item nav-link active text-light hover-blue" href={`#matchedlist?profileId=${props.profileId}`}>
+                  <p className='hover-blue mb-0'>Matchlist</p>
+                </a>
+              </div>
+              <div className=' row justify-content-end navbar-nav col-4 border-primary' style={navProfileStyles} >
+                <span className='text-light col-8 align-self-center text-end pe-0'>{`Hello, ${props.fullName}`}</span>
+                <a className="col-4 p-4 rounded-circle cursor-pointer" onClick={handleOpen}>
+              <img src={props.image} height={'50px'} width={'50px'} className='rounded-circle col-12 col-lg-6 border-white' />
+                </a>
+              </div>
+            </div>
+        <Navbar.Toggle variant='light' onClick={handleOpen} className= 'text-light btn-light border-light' aria-controls="offcanvasNavbar" />
+        <Navbar.Offcanvas show={show} onClick={handleClose} className='bg-dark' id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" placement="end">
+          <Offcanvas.Header className='text-light pb-0' >
+            <Offcanvas.Title id="offcanvasNavbarLabel" className="col-12 row justify-content-center"><h2 className='text-center'>Aquaint</h2></Offcanvas.Title>
+            <CloseButton onClick={handleClose} variant="white" />
+          </Offcanvas.Header>
+          <Offcanvas.Body className='text-center max-height-150px pb-0'>
+            <div className=' row justify-content-center col-12 col-lg-12 border-primary max-height-125px me-1' >
+              <a className="col-3 col-lg-6  px-1 cursor-pointer" href={`#edit?profileId=${props.profileId}`}>
+                <svg style={iconStyles} onClick={() => { location.hash = 'edit'; }} className='svg-edit' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" width="30px" height="30px"><path fill="none" stroke="#F7F7F7" strokeMiterlimit="10" strokeWidth="2" d="M18.4,3.1L4,17.4V20h2.6L20.9,5.6V5.5L18.4,3.1L18.4,3.1z" /><path fill="none" stroke="#000" strokeMiterlimit="10" strokeWidth="2" d="M15.5,5.5l3,3" /></svg>
+                <img src={props.image} height={'50px'} width={'50px'} className='rounded  col-12 col-lg-6 border-white' />
+              </a>
+            </div>
+            <a className='col-4' href={`#matchProfile?profileId=${props.profileId}`}>
+              <p className="text-center text-muted cursor-pointer col-12 "><small className="hover-white me-4">View Profile</small></p>
+            </a>
+          </Offcanvas.Body>
+          <Offcanvas.Body className="pt-0">
+            <ul className="navbar-nav justify-content-end text-light flex-grow-1 pe-3">
+              <li className="nav-item">
+                <a className="nav-link text-light bg-hover-light" aria-current="page" href="#">
+                  <h3 className='hover-blue'>Home</h3>
+                </a>
+              </li>
+              <li className="nav-item text-light">
+                <a className="nav-link text-light bg-hover-light" aria-current="page" href="#aquaint">
+                  <h3 className='hover-blue'>Match</h3>
+                </a>
+              </li>
+              <li className="nav-item text-light">
+                <a className="nav-link text-light bg-hover-light" aria-current="page" href={`#matchedlist?profileId=${props.profileId}`}>
+                  <h3 className='hover-blue'>Matchlist</h3>
+                </a>
+              </li>
+            </ul>
+          </Offcanvas.Body>
+        </Navbar.Offcanvas>
+      </Container>
+    </Navbar>
+  );
 }

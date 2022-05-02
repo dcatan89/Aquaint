@@ -1,15 +1,15 @@
 import React from 'react';
-import { Nav, Matches } from '../components';
+import { Navigation, Matches } from '../components';
 
-export default function MatchedList() {
+export default function MatchedList(props) {
 
   return (
-  <div className='bg-dark vh100'>
-    <Nav class='box-sh-b' />
-    <div className="container all-height overflow-hidden">
+    <div className='bgc-gradient-4 vh100'>
+    <Navigation class='box-sh-b' />
+      <div className="container bgc-gradient-4 all-height overflow-hidden">
       <h1 className="text-light mt-1  text-center">Matches</h1>
         <hr className="my-3 text-light" />
-      <Matches />
+      <Matches profileId={props.profileId} />
     </div>
   </div>
   );

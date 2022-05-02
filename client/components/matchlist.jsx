@@ -7,7 +7,7 @@ export default class Matches extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/api/matchlist')
+    fetch(`/api/matchedlist/${this.props.profileId}`)
       .then(response => response.json())
       .then(profileData => {
         this.setState({ matches: profileData });
@@ -31,7 +31,7 @@ export default class Matches extends React.Component {
     }
     const matchList = matches.map(profile => {
       return (
-        <li className="row justify-content-between mb-3 mt-3 border-bottom  border-light" key={profile.profileId}>
+        <li className="row justify-content-between mb-3 mt-3 border-bottom  border-light" key={profile.matchId}>
           <UserProfiles profile={profile} />
         </li>
       );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { SignIn, Home, MatchingProfiles, MatchedList, FriendsProfile } from './pages';
+import { SignIn, Home, MatchingProfiles, MatchedList, FriendsProfile, EditProfile, UserProfile } from './pages';
 import { parseRoute } from './lib';
 import { MakeProfile, ProfilePic, Geolocation } from './components';
 export default class App extends React.Component {
@@ -9,11 +9,15 @@ export default class App extends React.Component {
       userProfiles: [],
       locations: [],
       matches: [],
+      user: [],
+      images: [],
       route: parseRoute(window.location.hash)
     };
     this.addProfile = this.addProfile.bind(this);
     this.addLocation = this.addLocation.bind(this);
     this.addMatches = this.addMatches.bind(this);
+    this.addUser = this.addUser.bind(this);
+    this.addImage = this.addImage.bind(this);
   }
 
   componentDidMount() {
@@ -67,6 +71,36 @@ export default class App extends React.Component {
       });
   }
 
+  addUser(user) {
+    fetch('/api/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    })
+      .then(response => response.json())
+      .then(data => {
+        const newUser = this.state.user.concat(data);
+        this.setState({ user: newUser });
+      });
+  }
+
+  addImage(images) {
+    fetch('/api/images/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(images)
+    })
+      .then(response => response.json())
+      .then(data => {
+        const newImages = this.state.images.concat(data);
+        this.setState({ images: newImages });
+      });
+  }
+
   renderPage() {
     const { route } = this.state;
 
@@ -74,7 +108,7 @@ export default class App extends React.Component {
       return <Home />;
     }
     if (route.path === 'sign-in') {
-      return <SignIn />;
+      return <SignIn onSubmit={this.addUser}/>;
     }
     if (route.path === 'make-profile') {
       return <MakeProfile onSubmit={this.addProfile} />;
@@ -93,14 +127,24 @@ export default class App extends React.Component {
       );
     }
     if (route.path === 'matchedlist') {
+      const profileId = route.params.get('profileId');
       return (
-        <MatchedList />
+        <MatchedList profileId={profileId} />
       );
+    }
+    if (route.path === 'matchProfile') {
+      const profileId = route.params.get('profileId');
+      return <UserProfile profileId={profileId} />;
     }
     if (route.path === 'matchlist') {
       const profileId = route.params.get('profileId');
       return <FriendsProfile profileId={profileId} />;
     }
+    if (route.path === 'edit') {
+      const profileId = route.params.get('profileId');
+      return <EditProfile profileId={profileId} />;
+    }
+
     return (
       <div className="py-5">
         <h1 className="text-center text-danger">404 Page Not Found</h1>
