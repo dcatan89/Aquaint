@@ -48,7 +48,10 @@ function UserProfiles(props) {
   const { profileId, fullName, image } = props.profile;
   return (
     <>
-      <div className="col-5 row justify-content-center col-lg-4">
+      <div style={{ position: 'relative' }} className="col-5 row justify-content-center col-lg-4">
+        <button type="button" style={{ background: 'transparent', border: 'none', position: 'absolute', top: 0, left: 25 }} className="close, col-2" aria-label="Close">
+          <span className='text-light font-md' aria-hidden="true">&times;</span>
+        </button>
         <div className="col-8 col-lg-8 mb-3">
           <img className="max-height-100px rounded-circle col-12 col-lg-8" src={image}></img>
         </div>
