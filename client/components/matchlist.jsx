@@ -1,28 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-export default class Matches extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { matches: [] };
-  }
 
-  componentDidMount() {
-    fetch(`/api/matchedlist/${this.props.profileId}`)
+export default function Matches(props) {
+  const [matches, setMatches] = useState([]);
+  const [change, setChange] = useState(null);
+  useEffect(() => {
+    fetch(`/api/matchedlist/${props.profileId}`)
       .then(response => response.json())
-      .then(profileData => {
-        this.setState({ matches: profileData });
-      });
-  }
+      .then(profileData => setMatches(profileData));
+    setChange(false);
+  }, [change]);
 
-  componentDidUpdate() {
-    fetch(`/api/matchedlist/${this.props.profileId}`)
-      .then(response => response.json())
-      .then(profileData => {
-        this.setState({ matches: profileData });
-      });
-  }
-
-  removeFriends(remove) {
+  const removeFriends = remove => {
     fetch('/api/matches', {
       method: 'PATCH',
       headers: {
@@ -30,14 +19,12 @@ export default class Matches extends React.Component {
       },
       body: JSON.stringify(remove)
     })
-      .then(response => response.json());
-  }
+      .then(response => response.json())
+      .then(data => setChange(true));
+  };
 
-  render() {
-    const { matches } = this.state;
-
-    if (matches.length === 0) {
-      return (
+  if (matches.length === 0) {
+    return (
         <div className="row justify-content-center align-items-center height250px">
           <h3 className="col-12 col-lg-8 text-light text-center">Currently Have No Matches</h3>
           <div className="col-12 text-center col-lg-6">
@@ -46,21 +33,21 @@ export default class Matches extends React.Component {
             </a>
           </div>
         </div>
-      );
-    }
-    const matchList = matches.map(profile => {
-      return (
-        <li className="row justify-content-between mb-3 mt-3 border-bottom  border-light" key={profile.matchId}>
-          <UserProfiles profile={profile} user={this.props.profileId} onClick={this.removeFriends}/>
-        </li>
-      );
-    });
+    );
+  }
+
+  const matchList = matches.map(profile => {
     return (
+        <li className="row justify-content-between mb-3 mt-3 border-bottom  border-light" key={profile.matchId}>
+          <UserProfiles profile={profile} user={props.profileId} onClick={removeFriends}/>
+        </li>
+    );
+  });
+  return (
       <ul>
       {matchList}
       </ul>
-    );
-  }
+  );
 }
 
 function UserProfiles(props) {
