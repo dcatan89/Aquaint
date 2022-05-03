@@ -9,7 +9,7 @@ export default function MatchedList(props) {
       <div className="container bgc-gradient-4 all-height overflow-hidden">
       <h1 className="text-light mt-1  text-center">Matches</h1>
         <hr className="my-3 text-light" />
-      <Matches profileId={props.profileId} />
+      <Matches profileId={props.profileId}/>
     </div>
   </div>
   );

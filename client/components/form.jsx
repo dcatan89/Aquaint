@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import IconButton from '@material-ui/core/IconButton';
 
 export default function UserForm(props) {
   const [profId] = useState(props.profileId);
@@ -8,6 +10,9 @@ export default function UserForm(props) {
   const [userBday, setBday] = useState(props.birthday);
   const [userSex, setSex] = useState(props.sex);
   const [displaySex, setDisplaySex] = useState(props.displaySex);
+  const [file, setFile] = useState(null);
+  const fileInputRef = React.createRef();
+
   const handleSubmit = e => {
     e.preventDefault();
     location.hash = `matchProfile?profileId=${profId}`;
@@ -22,12 +27,45 @@ export default function UserForm(props) {
     };
     props.onSubmit(userData);
   };
+
+  const uploadImage = e => {
+    e.preventDefault();
+    const myForm = new FormData();
+    myForm.append('image', fileInputRef.current.files[0]);
+    myForm.append('profileId', `${profId}`);
+    fetch('/api/images', {
+      method: 'PATCH',
+      body: myForm
+    })
+      .then(response => response.json())
+      .then(data => {
+        fileInputRef.current.value = null;
+        setFile(null);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  };
+
   return (
+    <>
+      <form onSubmit={uploadImage}>
+        <div className="row justify-content-center mb-3">
+          <div className="col-12 col-lg-6 align-self-center text-center">
+            <input onChange={ () => setFile(true) }id="icon-button-file" name="image" type="file" accept=".png, .jpg, .jpeg, .gif" ref={fileInputRef} style={{ display: 'none' }} />
+            <label htmlFor="icon-button-file">
+              <IconButton color="primary" aria-label="upload picture" component="span">
+                <PhotoCamera />
+              </IconButton>
+            </label>
+          </div>
+          <div className=" col-12 col-lg-6 text-center">
+            {file ? <h3>Ready for Upload</h3> : null}
+            <button className='btn btn-outline-light rounded' type='submit'>Upload Photo</button>
+          </div>
+        </div>
+      </form>
     <form onSubmit={handleSubmit} >
-      <div className="row">
-        <h1 className="col-12 text-light text-center"> Updating Profile</h1>
-      </div>
-      <hr className="my-3"/>
       <div className="row justify-content-center mb-3">
         <div className="col-12 col-lg-6 align-self-center">
           <h5 className='text-light text-center'><label htmlFor='fullName'> Your Name</label></h5>
@@ -76,9 +114,10 @@ export default function UserForm(props) {
         }
         <span className='col-5 px-0 text-light'>*Checking will display your sex on your profile</span>
       </div>
-      <div className="col-12 row justify-content-center mb-3">
+      <div className="col-12 row justify-content-center pb-3">
         <button className='btn btn-outline-light rounded-pill col-4' >Update Profile</button>
       </div>
     </form>
+    </>
   );
 }
