@@ -1,5 +1,5 @@
-import React from 'react';
-
+import React, { useState } from 'react';
+import { Button, Modal } from 'react-bootstrap';
 export default class Matches extends React.Component {
   constructor(props) {
     super(props);
@@ -12,6 +12,25 @@ export default class Matches extends React.Component {
       .then(profileData => {
         this.setState({ matches: profileData });
       });
+  }
+
+  componentDidUpdate() {
+    fetch(`/api/matchedlist/${this.props.profileId}`)
+      .then(response => response.json())
+      .then(profileData => {
+        this.setState({ matches: profileData });
+      });
+  }
+
+  removeFriends(remove) {
+    fetch('/api/matches', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(remove)
+    })
+      .then(response => response.json());
   }
 
   render() {
@@ -32,7 +51,7 @@ export default class Matches extends React.Component {
     const matchList = matches.map(profile => {
       return (
         <li className="row justify-content-between mb-3 mt-3 border-bottom  border-light" key={profile.matchId}>
-          <UserProfiles profile={profile} />
+          <UserProfiles profile={profile} user={this.props.profileId} onClick={this.removeFriends}/>
         </li>
       );
     });
@@ -46,10 +65,36 @@ export default class Matches extends React.Component {
 
 function UserProfiles(props) {
   const { profileId, fullName, image } = props.profile;
+  const [isOpen, setOpen] = useState(false);
+
+  const handleOpen = e => {
+    setOpen(true);
+  };
+  const handleClose = e => setOpen(false);
+
+  const deleteFriend = e => {
+    setOpen(false);
+    const removedData = {
+      requestedProfileId: Number(`${props.user}`),
+      acceptedProfileId: profileId
+    };
+    props.onClick(removedData);
+  };
+
   return (
     <>
+        <Modal show={isOpen} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title className="text-muted">{`Remove ${fullName} From Your Friendslist`}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body className="d-flex justify-content-center text-muted">Confirming will remove your friend</Modal.Body>
+          <Modal.Footer className="d-flex justify-content-start" >
+          <Button className="col-2 btn-light btn-outline-danger" onClick={deleteFriend}> Confirm</Button>
+            <Button className="col-2 justify-self-end" onClick={handleClose}>Cancel</Button>
+          </Modal.Footer>
+        </Modal>
       <div style={{ position: 'relative' }} className="col-5 row justify-content-center col-lg-4">
-        <button type="button" style={{ background: 'transparent', border: 'none', position: 'absolute', top: 0, left: 25 }} className="close, col-2" aria-label="Close">
+        <button onClick={handleOpen} type="button" style={{ background: 'transparent', border: 'none', position: 'absolute', top: 0, left: 25 }} className="close, col-2" aria-label="Close">
           <span className='text-light font-md' aria-hidden="true">&times;</span>
         </button>
         <div className="col-8 col-lg-8 mb-3">

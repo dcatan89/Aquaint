@@ -395,6 +395,33 @@ app.patch('/api/images', uploadsMiddleware, (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.patch('/api/matches', (req, res, next) => {
+  const { requestedProfileId, acceptedProfileId } = req.body;
+  Number(Number(requestedProfileId));
+  Number(acceptedProfileId);
+
+  if (!Number.isInteger(requestedProfileId) || requestedProfileId < 1 || !Number.isInteger(acceptedProfileId) || acceptedProfileId < 1) {
+    throw new ClientError(400, 'profileId must be a valid interger');
+  }
+
+  if (!requestedProfileId || !acceptedProfileId) {
+    throw new ClientError(400, 'One of the profileIds does not exist');
+  }
+  const sql = `
+    update "matches"
+    set "isMatched" = false
+    where "requestedProfileId" = $1 and "acceptedProfileId" = $2
+    returning *
+  `;
+  const params = [requestedProfileId, acceptedProfileId];
+  db.query(sql, params)
+    .then(result => {
+      const [results] = result.rows;
+      res.json({ results });
+    })
+    .catch(err => next(err));
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
