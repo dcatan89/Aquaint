@@ -11,7 +11,7 @@ export default class App extends React.Component {
       matches: [],
       user: [],
       images: [],
-      route: parseRoute('#sign-in')
+      route: parseRoute(window.location.hash)
     };
     this.addProfile = this.addProfile.bind(this);
     this.addLocation = this.addLocation.bind(this);
