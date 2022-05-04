@@ -45,9 +45,8 @@ export default class MakeProfile extends React.Component {
     fetch('/api/users')
       .then(res => res.json())
       .then(users => {
-        this.setState({ userCount: users });
+        this.setState({ userCount: users[users.length - 1].userId });
       });
-
   }
 
   handleChange(event) {
@@ -66,7 +65,7 @@ export default class MakeProfile extends React.Component {
 
   handleProfileSubmit(e) {
     const { userCount } = this.state;
-    newProfile.userId = userCount.length - 1;
+    newProfile.userId = userCount;
     this.props.onSubmit(newProfile);
     location.hash = 'FILE';
     e.preventDefault();

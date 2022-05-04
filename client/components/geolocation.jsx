@@ -29,11 +29,12 @@ export class Geolocation extends React.Component {
     fetch('/api/matchProfiles')
       .then(response => response.json())
       .then(data => {
-        this.setState({ profiles: data.length + 1 });
+        this.setState({ profiles: data.length });
       });
     if (map) {
-      map.getCurrentPosition(position =>
-        this.setState({ lat: position.coords.latitude, lng: position.coords.longitude })
+      map.getCurrentPosition(position => {
+        this.setState({ lat: position.coords.latitude, lng: position.coords.longitude });
+      }
       );
     }
     fetch(`https://api.radar.io/v1/geocode/reverse?coordinates=${lat},${lng}`,
@@ -51,7 +52,6 @@ export class Geolocation extends React.Component {
   }
 
   enableLocation(e) {
-    this.setState({ enabled: true });
     const { lat, lng } = this.state;
     const map = navigator.geolocation;
     if (map) {
@@ -59,6 +59,7 @@ export class Geolocation extends React.Component {
         this.setState({ lat: position.coords.latitude, lng: position.coords.longitude })
       );
     }
+    this.setState({ enabled: true });
     fetch(`https://api.radar.io/v1/geocode/reverse?coordinates=${lat},${lng}`,
       {
         headers: {
@@ -121,7 +122,7 @@ export class Geolocation extends React.Component {
         <form onSubmit={this.submitLocations}>
           <div className='row justify-content-center'>
             <div className=" text-center col-12 col-md-12 mb-5 mt-5">
-                <button className='btn btn-outline-light col-8 col-md-6'>Aquaint Yourself (Continue to Home Page)</button>
+              <button className='btn btn-outline-light col-8 col-md-6'>Aquaint Yourself (Continue to Home Page)</button>
             </div>
           </div>
         </form>

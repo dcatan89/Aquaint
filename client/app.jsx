@@ -11,7 +11,7 @@ export default class App extends React.Component {
       matches: [],
       user: [],
       images: [],
-      route: parseRoute('#sign-in')
+      route: parseRoute(window.location.hash)
     };
     this.addProfile = this.addProfile.bind(this);
     this.addLocation = this.addLocation.bind(this);
@@ -122,8 +122,9 @@ export default class App extends React.Component {
       );
     }
     if (route.path === 'aquaint') {
+      const profileId = route.params.get('profileId');
       return (
-        <MatchingProfiles onSubmit={this.addMatches}/>
+        <MatchingProfiles profileId={profileId} onSubmit={this.addMatches}/>
       );
     }
     if (route.path === 'matchedlist') {

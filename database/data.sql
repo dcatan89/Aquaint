@@ -53,9 +53,9 @@ values ('/images/dj-profile.jpg', 1),
        ('/images/laugh.jpeg', 15)
 returning *;
 
-insert into  "matches" ("isMatched", "requestedProfileId", "acceptedProfileId", "userId")
-values ('true', 1, 2, 2),
-       ('true', 2, 1, 1)
+insert into  "matches" ( "profileId", "acceptedProfileId")
+values ( 1, 2),
+       ( 2, 1 )
 returning *;
 
 insert into "locations" ("cityName", "lat", "lng", "profileId")

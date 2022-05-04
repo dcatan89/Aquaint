@@ -40,12 +40,10 @@ CREATE TABLE "images" (
 
 
 CREATE TABLE "matches" (
-	"matchId" serial NOT NULL,
-	"isMatched" BOOLEAN,
-	"requestedProfileId" integer NOT NULL,
+	"profileId" integer NOT NULL,
 	"acceptedProfileId" integer NOT NULL,
 	"matchedAt" timestamptz(6) not null default now(),
-  "userId" integer NOT NULL,
+  "matchId" serial NOT NULL,
 	CONSTRAINT "matches_pk" PRIMARY KEY ("matchId")
 ) WITH (
   OIDS=FALSE
@@ -83,14 +81,12 @@ CREATE TABLE "messages" (
 
 ALTER TABLE "userProfiles" ADD CONSTRAINT "userProfiles_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
 
-ALTER TABLE "matches" ADD CONSTRAINT "matches_fk0" FOREIGN KEY ("requestedProfileId") REFERENCES "userProfiles"("profileId");
+ALTER TABLE "matches" ADD CONSTRAINT "matches_fk0" FOREIGN KEY ("profileId") REFERENCES "userProfiles"("profileId");
 ALTER TABLE "matches" ADD CONSTRAINT "matches_fk1" FOREIGN KEY ("acceptedProfileId") REFERENCES "userProfiles"("profileId");
-ALTER TABLE "matches" ADD CONSTRAINT "matches_fk2" FOREIGN KEY ("userId") REFERENCES "users"("userId");
 
 ALTER TABLE "locations" ADD CONSTRAINT "locations_fk0" FOREIGN KEY ("profileId") REFERENCES "userProfiles"("profileId");
 
 ALTER TABLE "messages" ADD CONSTRAINT "messages_fk0" FOREIGN KEY ("fromUserId") REFERENCES "users"("userId");
 ALTER TABLE "messages" ADD CONSTRAINT "messages_fk1" FOREIGN KEY ("toUserId") REFERENCES "users"("userId");
-ALTER TABLE "matches" ADD CONSTRAINT "messages_fk2" FOREIGN KEY ("userId") REFERENCES "users"("userId");
 
 ALTER TABLE "images" ADD CONSTRAINT "images_fk0" FOREIGN KEY ("profileId") REFERENCES "userProfiles"("profileId");

@@ -60,7 +60,7 @@ export default function UserForm(props) {
             </label>
           </div>
           <div className=" col-12 col-lg-6 text-center">
-            {file ? <h3>Ready for Upload</h3> : null}
+            {file ? <h3 className="text-light">Ready for Upload</h3> : null}
             <button className='btn btn-outline-light rounded' type='submit'>Upload Photo</button>
           </div>
         </div>
