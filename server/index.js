@@ -34,12 +34,10 @@ app.get('/api/users', (req, res, next) => {
 
 app.get('/api/matchProfiles', (req, res, next) => {
   const sql = `
-    select "u".*,
-        "image",
-        "cityName"
+select "u".*,
+        "image"
       from "userProfiles" as "u"
       join "images" using ("profileId")
-      join "locations" using ("profileId")
     order by "profileId" desc
   `;
   db.query(sql)
@@ -79,19 +77,26 @@ app.get('/api/matchedlist', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.get('/api/notMatchedYet', (req, res, next) => {
+app.get('/api/aquaint/:profileId', (req, res, next) => {
+  const profileId = Number(req.params.profileId);
+  if (!profileId) {
+    throw new ClientError(400, 'ProfileId does not exist');
+  }
+  if (!Number.isInteger(profileId) || profileId < 1) {
+    throw new ClientError(400, 'profileId must be a positive integer');
+  }
   const sql = `
-    SELECT "u".*,
+SELECT "u".*,
         "image",
         "cityName"
   from "userProfiles" as "u"
   join "images" using ("profileId")
   join "locations" using ("profileId")
-LEFT JOIN "matches" ON "acceptedProfileId" = "profileId"
-WHERE "acceptedProfileId" IS NULL
+  left join "matches" as "m" ON "u"."profileId" = "m"."profileId"
+  where  "acceptedProfileId" is null and "u"."profileId" != $1
   `;
-
-  db.query(sql)
+  const params = [profileId];
+  db.query(sql, params)
     .then(result => {
       res.json(result.rows);
     })
@@ -109,20 +114,20 @@ app.get('/api/matchedlist/:profileId', (req, res, next) => {
     throw new ClientError(400, 'profileId must be a positive integer');
   }
   const sql = `
-    select   "u".*,
+  select   "u".*,
           "image",
           "cityName",
           "lat",
           "lng",
+          "acceptedProfileId",
           "matchId"
       from "userProfiles" as "u"
       join "images" using ("profileId")
       join "locations" using ("profileId")
-      join "matches" as "m" using ("userId")
-      where "requestedProfileId"= $1 and "isMatched" = true and "profileId" != $2
-      order by "profileId" desc
+      left join "matches" as "m" ON "m"."profileId" = "u"."profileId"
+        where  "acceptedProfileId" = $1
   `;
-  const params = [profileId, profileId];
+  const params = [profileId];
   db.query(sql, params)
     .then(result => {
       res.json(result.rows);
@@ -224,6 +229,7 @@ app.get('/api/matchlist/:profileId', (req, res, next) => {
 
 app.post('/api/matchProfiles', (req, res, next) => {
   const { fullName, birthday = '12/03/1994', sex = 'He-Man', displaySex = true, occupation = 'Funemployed', fact = 'I sleep for dinner', userId } = req.body;
+  Number(userId);
   if (!birthday) {
     throw new ClientError(400, 'Age is required');
   }
@@ -292,26 +298,19 @@ app.post('/api/locations', (req, res, next) => {
 });
 
 app.post('/api/matches', (req, res, next) => {
-  const { isMatched, requestedProfileId, acceptedProfileId, userId } = req.body;
-  parseInt(requestedProfileId);
+  const { profileId, acceptedProfileId } = req.body;
+  parseInt(profileId);
   parseInt(acceptedProfileId);
-  parseInt(userId);
 
-  if (!Number.isInteger(userId) || userId < 1) {
-    throw new ClientError(400, 'UserId must be a valid interger');
-  }
-  if (!Number.isInteger(requestedProfileId) || requestedProfileId < 1 || !Number.isInteger(acceptedProfileId) || acceptedProfileId < 1) {
-    throw new ClientError(400, 'ProfileId must be a valid interger');
-  }
-  if (!requestedProfileId || !acceptedProfileId) {
+  if (!profileId || !acceptedProfileId) {
     throw new ClientError(400, 'Valid matches required');
   }
   const sql = `
-    insert into "matches" ("isMatched", "requestedProfileId", "acceptedProfileId", "userId")
-    values ($1, $2, $3, $4)
+    insert into "matches" ("profileId", "acceptedProfileId")
+    values ($1, $2)
     returning *
   `;
-  const params = [isMatched, requestedProfileId, acceptedProfileId, userId];
+  const params = [profileId, acceptedProfileId];
   db.query(sql, params)
     .then(result => {
       const [matches] = result.rows;
@@ -395,25 +394,26 @@ app.patch('/api/images', uploadsMiddleware, (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.patch('/api/matches', (req, res, next) => {
-  const { requestedProfileId, acceptedProfileId } = req.body;
-  Number(Number(requestedProfileId));
+// Remove/delete routes
+
+app.delete('/api/matches', (req, res, next) => {
+  const { profileId, acceptedProfileId } = req.body;
+  Number(Number(profileId));
   Number(acceptedProfileId);
 
-  if (!Number.isInteger(requestedProfileId) || requestedProfileId < 1 || !Number.isInteger(acceptedProfileId) || acceptedProfileId < 1) {
+  if (!Number.isInteger(profileId) || profileId < 1 || !Number.isInteger(acceptedProfileId) || acceptedProfileId < 1) {
     throw new ClientError(400, 'profileId must be a valid interger');
   }
 
-  if (!requestedProfileId || !acceptedProfileId) {
+  if (!profileId || !acceptedProfileId) {
     throw new ClientError(400, 'One of the profileIds does not exist');
   }
   const sql = `
-    update "matches"
-    set "isMatched" = false
-    where "requestedProfileId" = $1 and "acceptedProfileId" = $2
+    delete from "matches"
+    where "profileId" = $1 and "acceptedProfileId" = $2
     returning *
   `;
-  const params = [requestedProfileId, acceptedProfileId];
+  const params = [profileId, acceptedProfileId];
   db.query(sql, params)
     .then(result => {
       const [results] = result.rows;

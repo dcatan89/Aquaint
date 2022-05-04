@@ -3,24 +3,25 @@ import { Button, Modal } from 'react-bootstrap';
 
 export default function Matches(props) {
   const [matches, setMatches] = useState([]);
-  const [change, setChange] = useState(null);
+  const [change, setChange] = useState(false);
   useEffect(() => {
     fetch(`/api/matchedlist/${props.profileId}`)
       .then(response => response.json())
-      .then(profileData => setMatches(profileData));
-    setChange(false);
+      .then(profileData => {
+        setMatches(profileData);
+      });
   }, [change]);
 
   const removeFriends = remove => {
     fetch('/api/matches', {
-      method: 'PATCH',
+      method: 'delete',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(remove)
     })
       .then(response => response.json())
-      .then(data => setChange(true));
+      .then(data => setChange(!change));
   };
 
   if (matches.length === 0) {
@@ -62,8 +63,8 @@ function UserProfiles(props) {
   const deleteFriend = e => {
     setOpen(false);
     const removedData = {
-      requestedProfileId: Number(`${props.user}`),
-      acceptedProfileId: profileId
+      profileId: profileId,
+      acceptedProfileId: Number(`${props.user}`)
     };
     props.onClick(removedData);
   };

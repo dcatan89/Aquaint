@@ -99,7 +99,7 @@ input[type="file"]::file-selector-button:hover {
 
 .object-contain {
   object-fit: cover;
-  object-position: top;
+  object-position: 50% 30%;
 }
 
 .cursor-pointer {

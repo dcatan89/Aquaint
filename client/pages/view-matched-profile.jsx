@@ -32,8 +32,8 @@ export class FriendsProfile extends React.Component {
               <a className='d-flex pt-3 justify-content-start col-2' href={`#matchedlist?profileId=${this.state.userId}`}>
                 <span className='text-left fas fa-chevron-left text-light font-md' aria-hidden="true"></span>
               </a>
-              <div className=" row justify-content-center overflow-hidden col-12  p-3">
-                <img className="card-img-top text=center rounded col-12 max-height-450px col-lg-12 object-contain all-height" src={image} alt={fullName}/>
+              <div className=" row justify-content-center overflow-hidden col-12 col-lg-12 p-3">
+                <img className="card-img-top text-center rounded col-12 object-contain all-height" src={image} alt={fullName}/>
               </div>
               <div className="card-body">
                 <h3 className="card-title text-light">{displaySex === false ? `${fullName} (${calculateAge(birthday)})` : `${fullName} (${calculateAge(birthday)}), ${sex}` }</h3>

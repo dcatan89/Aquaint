@@ -47,7 +47,7 @@ function Nav2(props) {
                 <a className="nav-item nav-link active text-light hover-blue" href="#">
                   <p className='hover-blue mb-0'>Home</p>
                 </a>
-                <a className="nav-item nav-link active text-light hover-blue" href="#aquaint">
+                <a className="nav-item nav-link active text-light hover-blue" href={`#aquaint?profileId=${props.profileId}`}>
                   <p className='hover-blue mb-0'>Match</p>
                 </a>
                 <a className="nav-item nav-link active text-light hover-blue" href={`#matchedlist?profileId=${props.profileId}`}>
@@ -86,7 +86,7 @@ function Nav2(props) {
                 </a>
               </li>
               <li className="nav-item text-light">
-                <a className="nav-link text-light bg-hover-light" aria-current="page" href="#aquaint">
+                <a className="nav-link text-light bg-hover-light" aria-current="page" href={`#aquaint?profileId=${props.profileId}`}>
                   <h3 className='hover-blue'>Match</h3>
                 </a>
               </li>

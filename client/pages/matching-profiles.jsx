@@ -8,7 +8,7 @@ export default function MatchingProfiles(props) {
         <div className="container">
           <div className=" d-flex align-items-center all-height">
             <div className="col-12 d-flex align-items-center">
-              <DisplayProfile onSubmit={props.onSubmit}/>
+              <DisplayProfile profileId={props.profileId} onSubmit={props.onSubmit}/>
             </div>
           </div>
         </div>

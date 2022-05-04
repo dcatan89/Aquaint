@@ -10,50 +10,40 @@ export default class DisplayProfile extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/api/matchProfiles')
+    fetch(`/api/aquaint/${this.props.profileId}`)
+      .then(response => response.json())
+      .then(profileData => {
+        const newProfile = profileData;
+        this.setState({ profile: newProfile[0], profiles: newProfile });
+      });
+
+    fetch('/api/matchedlist')
       .then(response => response.json())
       .then(profileData => {
         const newProfile = profileData;
         const userProfile = newProfile.shift();
         this.setState({ user: userProfile });
       });
-
-    fetch('/api/notMatchedYet')
-      .then(response => response.json())
-      .then(profileData => {
-        const newProfile = profileData;
-        newProfile.pop();
-        this.setState({ profile: newProfile[0], profiles: newProfile });
-      });
   }
 
   submitReject(e) {
-    const { index, profiles, user, profile } = this.state;
+    const { index, profiles } = this.state;
     this.setState({
       index: index + 1,
       profile: profiles[index]
     });
-    const rejected = {
-      isMatched: false,
-      requestedProfileId: user.profileId,
-      acceptedProfileId: profile.profileId,
-      userId: profile.userId
-    };
-    this.props.onSubmit(rejected);
     e.preventDefault();
   }
 
   submitMatch(e) {
-    const { index, profiles, user, profile } = this.state;
+    const { index, profiles, profile } = this.state;
     this.setState({
       index: index + 1,
       profile: profiles[index]
     });
     const matched = {
-      isMatched: true,
-      requestedProfileId: user.profileId,
-      acceptedProfileId: profile.profileId,
-      userId: profile.userId
+      profileId: profile.profileId,
+      acceptedProfileId: `${this.props.profileId}`
     };
     this.props.onSubmit(matched);
     e.preventDefault();
@@ -79,8 +69,8 @@ export default class DisplayProfile extends React.Component {
     return (
     <div className="row border mt-5 pb-3  rounded">
       <h1 className="text-light border-bottom col-12 col-lg-12 text-center ">{profile.fullName}</h1>
-      <div className=" row  mb-2 col-12 col-sm-8 col-lg-6">
-        <div className=" align-self-center col-12 pt-2 pb-0 ">
+      <div className=" row  mb-2 col-12 col-sm-8 col-lg-6 pe-0">
+        <div className=" align-self-center col-12 pt-2 pb-0 pe-0 ">
             <img className="mb-1 box-sh-b  col-12 rounded" src={profile.image}></img>
         </div>
       </div>
