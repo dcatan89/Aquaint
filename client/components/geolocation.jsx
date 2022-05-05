@@ -85,7 +85,7 @@ export class Geolocation extends React.Component {
     };
     this.props.onSubmit(locationsData);
     this.setState({ lat: 33.634940430843194, lng: -117.74014631397628, enabled: false, city: null, state: null });
-    location.hash = '#';
+    location.hash = '#home';
   }
 
   render() {
