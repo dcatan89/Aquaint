@@ -107,7 +107,7 @@ export default class App extends React.Component {
     if (route.path === 'home') {
       return <Home />;
     }
-    if (route.path === ' ') {
+    if (route.path === '') {
       return <SignIn onSubmit={this.addUser}/>;
     }
     if (route.path === 'make-profile') {
