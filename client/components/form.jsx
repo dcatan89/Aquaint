@@ -33,18 +33,7 @@ export default function UserForm(props) {
     const myForm = new FormData();
     myForm.append('image', fileInputRef.current.files[0]);
     myForm.append('profileId', `${profId}`);
-    fetch('/api/images', {
-      method: 'PATCH',
-      body: myForm
-    })
-      .then(response => response.json())
-      .then(data => {
-        fileInputRef.current.value = null;
-        setFile(null);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+    props.uploadImg(myForm);
   };
 
   return (
@@ -52,7 +41,7 @@ export default function UserForm(props) {
       <form onSubmit={uploadImage}>
         <div className="row justify-content-center mb-3">
           <div className="col-12 col-lg-6 align-self-center text-center">
-            <input onChange={ () => setFile(true) }id="icon-button-file" name="image" type="file" accept=".png, .jpg, .jpeg, .gif" ref={fileInputRef} style={{ display: 'none' }} />
+            <input onChange={() => setFile(true)}id="icon-button-file" name="image" type="file" accept=".png, .jpg, .jpeg, .gif" ref={fileInputRef} style={{ display: 'none' }} />
             <label htmlFor="icon-button-file">
               <IconButton color="primary" aria-label="upload picture" component="span">
                 <PhotoCamera />
@@ -61,7 +50,7 @@ export default function UserForm(props) {
           </div>
           <div className=" col-12 col-lg-6 text-center">
             {file ? <h3 className="text-light">Ready for Upload</h3> : null}
-            <button className='btn btn-outline-light rounded' type='submit'>Upload Photo</button>
+            <button onClick={props.onClick} className='btn btn-outline-light rounded' type='submit'>Upload Photo</button>
           </div>
         </div>
       </form>
