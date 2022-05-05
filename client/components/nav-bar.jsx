@@ -41,10 +41,10 @@ function Nav2(props) {
   return (
     <Navbar bg="dark" className='border-bottom border-light navbar-expand-md' expand={false} >
       <Container fluid>
-        <Navbar.Brand href="#" className="text-light">Aquaint</Navbar.Brand>
+        <Navbar.Brand href="#home" className="text-light">Aquaint</Navbar.Brand>
             <div className={'collapse navbar-collapse'} id="navbarNavAltMarkup">
               <div className="navbar-nav ">
-                <a className="nav-item nav-link active text-light hover-blue" href="#">
+            <a className="nav-item nav-link active text-light hover-blue" href="#home">
                   <p className='hover-blue mb-0'>Home</p>
                 </a>
                 <a className="nav-item nav-link active text-light hover-blue" href={`#aquaint?profileId=${props.profileId}`}>
@@ -81,7 +81,7 @@ function Nav2(props) {
           <Offcanvas.Body className="pt-0">
             <ul className="navbar-nav justify-content-end text-light flex-grow-1 pe-3">
               <li className="nav-item">
-                <a className="nav-link text-light bg-hover-light" aria-current="page" href="#">
+                <a className="nav-link text-light bg-hover-light" aria-current="page" href="#home">
                   <h3 className='hover-blue'>Home</h3>
                 </a>
               </li>
