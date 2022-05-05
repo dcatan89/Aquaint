@@ -251,7 +251,8 @@ app.post('/api/matchProfiles', (req, res, next) => {
 app.post('/api/images', uploadsMiddleware, (req, res, next) => {
   let { profileId } = req.body;
   profileId = Number(profileId);
-  const url = `/images/${req.file.filename}`;
+
+  const fileUrl = req.file.location; // The S3 url to access the uploaded file later
 
   if (!Number.isInteger(profileId) || profileId < 1) {
     throw new ClientError(400, 'profileId must be a valid interger');
@@ -265,7 +266,7 @@ app.post('/api/images', uploadsMiddleware, (req, res, next) => {
     values ($1, $2)
     returning *
   `;
-  const params = [url, profileId];
+  const params = [fileUrl, profileId];
   db.query(sql, params)
     .then(result => {
       const [results] = result.rows;
@@ -371,7 +372,8 @@ app.patch('/api/matchProfiles/:profileId', uploadsMiddleware, (req, res, next) =
 app.patch('/api/images', uploadsMiddleware, (req, res, next) => {
   let { profileId } = req.body;
   profileId = Number(profileId);
-  const url = `/images/${req.file.filename}`;
+
+  const fileUrl = req.file.location; // The S3 url to access the uploaded file later
   if (!Number.isInteger(profileId) || profileId < 1) {
     throw new ClientError(400, 'profileId must be a valid interger');
   }
@@ -385,7 +387,7 @@ app.patch('/api/images', uploadsMiddleware, (req, res, next) => {
     where "profileId" = $2
     returning *
   `;
-  const params = [url, profileId];
+  const params = [fileUrl, profileId];
   db.query(sql, params)
     .then(result => {
       const [results] = result.rows;
