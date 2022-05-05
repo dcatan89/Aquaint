@@ -37,6 +37,9 @@ function SignInModal(props) {
               <a className="row justify-content-center" href="#sign-in">
                 <button type="button" onClick={handleShow} className="btn btn-outline-light col-10 col-sm-6 rounded-pill">Sign In</button>
               </a>
+              <a className="row justify-content-center" href="#">
+                <button type="button" className="btn btn-outline-light col-10 col-sm-3 rounded-pill">Guest Sign In</button>
+              </a>
             </div>
           </div>
         </div>
