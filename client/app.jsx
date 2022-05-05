@@ -104,10 +104,10 @@ export default class App extends React.Component {
   renderPage() {
     const { route } = this.state;
 
-    if (route.path === '') {
+    if (route.path === 'home') {
       return <Home />;
     }
-    if (route.path === 'sign-in') {
+    if (route.path === ' ') {
       return <SignIn onSubmit={this.addUser}/>;
     }
     if (route.path === 'make-profile') {

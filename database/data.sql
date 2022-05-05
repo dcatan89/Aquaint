@@ -32,7 +32,8 @@ values ('DJ Catan', '12/03/1995', 'Male', 'True','developer', 'I can dance', 1),
        ('Kathy Rugberg II', '12/04/1901', 'Other', 'True','Seamstress', 'I collect bargies', 12),
        ('Michellen Manue', '12/04/1992', 'Other', 'True','Critic', 'I sell tires', 13),
        ('Doggo', '12/04/1990', 'GoodBoy', 'True','Runner', 'I can Chase My Tail for Hours', 14),
-       ('Newt', '12/04/1980', 'Female', 'True','TikTok', 'I have 205 million followers', 15)
+       ('Newt', '12/04/1980', 'Female', 'True','TikTok', 'I have 205 million followers', 15),
+       ('GuestUser', '12/04/1985', 'Other', 'True','Aspiring Developer', 'I Can break 1000 lines of code in one', 16)
 returning *;
 
 insert into  "images" ("image", "profileId")
@@ -50,7 +51,8 @@ values ('/images/dj-profile.jpg', 1),
        ('/images/hatg.jpg', 12),
        ('/images/crguy.jpg', 13),
        ('/images/dog.jpg', 14),
-       ('/images/laugh.jpeg', 15)
+       ('/images/laugh.jpeg', 15),
+       ('/images/ronny.png', 16)
 returning *;
 
 insert into  "matches" ( "profileId", "acceptedProfileId")
@@ -73,7 +75,8 @@ values ('Irvine', 33.634940430843194,  -117.74014631397628, 1),
        ('Irvine', 33.660326884275, -117.74470375502942, 12),
        ('Irvine', 33.659194, -117.731058, 13),
        ('Irvine', 33.642437, -117.760077, 14),
-       ('Irvine', 33.651552, -117.775382, 15)
+       ('Irvine', 33.651552, -117.775382, 15),
+       ('Irvine', 33.6515334, -117.775382, 16)
 returning *;
 
 insert into "messages" ("fromUserId", "toUserId", "message", "userId")
