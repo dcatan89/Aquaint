@@ -58,7 +58,7 @@ export default class DisplayProfile extends React.Component {
           <h1 className="text-light col-12 font-large text-center mb-3"> {`Hey ${user.fullName}, looks like there's no more people in ${user.cityName} `} </h1>
           <p className="text-light col-12 font-large text-center mb-3">Try Again Later</p>
           <div className="col-12  text-center mt-3">
-            <a className="text-center" href="#">
+            <a className="text-center" href="#home">
               <button className="rounded-pill btn btn-outline-light box-sh-b">Back to Home Page</button>
             </a>
           </div>
