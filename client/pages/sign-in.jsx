@@ -18,7 +18,7 @@ function SignInModal(props) {
 
   const handleHide = () => setShown(false);
   const handleSubmit = () => {
-    location.hash = '';
+    location.hash = '#home';
   };
 
   const handleClose = () => setShow(false);
@@ -31,13 +31,13 @@ function SignInModal(props) {
           <div className="row justify-content-center align-items-center">
             <h1 className="col-12 text-center text-light">AQUAINT</h1>
             <div className="col-12 row gap-3 ">
-              <a className="row justify-content-center" href="#sign-in">
+              <a className="row justify-content-center">
                 <button onClick={handleOpen} type="button" className="btn btn-outline-light col-10 col-sm-6 rounded-pill">New User</button>
               </a>
-              <a className="row justify-content-center" href="#sign-in">
+              <a className="row justify-content-center">
                 <button type="button" onClick={handleShow} className="btn btn-outline-light col-10 col-sm-6 rounded-pill">Sign In</button>
               </a>
-              <a className="row justify-content-center" href="#">
+              <a className="row justify-content-center" href="#home">
                 <button type="button" className="btn btn-outline-light col-10 col-sm-3 rounded-pill">Guest Sign In</button>
               </a>
             </div>
