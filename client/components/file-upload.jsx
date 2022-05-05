@@ -10,7 +10,7 @@ export default class ProfilePic extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/api/onlyProfiles')
+    fetch('/api/matchProfiles')
       .then(response => response.json())
       .then(profileData => {
         this.setState({ profileId: profileData[0].profileId });
