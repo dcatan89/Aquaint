@@ -149,7 +149,7 @@ export default class App extends React.Component {
     return (
       <div className="py-5">
         <h1 className="text-center text-danger">404 Page Not Found</h1>
-        <a className="row justify-content-center" href="#"> Return </a>
+        <a className="row justify-content-center" href="#home"> Return </a>
       </div>
     );
   }
