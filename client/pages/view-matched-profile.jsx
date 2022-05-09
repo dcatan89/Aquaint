@@ -81,7 +81,7 @@ export class UserProfile extends React.Component {
         <div className="container  all-height">
           <div className="row justify-content-center mt-3 align-items-center">
             <div className="card border-light d-flex justify-content-center text-center bg-secondary mb-3">
-              <a className='d-flex pt-3 justify-content-start col-2' href={'#'}>
+              <a className='d-flex pt-3 justify-content-start col-2' href={'#home'}>
                 <span className='text-left fas fa-chevron-left text-light font-md' aria-hidden="true"></span>
               </a>
               <div className=" row justify-content-center overflow-hidden col-12  p-3">

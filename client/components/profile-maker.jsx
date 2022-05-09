@@ -12,7 +12,7 @@ const topicsArr = [
 const placeHolderArr = [
   'First Name and Last Name',
   'MM/DD/YYYY',
-  '...',
+  'How Do You Identify Yourself',
   '... Astronaut, A Good Friend',
   'Write Something Interesting'
 ];
