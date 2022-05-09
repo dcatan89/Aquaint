@@ -35,7 +35,7 @@ Google API
 ### Strech Features: 
 I would like to include sms messaging using Twilio for event planning, and possibly some kind of video chat feature using Socket.IO
 
-## Demo:
+## Preview:
 
 ### User Can Reject or Match with Users
 ![May-05-2022 16-34-45](https://user-images.githubusercontent.com/90487207/167043994-81363164-f734-4c3b-b83c-0953b30a0073.gif)  
@@ -44,25 +44,38 @@ I would like to include sms messaging using Twilio for event planning, and possi
 ![May-05-2022 16-38-04](https://user-images.githubusercontent.com/90487207/167043998-8ab128e7-2420-4b3a-a628-b59787a93932.gif)
 
 
+## Development
 
+### System Requirements
 
+- Node.js 10 or higher 
+- NPM 6 or higher  
+- PostgresQL 12 or higher  
+- React 17 or higher
 
-## Dependencies:
-These are the dependencies used. Not all are not necessary to build this application.  
-    "@material-ui/core": "^4.12.4",  
-    "@material-ui/icons": "^4.11.3",  
-    "argon2": "^0.28.5",  
-    "aws-sdk": "^2.1128.0",  
-    "bootstrap": "^5.1.3",  
-    "dotenv": "^16.0.0",  
-    "express": "^4.17.1",  
-    "google-maps-react": "^2.0.6",  
-    "jsonwebtoken": "^8.5.1",  
-    "mime": "^3.0.0",  
-    "multer": "^1.4.4",  
-    "multer-s3": "^2.10.0",  
-    "pg": "^8.7.3",  
-    "radar-sdk-js": "^3.1.1",  
-    "react": "^17.0.2",  
-    "react-bootstrap": "^2.3.0",  
-    "react-dom": "^17.0.2",  
+### Getting Started
+
+1. Clone the repository.
+
+    ```shell
+    git clone git@github.com:dcatan89/Aquaint.git
+    cd Aquaint
+    ```
+
+1. Install all dependencies with NPM.
+
+    ```shell
+    npm install
+    ```
+
+1. Import the example database to MongoDB.
+
+    ```shell
+   npm run db:import
+    ```
+
+1. Start the project. Once started you can view the application by opening http://localhost:3000 in your browser.
+
+    ```shell
+    npm run dev
+    ```
