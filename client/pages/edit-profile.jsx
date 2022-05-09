@@ -49,7 +49,7 @@ export default function EditProfile(props) {
         <hr className="my-3" />
         {user &&
           <div className="row justify-content-center">
-            <div className=" col-9 col-lg-6 rounded">
+            <div className=" col-12 col-lg-6 rounded">
                 <img key={user.image} className='rounded-circle' width={'1000px'} height={'1000px'} src={`${user.image}`} />
             </div>
           </div>

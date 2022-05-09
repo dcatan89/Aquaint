@@ -73,20 +73,20 @@ function UserProfiles(props) {
     <>
         <Modal show={isOpen} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title className="text-muted">{`Remove ${fullName} From Your Friendslist`}</Modal.Title>
+            <Modal.Title className="text-muted text-center">{`Remove ${fullName} From Your Friendslist`}</Modal.Title>
           </Modal.Header>
           <Modal.Body className="d-flex justify-content-center text-muted">Confirming will remove your friend</Modal.Body>
           <Modal.Footer className="d-flex justify-content-start" >
-          <Button className="col-2 btn-light btn-outline-danger" onClick={deleteFriend}> Confirm</Button>
-            <Button className="col-2 justify-self-end" onClick={handleClose}>Cancel</Button>
+          <Button className="col-4 btn-light btn-outline-danger" onClick={deleteFriend}> Confirm</Button>
+            <Button className="col-4 justify-self-end" onClick={handleClose}>Cancel</Button>
           </Modal.Footer>
         </Modal>
       <div style={{ position: 'relative' }} className="col-5 row justify-content-center col-lg-4">
-        <button onClick={handleOpen} type="button" style={{ background: 'transparent', border: 'none', position: 'absolute', top: 0, left: 25 }} className="close, col-2" aria-label="Close">
+        <button onClick={handleOpen} type="button" style={{ background: 'transparent', border: 'none', position: 'absolute', top: 0, left: 15 }} className="close, col-2" aria-label="Close">
           <span className='text-light font-md' aria-hidden="true">&times;</span>
         </button>
-        <div className="col-8 col-lg-8 mb-3">
-          <img className="max-height-100px rounded-circle col-12 col-lg-8" src={image}></img>
+        <div className="col-12 col-lg-8 mb-3">
+          <img className="max-height-100px rounded-circle col-10 col-lg-8 " src={image}></img>
         </div>
       </div>
       <div className="col-5 col-lg-4 text-light row justify-content-center align-items-center">

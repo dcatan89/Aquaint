@@ -60,7 +60,7 @@ export default function UserForm(props) {
           <h5 className='text-light text-center'><label htmlFor='fullName'> Your Name</label></h5>
         </div>
         <div className="col-12 col-md-9 col-lg-6">
-          <input className="form-control form-control-lg" onChange={ e => setName(e.target.value)} defaultValue={userName} name='fullName' id='fullName' type="text" placeholder=".form-control-lg" aria-label=".form-control-lg example" />
+          <input className="form-control form-control-lg" onChange={ e => setName(e.target.value)} defaultValue={userName} name='fullName' id='fullName' type="text" placeholder="Enter Your Name" aria-label=".form-control-lg example" />
         </div>
       </div>
       <div className="row justify-content-center mb-3">
@@ -68,7 +68,7 @@ export default function UserForm(props) {
           <h5 className='text-light text-center'><label htmlFor='job'> Your Occupation</label></h5>
         </div>
         <div className="col-12 col-md-9 col-lg-6">
-          <input onChange={e => setJob(e.target.value)} defaultValue={userJob} id='job' name='occupation' className="form-control form-control-lg" type="text" placeholder=".form-control-lg" aria-label=".form-control-lg example" />
+          <input onChange={e => setJob(e.target.value)} defaultValue={userJob} id='job' name='occupation' className="form-control form-control-lg" type="text" placeholder="Your Occupation" aria-label=".form-control-lg example" />
         </div>
       </div>
       <div className="row justify-content-center mb-3">
@@ -76,7 +76,7 @@ export default function UserForm(props) {
           <h5 className='text-light text-center'><label htmlFor='fact'> Your Surprising Fact</label></h5>
         </div>
         <div className="col-12 col-md-9 col-lg-6">
-          <input onChange={e => setFact(e.target.value)} defaultValue={userFact} id="fact" name='fact' className="form-control form-control-lg" type="text" placeholder=".form-control-lg" aria-label=".form-control-lg example" />
+          <input onChange={e => setFact(e.target.value)} defaultValue={userFact} id="fact" name='fact' className="form-control form-control-lg" type="text" placeholder="Write Down an Interesting Fact" aria-label=".form-control-lg example" />
         </div>
       </div>
       <div className="row justify-content-center mb-3">
@@ -84,7 +84,7 @@ export default function UserForm(props) {
           <h5 className='text-light text-center'><label htmlFor='bday'> Your Birthday</label></h5>
         </div>
         <div className="col-12 col-md-9 col-lg-6">
-          <input onChange={e => setBday(e.target.value)} defaultValue={userBday} name='bday' className="form-control form-control-lg" type="text" placeholder=".form-control-lg" aria-label=".form-control-lg example" />
+          <input onChange={e => setBday(e.target.value)} defaultValue={userBday} name='bday' className="form-control form-control-lg" type="text" placeholder="MM/DD/YYYY" aria-label=".form-control-lg example" />
         </div>
       </div>
       <div className="row justify-content-center mb-3">
@@ -92,7 +92,7 @@ export default function UserForm(props) {
           <h5 className='text-light text-center'><label htmlFor='sex'> What is Your Sex?</label></h5>
         </div>
         <div className="col-12 col-md-9 col-lg-6">
-          <input onChange={e => setSex(e.target.value)} defaultValue={userSex} id='sex' name='sex' className="form-control form-control-lg" type="text" placeholder=".form-control-lg" aria-label=".form-control-lg example" />
+          <input onChange={e => setSex(e.target.value)} defaultValue={userSex} id='sex' name='sex' className="form-control form-control-lg" type="text" placeholder="What is your gender?" aria-label=".form-control-lg example" />
         </div>
       </div>
       <div className="row justify-content-center mb-3">
@@ -101,10 +101,10 @@ export default function UserForm(props) {
           ? <input className='col-1 align-self-center' type="checkbox" defaultChecked onClick={e => setDisplaySex(!displaySex)} value={displaySex} />
           : <input className='col-1 align-self-center' type="checkbox" onClick={e => setDisplaySex(!displaySex)} value={displaySex} />
         }
-        <span className='col-5 px-0 text-light'>*Checking will display your sex on your profile</span>
+        <span className='col-10 col-lg-5 px-0 text-center text-light'>*Checking will display your sex on your profile</span>
       </div>
       <div className="col-12 row justify-content-center pb-3">
-        <button className='btn btn-outline-light rounded-pill col-4' >Update Profile</button>
+        <button className='btn btn-outline-light rounded-pill col-8 col-lg-4' >Update Profile</button>
       </div>
     </form>
     </>
