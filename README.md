@@ -68,10 +68,16 @@ I would like to include sms messaging using Twilio for event planning, and possi
     npm install
     ```
 
-1. Import the example database to MongoDB.
+1. Import the example database to pgweb.
 
     ```shell
    npm run db:import
+    ```
+    
+ 1. Run pgweb in a different terminal so you can view the database by opening http://localhost:8081 in your browser
+
+    ```shell
+    pgweb
     ```
 
 1. Start the project. Once started you can view the application by opening http://localhost:3000 in your browser.
