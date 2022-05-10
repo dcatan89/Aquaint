@@ -9,28 +9,28 @@ I wanted to build this project becuase I felt that my social skills were at an a
 [Aquaint](https://aquaint.herokuapp.com/)
 
 ## Technologies Used: 
--React  
--babel JSX loader  
--webpack (for compiling)   
--multer(for fileuploads)   
--Node.js  
--Express (for routing)  
--PostgresQL  
--HTML/CSS  
-BootStrap    
-Google API  
--dotenv 
+- React  
+- babel JSX loader  
+- webpack (for compiling)   
+- multer(for fileuploads)   
+- Node.js  
+- Express (for routing)  
+- PostgresQL  
+- HTML/CSS  
+- BootStrap    
+- Google API  
+- dotenv 
 
 ## Features: 
--User Can Create Profile  
--User Can Upload a Profile Pic  
--User Can Enable and pinpoint location  
--User Can Match with other users  
--User Can Reject another user  
--User Can View their matchlist  
--User Can View individual profiles  
--User Can Update their profile info and picture  
--User Can Delete matches off friendslist  
+- User Can Create Profile  
+- User Can Upload a Profile Pic  
+- User Can Enable and pinpoint location  
+- User Can Match with other users  
+- User Can Reject another user  
+- User Can View their matchlist  
+- User Can View individual profiles  
+- User Can Update their profile info and picture  
+- User Can Delete matches off friendslist  
 
 ### Strech Features: 
 I would like to include sms messaging using Twilio for event planning, and possibly some kind of video chat feature using Socket.IO
