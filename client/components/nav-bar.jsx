@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar, Offcanvas, Container, CloseButton } from 'react-bootstrap';
 
 const navProfileStyles = {
@@ -44,7 +44,7 @@ function Nav2(props) {
         <Navbar.Brand href="#home" className="text-light">Aquaint</Navbar.Brand>
             <div className={'collapse navbar-collapse'} id="navbarNavAltMarkup">
               <div className="navbar-nav ">
-            <a className="nav-item nav-link active text-light hover-blue" href="#home">
+                <a className="nav-item nav-link active text-light hover-blue" href="#home">
                   <p className='hover-blue mb-0'>Home</p>
                 </a>
                 <a className="nav-item nav-link active text-light hover-blue" href={`#aquaint?profileId=${props.profileId}`}>
@@ -54,6 +54,7 @@ function Nav2(props) {
                   <p className='hover-blue mb-0'>Matchlist</p>
                 </a>
               </div>
+              <ReverseGeoCode/>
               <div className=' row justify-content-end navbar-nav col-4 border-primary' style={navProfileStyles} >
                 <span className='text-light col-8 align-self-center text-end pe-0'>{`Hello, ${props.fullName}`}</span>
                 <a className="col-4 p-4 rounded-circle cursor-pointer" onClick={handleOpen}>
@@ -101,4 +102,22 @@ function Nav2(props) {
       </Container>
     </Navbar>
   );
+}
+
+function ReverseGeoCode() {
+  const [coords, setCoords] = useState(null);
+  const [userLocation, setLocation] = useState(null);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(position => {
+      fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.coords.latitude},${position.coords.longitude}&key=${process.env.REACT_APP_API_KEY}`)
+        .then(res => res.json())
+        .then(data => {
+          setLocation(data.results);
+        });
+      setCoords({ lat: position.coords.latitude, lng: position.coords.longitude });
+    });
+  }, []);
+
+  return <h5 className="text-light">{userLocation && coords && userLocation[4].formatted_address}</h5>;
 }
