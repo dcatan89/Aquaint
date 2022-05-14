@@ -54,7 +54,7 @@ function Nav2(props) {
                   <p className='hover-blue mb-0'>Matchlist</p>
                 </a>
               </div>
-              <ReverseGeoCode/>
+              <ReverseGeoCode />
               <div className=' row justify-content-end navbar-nav col-4 border-primary' style={navProfileStyles} >
                 <span className='text-light col-8 align-self-center text-end pe-0'>{`Hello, ${props.fullName}`}</span>
                 <a className="col-4 p-4 rounded-circle cursor-pointer" onClick={handleOpen}>
@@ -107,6 +107,7 @@ function Nav2(props) {
 function ReverseGeoCode() {
   const [coords, setCoords] = useState(null);
   const [userLocation, setLocation] = useState(null);
+  const [modal, setOpen] = useState(false);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(position => {
@@ -119,5 +120,13 @@ function ReverseGeoCode() {
     });
   }, []);
 
-  return <h5 className="text-light">{userLocation && coords && userLocation[4].formatted_address}</h5>;
+  return (
+  <>
+  <div className="row align-items-center">
+    <h5 className="text-light" style={{ position: 'absolute' }}>
+      <i onClick={() => setOpen(!modal)} className=" text-right cursor-pointer fas fa-map-marker-alt">{coords && userLocation}</i>
+    </h5>
+  </div>
+  </>
+  );
 }
