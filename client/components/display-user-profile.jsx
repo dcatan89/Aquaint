@@ -69,7 +69,7 @@ export default class DisplayProfile extends React.Component {
     return (
     <div className="row border mt-5 pb-3  rounded">
       <h1 className="text-light border-bottom col-12 col-lg-12 text-center ">{profile.fullName}</h1>
-      <div className=" row  mb-2 col-12 col-sm-8 col-lg-6 pe-0">
+      <div className=" row  mb-2 col-12 col-sm-8 col-lg-6  pr-2">
         <div className=" align-self-center col-12 pt-2 pb-0 pe-0 ">
             <img className="mb-1 box-sh-b  col-12 rounded" src={profile.image}></img>
         </div>
