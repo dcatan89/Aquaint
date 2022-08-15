@@ -39,7 +39,7 @@ function Nav2(props) {
   const handleClose = () => setShown(false);
   const handleOpen = () => setShown(true);
   return (
-    <Navbar bg="dark" className='border-bottom border-light navbar-expand-md' expand={false} >
+    <Navbar bg="dark" className='border-bottom navbar-expand-md ' expand={false} >
       <Container fluid>
         <Navbar.Brand href="#home" className="text-light">Aquaint</Navbar.Brand>
             <div className={'collapse navbar-collapse'} id="navbarNavAltMarkup">
