@@ -3,6 +3,20 @@
   margin: 0 auto;
 }
 
+.landing-page {
+  background: url("landingpage.jpg");
+  background-size: 100vw;
+}
+
+.letter-space {
+  letter-spacing: 0.25rem;
+}
+
+.bolded {
+  font-weight: bolder;
+  font-size: 3.5rem;
+}
+
 .vh100 {
   min-height: 100vh;
 }

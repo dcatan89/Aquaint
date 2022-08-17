@@ -26,10 +26,10 @@ function SignInModal(props) {
 
   return (
     <>
-      <div className='bgc-gradient vh100'>
+      <div className='landing-page vh100'>
         <div className="container row justify-content-center align-items-center height500px">
           <div className="row justify-content-center align-items-center">
-            <h1 className="col-12 text-center text-light">AQUAINT</h1>
+            <h1 className="col-12 text-center letter-space text-light bolded">AQUAINT</h1>
             <div className="col-12 row gap-3 ">
               <a className="row justify-content-center">
                 <button onClick={handleOpen} type="button" className="btn btn-outline-light col-10 col-sm-6 rounded-pill">New User</button>
